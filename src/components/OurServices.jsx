@@ -42,7 +42,7 @@ export default function OurServices() {
   return (
     <section className="bg-gray-100 py-16 px-4">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold text-purple-700 mb-6 border-b-4 border-black inline-block shadow-md px-3">
+        <h2 className="text-3xl font-bold text-blue-800 mb-6 border-b-4 border-black inline-block shadow-md px-3">
           Our Services
         </h2>
 

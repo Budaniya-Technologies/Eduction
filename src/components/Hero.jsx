@@ -1,6 +1,6 @@
 // src/components/Hero.jsx
 import Image from "next/image";
-import studentImg from "../../public/assets/student1.avif"; 
+import studentImg from "../../public/assets/student (2).png"; 
 
 export default function Hero() {
   return (

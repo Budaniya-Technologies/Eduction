@@ -3,6 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
+import { useRouter } from "next/navigation";
 import {
   FaFacebookF,
   FaTwitter,
@@ -16,6 +17,7 @@ export default function Navbar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -87,7 +89,10 @@ export default function Navbar() {
           <button className="bg-[#b2faff] text-black border border-black px-5 py-1.5 rounded-full hover:bg-[#a2eff0] transition font-medium">
             Sign Up
           </button>
-          <button className="bg-[#b2faff] text-black border border-black px-5 py-1.5 rounded-full hover:bg-[#a2eff0] transition font-medium">
+          <button
+            onClick={() => router.push("/login")}
+            className="bg-[#b2faff] text-black border border-black px-5 py-1.5 rounded-full hover:bg-[#a2eff0] transition font-medium"
+          >
             Log in
           </button>
         </div>
@@ -185,7 +190,10 @@ export default function Navbar() {
               Sign Up
             </button>
             <button
-              onClick={() => setIsMobileOpen(false)}
+              onClick={() => {
+                setIsMobileOpen(false);
+                router.push("/login");
+              }}
               className="bg-[#b2faff] text-black border border-black px-4 py-2 rounded-full hover:bg-[#a2eff0] font-medium"
             >
               Log in

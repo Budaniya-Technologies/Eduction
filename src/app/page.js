@@ -7,6 +7,7 @@ import OurServices from "@/components/OurServices";
 import TopTrending from "@/components/TopTrending";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Footer from "@/components/Footer";
 
 
 // src/app/page.js
@@ -20,6 +21,7 @@ export default function Home() {
       <NewsNotification/>
       <CustomerReview/>
       <ContactUs/>
+      <Footer/>
     </section>
   );
 }

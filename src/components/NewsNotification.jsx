@@ -35,10 +35,11 @@ const sidePosts = [
 export default function NewsNotification() {
   return (
     <section className="bg-gray-100 px-4 py-12">
-        
       <div className="max-w-7xl mx-auto">
-         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-3xl font-bold border-b-4 border-black text-blue-800">News & Events</h2>
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-3xl font-bold border-b-4 border-black text-blue-800">
+            News & Events
+          </h2>
           <a
             href="#"
             className="text-black font-semibold text-sm hover:underline flex items-center gap-1"
@@ -51,9 +52,12 @@ export default function NewsNotification() {
           <h2 className="text-4xl font-bold text-black leading-tight">
             News & <br /> Notification
           </h2>
-          <button className="bg-orange-500 text-white font-semibold px-6 py-2 rounded-full shadow hover:bg-orange-600">
+          <Link
+            href="/newBlogs"
+            className="bg-orange-500 text-white font-semibold px-6 py-2 rounded-full shadow hover:bg-orange-600"
+          >
             Explore All
-          </button>
+          </Link>
         </div>
 
         {/* News Grid */}
@@ -114,7 +118,8 @@ export default function NewsNotification() {
                 {mainPost.tag}
               </p>
               <h3 className="font-bold text-md text-black mb-1 leading-snug">
-                their duty through weakness of will, which is the same as saying.
+                their duty through weakness of will, which is the same as
+                saying.
               </h3>
               <p className="text-sm text-gray-600">{mainPost.description}</p>
             </div>

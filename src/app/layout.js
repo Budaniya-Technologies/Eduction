@@ -1,22 +1,22 @@
 // src/app/layout.js
+"use client";
+
 import "../app/globals.css";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import BottomNavbar from "@/components/BottomNavbar";
-
-export const metadata = {
-  title: "Education Website",
-  description: "Modern school/college learning portal",
-};
+import { usePathname } from "next/navigation";
 
 export default function RootLayout({ children }) {
+  const pathname = usePathname();
+
+  const hideNav = pathname === "/login" || pathname === "/signup";
+
   return (
     <html lang="en">
       <body className="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-white">
-        <Navbar />
+        {!hideNav && <Navbar />}
         <main className="min-h-screen">{children}</main>
-        <Footer />
-        <BottomNavbar/>
+        {!hideNav && <BottomNavbar />}
       </body>
     </html>
   );

@@ -86,7 +86,10 @@ export default function Navbar() {
 
         {/* Desktop Buttons */}
         <div className="hidden md:flex gap-4">
-          <button className="bg-[#b2faff] text-black border border-black px-5 py-1.5 rounded-full hover:bg-[#a2eff0] transition font-medium">
+          <button
+            onClick={() => router.push("/login")}
+            className="bg-[#b2faff] text-black border border-black px-5 py-1.5 rounded-full hover:bg-[#a2eff0] transition font-medium"
+          >
             Sign Up
           </button>
           <button
@@ -184,7 +187,10 @@ export default function Navbar() {
           {/* Buttons */}
           <div className="flex flex-col gap-4 mt-10 w-2/3">
             <button
-              onClick={() => setIsMobileOpen(false)}
+              onClick={() => {
+                setIsMobileOpen(false);
+                router.push("/login");
+              }}
               className="bg-[#b2faff] text-black border border-black px-4 py-2 rounded-full hover:bg-[#a2eff0] font-medium"
             >
               Sign Up

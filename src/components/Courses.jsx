@@ -129,7 +129,7 @@ export default function Courses() {
           </Slider>
 
           {/* Arrows in bottom-right corner */}
-          <div className="absolute bottom-4 right-2 z-10 flex gap-2">
+          <div className="absolute -bottom-10 right-2 z-10 flex gap-2">
             <PrevArrow onClick={() => sliderRef?.slickPrev()} />
             <NextArrow onClick={() => sliderRef?.slickNext()} />
           </div>

@@ -1,71 +1,42 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
+import Slider from "react-slick";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import { FaBriefcase } from "react-icons/fa6";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
+import { FaBriefcase, FaArrowLeft, FaArrowRight } from "react-icons/fa6";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-// Tabs and content
+// Tabs and their data
 const tabs = ["Jobs", "Business", "Programs"];
 const tabData = {
   Jobs: [
     {
       title: "Frontend Developer",
-      location: "San Francisco, CA - Remote",
+      location: "Remote",
       type: "Full Time",
-      description: "Work with modern UI technologies in a collaborative environment.",
+      description: "Work with modern UI technologies.",
       image: "/assets/job.avif",
     },
     {
       title: "UI/UX Designer",
       location: "New York, NY",
       type: "Part Time",
-      description: "Design user-friendly and engaging interfaces for our platform.",
+      description: "Design user-friendly interfaces.",
       image: "/assets/job.avif",
     },
     {
-      title: "React Developer",
+      title: "Backend Developer",
       location: "Remote",
+      type: "Full Time",
+      description: "Build and maintain APIs and services.",
+      image: "/assets/job.avif",
+    },
+    {
+      title: "QA Engineer",
+      location: "Chicago, IL",
       type: "Contract",
-      description: "Design user-friendly and engaging interfaces for our platform.",
-      image: "/assets/job.avif",
-    },
-    {
-      title: "Backend Developer",
-      location: "Remote",
-      type: "Full Time",
-      description: "Build and maintain backend APIs and microservices.",
-      image: "/assets/job.avif",
-    },
-    {
-      title: "Backend Developer",
-      location: "Remote",
-      type: "Full Time",
-      description: "Build and maintain backend APIs and microservices.",
-      image: "/assets/job.avif",
-    },
-    {
-      title: "Backend Developer",
-      location: "Remote",
-      type: "Full Time",
-      description: "Build and maintain backend APIs and microservices.",
-      image: "/assets/job.avif",
-    },
-    {
-      title: "Backend Developer",
-      location: "Remote",
-      type: "Full Time",
-      description: "Build and maintain backend APIs and microservices.",
-      image: "/assets/job.avif",
-    },
-    {
-      title: "Backend Developer",
-      location: "Remote",
-      type: "Full Time",
-      description: "Build and maintain backend APIs and microservices.",
+      description: "Ensure quality through testing and validation.",
       image: "/assets/job.avif",
     },
   ],
@@ -74,28 +45,28 @@ const tabData = {
       title: "Business Analyst",
       location: "Seattle, WA",
       type: "Full Time",
-      description: "Analyze business trends and present insights to the management.",
+      description: "Analyze trends and deliver insights.",
       image: "/assets/business.png",
     },
     {
       title: "Marketing Executive",
       location: "Austin, TX",
       type: "Remote",
-      description: "Drive digital campaigns and boost brand awareness.",
+      description: "Plan and execute digital campaigns.",
       image: "/assets/business.png",
     },
     {
-      title: "Sales Lead",
-      location: "Chicago, IL",
+      title: "Sales Manager",
+      location: "Los Angeles, CA",
       type: "Full Time",
-      description: "Lead B2B sales and drive revenue growth across sectors.",
+      description: "Drive revenue across B2B channels.",
       image: "/assets/business.png",
     },
     {
       title: "Finance Consultant",
       location: "Online",
       type: "Contract",
-      description: "Offer financial advice for strategic decisions.",
+      description: "Strategic advice on financial planning.",
       image: "/assets/business.png",
     },
   ],
@@ -104,40 +75,75 @@ const tabData = {
       title: "Data Science Bootcamp",
       location: "Online",
       type: "6 Months",
-      description: "Intensive hands-on learning in Data Science and ML.",
+      description: "Learn Data Science with hands-on training.",
       image: "/assets/programs.jpg",
     },
     {
-      title: "Full Stack Web Development",
+      title: "Full Stack Web Dev",
       location: "Online",
       type: "3 Months",
-      description: "Master both frontend and backend technologies in this program.",
+      description: "Become a full stack web developer.",
       image: "/assets/programs.jpg",
     },
     {
       title: "Cloud Computing",
       location: "Online",
       type: "2 Months",
-      description: "Learn AWS, Azure and GCP essentials for a successful cloud career.",
+      description: "Master AWS, Azure, and GCP.",
       image: "/assets/programs.jpg",
     },
     {
       title: "AI & Robotics",
       location: "Online",
       type: "4 Months",
-      description: "Explore the world of AI, robotics and machine vision.",
+      description: "Explore AI, robotics and automation.",
       image: "/assets/programs.jpg",
     },
   ],
 };
 
+// Custom arrows
+const PrevArrow = ({ onClick }) => (
+  <div
+    onClick={onClick}
+    className="cursor-pointer p-2 bg-white border border-gray-300 rounded-full shadow hover:bg-gray-100"
+  >
+    <FaArrowLeft className="text-gray-700" />
+  </div>
+);
+
+const NextArrow = ({ onClick }) => (
+  <div
+    onClick={onClick}
+    className="cursor-pointer p-2 bg-white border border-gray-300 rounded-full shadow hover:bg-gray-100"
+  >
+    <FaArrowRight className="text-gray-700" />
+  </div>
+);
+
 export default function TopTrending() {
   const [activeTab, setActiveTab] = useState("Jobs");
+  const sliderRef = useRef(null);
+
+  const settings = {
+    dots: false,
+    infinite: true,
+    autoplay: true,
+    speed: 800,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    arrows: false,
+    responsive: [
+      { breakpoint: 1280, settings: { slidesToShow: 3 } },
+      { breakpoint: 1024, settings: { slidesToShow: 2 } },
+      { breakpoint: 640, settings: { slidesToShow: 1 } },
+    ],
+  };
 
   return (
-    <section className="bg-gray-100 py-14 px-4">
+    <section className="bg-gray-100 py-14 px-4 relative">
       <div className="max-w-screen-xl mx-auto">
-        {/* Header */}
+        {/* Title */}
         <h2 className="text-3xl font-bold text-blue-800 mb-6 border-b-4 border-black inline-block shadow-md px-3">
           Top Trending
         </h2>
@@ -160,22 +166,10 @@ export default function TopTrending() {
         </div>
 
         {/* Slider */}
-        <div className="mt-10">
-          <Swiper
-            modules={[Autoplay, Pagination]}
-            spaceBetween={20}
-            slidesPerView={1}
-            autoplay={{ delay: 2500 }}
-            pagination={{ clickable: true }}
-            breakpoints={{
-              640: { slidesPerView: 1 },
-              768: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
-              1280: { slidesPerView: 4 }, // ✅ 4 Cards per row on large screens
-            }}
-          >
+        <div className="mt-10 relative">
+          <Slider ref={sliderRef} {...settings}>
             {tabData[activeTab].map((item, idx) => (
-              <SwiperSlide key={idx}>
+              <div key={idx} className="p-2">
                 <div className="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden flex flex-col h-full">
                   <Image
                     src={item.image}
@@ -187,7 +181,7 @@ export default function TopTrending() {
                   <div className="p-4 flex flex-col flex-grow">
                     <div className="flex items-center gap-2 mb-2">
                       <Image
-                        src="/assets/job-icon.png"
+                        src="/assets/profile.png"
                         alt="icon"
                         width={28}
                         height={28}
@@ -212,9 +206,15 @@ export default function TopTrending() {
                     Explore Now
                   </div>
                 </div>
-              </SwiperSlide>
+              </div>
             ))}
-          </Swiper>
+          </Slider>
+
+          {/* Bottom-right slider arrows */}
+          <div className="absolute -bottom-10 right-2 z-10 flex gap-2">
+            <PrevArrow onClick={() => sliderRef.current?.slickPrev()} />
+            <NextArrow onClick={() => sliderRef.current?.slickNext()} />
+          </div>
         </div>
       </div>
     </section>

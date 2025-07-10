@@ -1,9 +1,8 @@
-// src/components/Footer.jsx
 import { FaFacebookF, FaYoutube, FaXTwitter, FaLinkedinIn } from "react-icons/fa6";
 
 export default function Footer() {
   return (
-    <footer className="bg-blue-600 text-white px-6 py-12">
+    <footer className="hidden md:block bg-blue-600 text-white px-6 py-20">
       <div className="max-w-7xl mx-auto space-y-10">
         {/* Top Section */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
@@ -50,9 +49,8 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Socials & Copyright */}
+        {/* Social Icons & Copyright */}
         <div className="border-t border-white/30 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          {/* Social Icons */}
           <div className="flex gap-4 text-black">
             <div className="bg-white p-2 rounded-full hover:bg-cyan-200">
               <FaFacebookF />

@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const ContactUs = () => {
   return (
-    <section className="min-h-screen bg-gray-200 p-4 flex justify-center items-center">
+    <section className="min-h-screen bg-gray-200 p-2 flex justify-center items-center">
       <div className="bg-white rounded-2xl shadow-xl flex flex-col md:flex-row overflow-hidden max-w-6xl w-full">
         {/* Image Section */}
         <div className="relative w-full md:w-1/2 h-96 md:h-auto">
@@ -20,7 +20,7 @@ const ContactUs = () => {
             Contact Us
           </h2>
 
-          <form className="space-y-4">
+          <form className="space-y-4 p-6">
             {/* First & Last Name */}
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1">

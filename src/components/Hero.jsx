@@ -11,14 +11,17 @@ export default function Hero() {
           {/* Yellow Circle Behind Text */}
           <div className="absolute -left-20 -top-20 w-48 h-48 bg-yellow-300 rounded-full -z-10 hidden md:block"></div>
 
-          <p className="text-xl text-gray-800 font-medium">Online EducationHub</p>
+          <p className="text-xl text-gray-800 font-medium">
+            Online EducationHub
+          </p>
           <h1 className="text-4xl md:text-5xl font-extrabold text-black leading-tight mt-2">
             Innovative Online <br /> Teaching Mode
           </h1>
           <p className="text-gray-700 mt-4 text-base md:text-lg leading-relaxed">
-            Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC,
-            making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia,
-            looked up one of the more obscure Latin words.
+            Lorem Ipsum is not simply random text. It has roots in a piece of
+            classical Latin literature from 45 BC, making it over 2000 years
+            old. Richard McClintock, a Latin professor at Hampden-Sydney College
+            in Virginia, looked up one of the more obscure Latin words.
           </p>
 
           <div className="mt-6 flex gap-4">
@@ -34,7 +37,7 @@ export default function Hero() {
         {/* Right: Image */}
         <div className="md:w-1/2 relative z-10">
           {/* Purple Circle Behind Image */}
-        <div className="absolute top-[-100px] right-[-120px] w-[600px] h-[600px] bg-[#d1a5f0] rounded-full mix-blend-multiply opacity-60 z-0" />
+          <div className="absolute top-[-100px] right-[-120px] w-[600px] h-[600px] bg-[#d1a5f0] rounded-full mix-blend-multiply opacity-60 z-0" />
           <Image
             src={studentImg}
             alt="Students"

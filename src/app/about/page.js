@@ -9,7 +9,7 @@ import TeachingMode from "@/components/About/TeachingMode";
 
 const about = () => {
   return (
-    <main className="bg-gray-100 text-gray-800 min-h-screen py-8 space-y-16">
+    <main className="bg-gray-100 text-gray-800 min-h-screen space-y-16">
      <HeroSection/>
      <TeachingMode/>
      <GurukulHero/>

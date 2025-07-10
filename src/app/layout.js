@@ -2,6 +2,7 @@
 import "../app/globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BottomNavbar from "@/components/BottomNavbar";
 
 export const metadata = {
   title: "Education Website",
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
         <Navbar />
         <main className="min-h-screen">{children}</main>
         <Footer />
+        <BottomNavbar/>
       </body>
     </html>
   );

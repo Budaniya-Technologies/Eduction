@@ -37,7 +37,7 @@ export default function Hero() {
         {/* Right: Image */}
         <div className="md:w-1/2 relative z-10">
           {/* Purple Circle Behind Image */}
-          <div className="absolute top-[-100px] right-[-120px] w-[600px] h-[600px] bg-[#d1a5f0] rounded-full mix-blend-multiply opacity-60 z-0" />
+          <div className="absolute top-[-100px] right-[-120px] w-[600px] h-[600px] bg-[#f0a5a5] rounded-full mix-blend-multiply opacity-60 z-0" />
           <Image
             src={studentImg}
             alt="Students"

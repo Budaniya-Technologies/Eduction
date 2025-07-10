@@ -1,13 +1,14 @@
 // src/components/Hero.jsx
 import Image from "next/image";
-import studentImg from "../../public/assets/student (2).png"; 
+import studentImg from "../../public/assets/student (2).png";
 
 export default function Hero() {
   return (
-    <section className="bg-gray-100">
-      <div className="max-w-7xl mx-auto px-6 py-16 flex flex-col-reverse md:flex-row items-center gap-10">
+    <section className="bg-gray-100 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6  flex flex-col-reverse md:flex-row items-center gap-10">
         {/* Left: Text */}
         <div className="md:w-1/2 relative z-10">
+          {/* Yellow Circle Behind Text */}
           <div className="absolute -left-20 -top-20 w-48 h-48 bg-yellow-300 rounded-full -z-10 hidden md:block"></div>
 
           <p className="text-xl text-gray-800 font-medium">Online EducationHub</p>
@@ -31,14 +32,15 @@ export default function Hero() {
         </div>
 
         {/* Right: Image */}
-        <div className="md:w-1/2 relative">
-          <div className="absolute -right-10 top-0 w-60 h-60 bg-purple-300 rounded-full -z-10 hidden md:block"></div>
+        <div className="md:w-1/2 relative z-10">
+          {/* Purple Circle Behind Image */}
+        <div className="absolute top-[-100px] right-[-120px] w-[600px] h-[600px] bg-[#d1a5f0] rounded-full mix-blend-multiply opacity-60 z-0" />
           <Image
             src={studentImg}
             alt="Students"
             width={500}
             height={500}
-            className="object-contain z-10 relative"
+            className="object-contain"
             priority
           />
         </div>

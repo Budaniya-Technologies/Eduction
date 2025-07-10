@@ -1,5 +1,8 @@
+import ContactUs from "@/components/ContactUs";
 import Courses from "@/components/Courses";
+import CustomerReview from "@/components/CustomerReview";
 import Hero from "@/components/Hero";
+import NewsNotification from "@/components/NewsNotification";
 import OurServices from "@/components/OurServices";
 import TopTrending from "@/components/TopTrending";
 
@@ -11,6 +14,9 @@ export default function Home() {
       <OurServices/>
       <TopTrending/>
       <Courses/>
+      <NewsNotification/>
+      <CustomerReview/>
+      <ContactUs/>
     </section>
   );
 }

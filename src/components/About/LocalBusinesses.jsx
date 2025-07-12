@@ -15,7 +15,7 @@ export default function LocalBusinesses() {
   return (
     <section className="bg-[#f4f4f4] px-0 w-full">
       {/* Header */}
-      <div className="px-6 md:px-20 flex justify-between items-center border-b border-black pb-3 mb-6">
+      <div className="px-6 md:px-20 flex justify-between items-center border-b border-black pb-8 mb-6">
         <h2 className="text-2xl md:text-3xl font-bold text-blue-700">
           Local Businesses
         </h2>
@@ -60,7 +60,7 @@ export default function LocalBusinesses() {
       >
         {businessCards.map((_, index) => (
           <SwiperSlide key={index}>
-            <div className="bg-white rounded-xl shadow-md overflow-hidden border w-full max-w-[300px] mx-auto">
+            <div className="bg-white rounded-xl shadow-md overflow-hidden border w-full max-w-[300px] mx-auto mb-20">
               {/* Card Image */}
               <div className="relative h-40 w-full">
                 <Image src={certImg} alt="classroom" fill className="object-cover" />

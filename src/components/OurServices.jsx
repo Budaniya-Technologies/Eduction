@@ -1,111 +1,81 @@
 "use client";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { FaClock, FaCommentDots, FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-
-const services = [
-  {
-    title: "Program Title",
-    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    image: "/assets/course.webp",
-    time: "6 mins ago",
-    comments: "39 Comments",
-  },
-   {
-    title: "Program Title",
-    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    image: "/assets/course.webp",
-    time: "6 mins ago",
-    comments: "39 Comments",
-  },
-   {
-    title: "Program Title",
-    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    image: "/assets/course.webp",
-    time: "6 mins ago",
-    comments: "39 Comments",
-  },
-   {
-    title: "Program Title",
-    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    image: "/assets/course.webp",
-    time: "6 mins ago",
-    comments: "39 Comments",
-  },
-  // ... repeat or add more items
-];
+import { FaClock, FaCommentDots } from "react-icons/fa";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+import { apiGet } from "../../Utils/http"; // ✅ using your existing Axios utility
 
 export default function OurServices() {
-  let sliderRef = null;
+  const [services, setServices] = useState([]);
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    autoplay: true,
-    autoplaySpeed: 2500,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    arrows: false, // Custom arrows instead
-    responsive: [
-      { breakpoint: 1280, settings: { slidesToShow: 3 } },
-      { breakpoint: 1024, settings: { slidesToShow: 2 } },
-      { breakpoint: 640, settings: { slidesToShow: 1 } },
-    ],
-  };
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await apiGet("api/services/");
+        const data = response.data;
+        const activeServices = Array.isArray(data)
+          ? data.filter((item) => item.is_active)
+          : [];
+        setServices(activeServices);
+      } catch (error) {
+        console.error("Error fetching services:", error);
+      }
+    };
+
+    fetchServices();
+  }, []);
 
   return (
-    <section className="bg-gray-100 py-16 px-4 relative">
-      <div className="max-w-7xl mx-auto relative">
+    <section className="bg-gray-100 py-16 px-4">
+      <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl font-bold text-blue-800 mb-6 border-b-4 border-black inline-block shadow-md px-3">
           Our Services
         </h2>
 
-        <Slider ref={(slider) => (sliderRef = slider)} {...settings}>
+        <Swiper
+          modules={[Autoplay, Pagination]}
+          spaceBetween={20}
+          slidesPerView={1}
+          breakpoints={{
+            640: { slidesPerView: 1 },
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+            1280: { slidesPerView: 4 },
+          }}
+          autoplay={{ delay: 2500, disableOnInteraction: false }}
+          pagination={{ clickable: true }}
+        >
           {services.map((service, index) => (
-            <div key={index} className="px-2">
-              <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden">
-                <Image
+            <SwiperSlide key={index}>
+              <div className="max-w-sm mx-auto bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden">
+                <img
                   src={service.image}
-                  alt={service.title}
+                  alt={service.name}
                   width={400}
-                  height={200}
+                  height={300}
                   className="w-full h-40 object-cover"
                 />
                 <div className="p-3">
-                  <h3 className="text-lg font-semibold text-gray-800">{service.title}</h3>
-                  <p className="text-sm text-gray-600 mt-1">{service.description}</p>
+                  <h3 className="text-lg font-semibold text-gray-800">{service.name}</h3>
+                  <p className="text-sm text-gray-600 mt-1">
+                    {service.url ? `URL: ${service.url}` : "More info coming soon."}
+                  </p>
                 </div>
                 <div className="flex justify-between items-center px-3 py-2 border-t text-xs text-gray-600">
                   <span className="flex items-center gap-1">
-                    <FaClock className="text-black text-sm" /> {service.time}
+                    <FaClock className="text-black text-sm" /> Recently Added
                   </span>
                   <span className="flex items-center gap-1">
-                    <FaCommentDots className="text-black text-sm" /> {service.comments}
+                    <FaCommentDots className="text-black text-sm" /> 0 Comments
                   </span>
                 </div>
               </div>
-            </div>
+            </SwiperSlide>
           ))}
-        </Slider>
-
-        {/* Slider Arrow Icons Bottom Right */}
-        <div className="absolute -bottom-10 right-0 flex gap-3 pr-2 z-10">
-          <button
-            onClick={() => sliderRef?.slickPrev()}
-            className="p-2 bg-white border rounded-full shadow hover:bg-gray-200 transition"
-          >
-            <FaArrowLeft className="text-black" />
-          </button>
-          <button
-            onClick={() => sliderRef?.slickNext()}
-            className="p-2 bg-white border rounded-full shadow hover:bg-gray-200 transition"
-          >
-            <FaArrowRight className="text-black" />
-          </button>
-        </div>
+        </Swiper>
       </div>
     </section>
   );

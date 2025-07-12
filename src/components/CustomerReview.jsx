@@ -1,58 +1,31 @@
 "use client";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-
-const reviews = [
-  {
-    name: "@Bankat suryawanshi",
-    rating: 5,
-    image: "/assets/profile.png",
-    comment:
-      "Which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour,",
-  },
-  {
-    name: "@Sneha Patil",
-    rating: 4,
-    image: "/assets/profile.png",
-    comment:
-      "Excellent service and easy to use platform. Would highly recommend it to everyone looking for convenience.",
-  },
-  {
-    name: "@Rohan Joshi",
-    rating: 5,
-    image: "/assets/profile.png",
-    comment:
-      "Very user-friendly interface. The customer support was responsive and helpful.",
-  },
-  {
-    name: "@Priya Sharma",
-    rating: 4,
-    image: "/assets/profile.png",
-    comment:
-      "Great experience overall. Had minor issues initially but everything was resolved quickly.",
-  },
-  {
-    name: "@Amit Mehta",
-    rating: 5,
-    image: "/assets/profile.png",
-    comment:
-      "Super fast service! I'm impressed with the ease and simplicity of the process.",
-  },
-  {
-    name: "@Kavita Desai",
-    rating: 5,
-    image: "/assets/profile.png",
-    comment:
-      "Really helpful team and clean design. I found exactly what I needed without any hassle.",
-  },
-];
+import { apiGet } from "../../Utils/http";
 
 const CustomerReview = () => {
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        const response = await apiGet("api/testimonials/");
+        setReviews(response.data);
+      } catch (error) {
+        console.error("Failed to fetch testimonials:", error);
+      }
+    };
+
+    fetchTestimonials();
+  }, []);
+
   return (
-    <section className="p-8 bg-gray-100 ">
+    <section className="p-8 bg-gray-100">
       <h2 className="text-2xl md:text-3xl font-bold text-blue-800 mb-6 border-b-2 border-black inline-block">
         Customer Review
       </h2>
@@ -75,14 +48,14 @@ const CustomerReview = () => {
               <div className="flex items-center mb-4 space-x-4">
                 <div className="w-14 h-14 relative">
                   <Image
-                    src={review.image}
-                    alt={review.name}
+                    src="/assets/profile.png"
+                    alt="User"
                     fill
                     className="rounded-full object-cover"
                   />
                 </div>
                 <div>
-                  <p className="font-semibold text-black text-lg">{review.name}</p>
+                  <p className="font-semibold text-black text-lg">User #{review.user}</p>
                   <div className="flex text-yellow-400">
                     {Array(review.rating)
                       .fill(0)
@@ -93,7 +66,7 @@ const CustomerReview = () => {
                 </div>
               </div>
               <p className="text-gray-700 text-sm md:text-base">
-                {review.comment}
+                {review.content}
               </p>
             </div>
           </SwiperSlide>

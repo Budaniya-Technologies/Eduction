@@ -121,8 +121,7 @@ export default function TopTrending() {
                 <img
                   src={item.image || item.logo || "/assets/default-image.jpg"}
                   alt={item.title || item.name}
-                  fill
-                  className="object-cover"
+                  className="object-cover w-full h-full"
                 />
               </div>
 

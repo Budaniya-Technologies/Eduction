@@ -84,8 +84,7 @@ export default function Courses() {
                     <img
                       src={item.image}
                       alt={item.title}
-                      fill={true}
-                      className="object-cover"
+                      className="object-cover w-full h-full"
                     />
                     <span className="absolute top-2 left-2 bg-white text-black text-xs font-semibold px-2 py-1 rounded">
                       🎓 CERTIFICATE

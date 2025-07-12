@@ -1,8 +1,59 @@
+"use client";
+import { useState } from "react";
 import Image from "next/image";
+import toast, { Toaster } from "react-hot-toast";
+import { apiPost } from "../../Utils/http";
 
 const ContactUs = () => {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const { firstName, lastName, email, subject, message } = formData;
+    const payload = {
+      name: `${firstName} ${lastName}`.trim(),
+      email,
+      subject,
+      message,
+    };
+
+    try {
+      const res = await apiPost("api/contact-messages/", payload);
+      if (res.data.success) {
+        toast.success(res.data.message || "Message sent successfully!");
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          subject: "",
+          message: "",
+        });
+      } else {
+        toast.error("Something went wrong.");
+      }
+    } catch (err) {
+      toast.error("Failed to send message.");
+      console.error(err);
+    }
+  };
+
   return (
     <section className="min-h-screen bg-gray-200 p-2 flex justify-center items-center">
+      <Toaster position="top-right" />
       <div className="bg-white rounded-2xl shadow-xl flex flex-col md:flex-row overflow-hidden max-w-6xl w-full">
         {/* Image Section */}
         <div className="relative w-full md:w-1/2 h-96 md:h-auto">
@@ -20,58 +71,72 @@ const ContactUs = () => {
             Contact Us
           </h2>
 
-          <form className="space-y-4 p-6">
-            {/* First & Last Name */}
-            <div className="flex flex-col md:flex-row gap-4">
+          <form className="space-y-4 p-6" onSubmit={handleSubmit}>
+            <div className="flex flex-col md:flex-row gap-4 ">
               <div className="flex-1">
                 <label className="block font-semibold mb-1">First Name</label>
                 <input
                   type="text"
-                  className="w-full border rounded-md px-4 py-2 focus:outline-none"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  className="w-full border rounded-md px-4 py-2 focus:outline-none text-black"
                   placeholder="First Name"
+                  required
                 />
               </div>
               <div className="flex-1">
                 <label className="block font-semibold mb-1">Last Name</label>
                 <input
                   type="text"
-                  className="w-full border rounded-md px-4 py-2 focus:outline-none"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  className="w-full border rounded-md px-4 py-2 focus:outline-none text-black"
                   placeholder="Last Name"
                 />
               </div>
             </div>
 
-            {/* Email */}
             <div>
               <label className="block font-semibold mb-1">Email</label>
               <input
                 type="email"
-                className="w-full border rounded-md px-4 py-2 focus:outline-none"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full border rounded-md px-4 py-2 focus:outline-none text-black"
                 placeholder="Email"
+                required
               />
             </div>
 
-            {/* Subject */}
             <div>
               <label className="block font-semibold mb-1">Subject</label>
               <input
                 type="text"
-                className="w-full border rounded-md px-4 py-2 focus:outline-none"
+                name="subject"
+                value={formData.subject}
+                onChange={handleChange}
+                className="w-full border rounded-md px-4 py-2 focus:outline-none text-black"
                 placeholder="Subject"
+                required
               />
             </div>
 
-            {/* Message */}
             <div>
               <label className="block font-semibold mb-1">Message</label>
               <textarea
+                name="message"
                 rows="3"
-                className="w-full border rounded-md px-4 py-2 focus:outline-none"
+                value={formData.message}
+                onChange={handleChange}
+                className="w-full border rounded-md px-4 py-2 focus:outline-none text-black"
                 placeholder="Your message..."
+                required
               ></textarea>
             </div>
 
-            {/* Button */}
             <button
               type="submit"
               className="w-full bg-purple-500 text-white font-semibold py-3 rounded-xl shadow-md hover:bg-purple-600 transition"

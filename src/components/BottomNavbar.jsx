@@ -1,4 +1,3 @@
-
 "use client";
 import { useState } from "react";
 import {
@@ -35,14 +34,18 @@ export default function BottomNavbar() {
             <button
               key={item.label}
               onClick={() => setActiveIndex(index)}
-              className="flex flex-col items-center text-xs font-semibold transition text-gray-600 hover:text-blue-600"
+              className={`flex flex-col items-center text-xs font-semibold transition-all duration-200 group`}
             >
               <Icon
-                className={`text-2xl mb-1 ${
-                  isActive ? "text-blue-600" : "text-gray-500"
-                }`}
+                className={`text-2xl mb-1 transition-all duration-200 
+                  ${isActive ? "text-blue-600" : "text-gray-500"} 
+                  group-hover:text-blue-600 group-hover:scale-110`}
               />
-              <span className={isActive ? "text-blue-600" : "text-gray-500"}>
+              <span
+                className={`transition-colors duration-200 
+                  ${isActive ? "text-blue-600" : "text-gray-500"} 
+                  group-hover:text-blue-600`}
+              >
                 {item.label}
               </span>
             </button>

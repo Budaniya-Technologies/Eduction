@@ -1,4 +1,26 @@
 import Image from "next/image";
+import React from "react";
+
+const cardData = [
+  {
+    title: "Lorem Ipsum available, but the majority",
+    description:
+      "Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don’t look even slightly believable.",
+    borderColor: "border-[#ef5350]",
+  },
+  {
+    title: "Lorem Ipsum available, but the majority",
+    description:
+      "Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don’t look even slightly believable.",
+    borderColor: "border-[#5c6bc0]",
+  },
+  {
+    title: "Lorem Ipsum available, but the majority",
+    description:
+      "Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don’t look even slightly believable.",
+    borderColor: "border-[#66bb6a]",
+  },
+];
 
 const HeroSection = () => {
   return (
@@ -26,14 +48,10 @@ const HeroSection = () => {
 
           {/* Cards */}
           <div className="space-y-4">
-            {[
-              "border-[#ef5350]",
-              "border-[#5c6bc0]",
-              "border-[#66bb6a]",
-            ].map((color, index) => (
+            {cardData.map((card, index) => (
               <div
                 key={index}
-                className={`bg-white rounded-xl p-4 flex gap-4 shadow-sm border-l-[6px] ${color}`}
+                className={`bg-white rounded-xl p-4 flex gap-4 shadow-sm border-l-[6px] ${card.borderColor} transition-transform duration-300 hover:scale-[1.03] hover:shadow-md`}
               >
                 <Image
                   src="/assets/education.png"
@@ -43,12 +61,10 @@ const HeroSection = () => {
                 />
                 <div>
                   <h3 className="font-bold text-black text-base md:text-lg">
-                    Lorem Ipsum available, but the majority
+                    {card.title}
                   </h3>
                   <p className="text-sm text-gray-600 mt-1">
-                    Lorem Ipsum available, but the majority have suffered
-                    alteration in some form, by injected humour, or randomised
-                    words which don’t look even slightly believable.
+                    {card.description}
                   </p>
                 </div>
               </div>

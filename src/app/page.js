@@ -8,20 +8,22 @@ import TopTrending from "@/components/TopTrending";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Footer from "@/components/Footer";
+import HeroSlider from "@/components/HeroSlider";
 
 
 // src/app/page.js
 export default function Home() {
   return (
     <section className="">
-      <Hero/>
-      <OurServices/>
-      <TopTrending/>
-      <Courses/>
-      <NewsNotification/>
-      <CustomerReview/>
-      <ContactUs/>
-      <Footer/>
+      {/* <Hero/> */}
+      <HeroSlider />
+      <OurServices />
+      <TopTrending />
+      <Courses />
+      <NewsNotification />
+      <CustomerReview />
+      <ContactUs />
+      <Footer />
     </section>
   );
 }

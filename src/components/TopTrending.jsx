@@ -5,7 +5,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { FaBriefcase } from "react-icons/fa6";
 import { apiGet } from "../../Utils/http";
 
-const tabs = ["Jobs", "Business"];
+const tabs = ["Jobs", "Business", "programsData"];
 
 const programsData = [
   {

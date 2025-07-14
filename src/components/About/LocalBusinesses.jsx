@@ -1,17 +1,31 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import axios from "axios";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 
-import certImg from "/public/assets/teacherAbout.jpeg";
 import badgeIcon from "/public/assets/check.png";
 import certLabel from "/public/assets/education.png";
-
-const businessCards = [1, 2, 3, 4, 5, 6];
+import { apiGet } from "../../../Utils/http";
 
 export default function LocalBusinesses() {
+  const [businesses, setBusinesses] = useState([]);
+
+  useEffect(() => {
+    const fetchBusinesses = async () => {
+      try {
+        const res = await apiGet("api/businesses/");
+        setBusinesses(res.data);
+      } catch (err) {
+        console.error("Failed to fetch businesses:", err);
+      }
+    };
+    fetchBusinesses();
+  }, []);
+
   return (
     <section className="bg-[#f4f4f4] px-0 w-full">
       {/* Header */}
@@ -44,7 +58,7 @@ export default function LocalBusinesses() {
         </div>
       </div>
 
-      {/* Card Slider with 4 per row */}
+      {/* Card Slider */}
       <Swiper
         modules={[Autoplay]}
         spaceBetween={20}
@@ -54,16 +68,21 @@ export default function LocalBusinesses() {
           0: { slidesPerView: 1.2 },
           640: { slidesPerView: 2 },
           1024: { slidesPerView: 3 },
-          1280: { slidesPerView: 4 }, // Show 4 cards on wide screens
+          1280: { slidesPerView: 4 },
         }}
         className="px-6 md:px-20"
       >
-        {businessCards.map((_, index) => (
+        {businesses.map((item, index) => (
           <SwiperSlide key={index}>
             <div className="bg-white rounded-xl shadow-md overflow-hidden border w-full max-w-[300px] mx-auto mb-20">
               {/* Card Image */}
               <div className="relative h-40 w-full">
-                <Image src={certImg} alt="classroom" fill className="object-cover" />
+                <img
+                  src={item.logo || "/assets/default-image.jpg"}
+                  alt={item.name}
+                  fill
+                  className="object-cover"
+                />
                 <div className="absolute top-2 left-2 bg-white px-2 py-1 text-xs font-medium rounded shadow">
                   <Image
                     src={certLabel}
@@ -79,21 +98,20 @@ export default function LocalBusinesses() {
               {/* Tag */}
               <div className="bg-[#c9f4f2] flex items-center gap-2 px-4 py-2">
                 <Image src={badgeIcon} alt="badge" width={20} height={20} />
-                <span className="text-sm font-medium text-[#2e7d32]">Retails</span>
+                <span className="text-sm font-medium text-[#2e7d32]">Retail</span>
               </div>
 
               {/* Card Details */}
               <div className="p-4 space-y-2 text-sm text-black">
-                <h3 className="text-lg font-bold">TTk Prestige</h3>
+                <h3 className="text-lg font-bold">{item.name}</h3>
+                <p className="line-clamp-2">{item.description}</p>
                 <p>
-                  <strong>Investment range</strong> ₹ 20L – 30L
+                  <strong>Email: </strong>
+                  {item.contact_email || "N/A"}
                 </p>
                 <p>
-                  <strong>Area Required</strong> 400–1000
-                </p>
-                <p>
-                  <strong>Franchise Outlets</strong>{" "}
-                  <span className="font-bold">500–1000</span>
+                  <strong>Phone: </strong>
+                  {item.phone_number || "N/A"}
                 </p>
               </div>
 

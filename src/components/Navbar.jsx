@@ -30,8 +30,8 @@ export default function Navbar() {
   const navItems = [
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
-    { name: "Features", path: "/features" },
-    { name: "Pricing", path: "/pricing" },
+    { name: "Features", path: "/FeatureShowcase" },
+    { name: "Pricing", path: "/price" },
   ];
 
   return (

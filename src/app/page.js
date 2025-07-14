@@ -1,6 +1,5 @@
 import ContactUs from "@/components/ContactUs";
 import Courses from "@/components/Courses";
-import CustomerReview from "@/components/CustomerReview";
 import Hero from "@/components/Hero";
 import NewsNotification from "@/components/NewsNotification";
 import OurServices from "@/components/OurServices";
@@ -9,6 +8,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Footer from "@/components/Footer";
 import HeroSlider from "@/components/HeroSlider";
+import CustomerReview from "@/components/CustomerReview";
 
 
 // src/app/page.js

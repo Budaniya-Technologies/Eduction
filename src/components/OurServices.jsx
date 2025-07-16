@@ -1,15 +1,16 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { FaClock, FaCommentDots } from "react-icons/fa";
+import { FaClock, FaCommentDots, FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-import { apiGet } from "../../Utils/http"; // ✅ using your existing Axios utility
+import { apiGet } from "../../Utils/http";
 
 export default function OurServices() {
   const [services, setServices] = useState([]);
+  const swiperRef = useRef(null); // ✅ Swiper reference
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -39,6 +40,7 @@ export default function OurServices() {
           modules={[Autoplay, Pagination]}
           spaceBetween={20}
           slidesPerView={1}
+          onSwiper={(swiper) => (swiperRef.current = swiper)} // ✅ Attach swiper instance
           breakpoints={{
             640: { slidesPerView: 1 },
             768: { slidesPerView: 2 },
@@ -59,7 +61,9 @@ export default function OurServices() {
                   className="w-full h-40 object-cover"
                 />
                 <div className="p-3">
-                  <h3 className="text-lg font-semibold text-gray-800">{service.name}</h3>
+                  <h3 className="text-lg font-semibold text-gray-800">
+                    {service.name}
+                  </h3>
                   <p className="text-sm text-gray-600 mt-1">
                     {service.url ? `URL: ${service.url}` : "More info coming soon."}
                   </p>
@@ -76,6 +80,22 @@ export default function OurServices() {
             </SwiperSlide>
           ))}
         </Swiper>
+
+        {/* Navigation Buttons */}
+        <div className="flex gap-3 justify-end mt-5">
+          <button
+            onClick={() => swiperRef.current?.slidePrev()}
+            className="p-2 bg-white border border-gray-300 rounded-full shadow hover:bg-gray-100"
+          >
+            <FaArrowLeft className="text-gray-700" />
+          </button>
+          <button
+            onClick={() => swiperRef.current?.slideNext()}
+            className="p-2 bg-white border border-gray-300 rounded-full shadow hover:bg-gray-100"
+          >
+            <FaArrowRight className="text-gray-700" />
+          </button>
+        </div>
       </div>
     </section>
   );

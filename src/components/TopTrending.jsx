@@ -1,6 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { useEffect, useRef, useState } from "react";
+import { FaMapMarkerAlt, FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { apiGet } from "../../Utils/http";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
@@ -14,14 +14,13 @@ export default function TopTrending() {
   const [jobsData, setJobsData] = useState([]);
   const [businessData, setBusinessData] = useState([]);
   const router = useRouter();
+  const swiperRef = useRef(null); // <-- Reference for Swiper
 
   useEffect(() => {
     const fetchJobs = async () => {
       try {
         const res = await apiGet("api/job/");
-        if (Array.isArray(res?.data)) {
-          setJobsData(res.data);
-        }
+        if (Array.isArray(res?.data)) setJobsData(res.data);
       } catch (err) {
         console.error("Failed to load jobs", err);
       }
@@ -30,9 +29,7 @@ export default function TopTrending() {
     const fetchBusinesses = async () => {
       try {
         const res = await apiGet("api/businesses/");
-        if (Array.isArray(res?.data)) {
-          setBusinessData(res.data);
-        }
+        if (Array.isArray(res?.data)) setBusinessData(res.data);
       } catch (err) {
         console.error("Failed to load businesses", err);
       }
@@ -42,17 +39,16 @@ export default function TopTrending() {
     fetchBusinesses();
   }, []);
 
-  const getTabData = () => {
-    return activeTab === "Jobs" ? jobsData : businessData;
-  };
+  const getTabData = () => (activeTab === "Jobs" ? jobsData : businessData);
 
   return (
-    <section className="bg-gray-100 py-14 px-4">
+    <section className="bg-gray-100 py-14 px-4 relative">
       <div className="max-w-screen-xl mx-auto">
         <h2 className="text-3xl font-bold text-blue-800 border-b-4 border-black inline-block mb-8">
           Top Trending
         </h2>
-        {/* Heading and Tabs */}
+
+        {/* Tabs */}
         <div className="flex justify-between items-center flex-wrap mb-6">
           <div className="flex gap-3 mt-3 sm:mt-0">
             {tabs.map((tab) => (
@@ -70,24 +66,25 @@ export default function TopTrending() {
             ))}
           </div>
           <button
-            onClick={() => {
-              if (activeTab === "Jobs") {
-                router.push("/jobdescription");
-              } else if (activeTab === "Business") {
-                router.push("/businessdescription");
-              }
-            }}
+            onClick={() =>
+              router.push(
+                activeTab === "Jobs" ? "/jobdescription" : "/businessdescription"
+              )
+            }
             className="text-sm font-semibold text-blue-700 underline hover:text-blue-900 mt-3 sm:mt-0"
           >
             See All →
           </button>
         </div>
 
-        {/* Swiper Slider */}
+        {/* Slider */}
         <Swiper
           modules={[Autoplay]}
           spaceBetween={20}
           loop
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper;
+          }}
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           breakpoints={{
             0: { slidesPerView: 1.2 },
@@ -99,20 +96,16 @@ export default function TopTrending() {
           {getTabData().map((item, idx) => (
             <SwiperSlide key={item.id || idx}>
               <div className="bg-white rounded-xl shadow hover:shadow-lg overflow-hidden flex flex-col transition-all duration-300 max-w-[300px] mx-auto h-full">
-                {/* Top Image */}
                 <div className="w-full h-40">
                   <img
                     src={
-                      item.image ||
-                      item.banner_image ||
-                      "/assets/default-image.jpg"
+                      item.image || item.banner_image || "/assets/default-image.jpg"
                     }
                     alt={item.title || "Image"}
                     className="object-cover w-full h-full"
                   />
                 </div>
 
-                {/* Content */}
                 <div className="p-4 flex flex-col flex-grow">
                   <div className="flex items-center gap-2 mb-2">
                     <img
@@ -147,16 +140,15 @@ export default function TopTrending() {
                   </p>
                 </div>
 
-                {/* CTA */}
                 <div
                   className="bg-blue-600 text-white text-center py-2 font-semibold text-sm hover:bg-blue-700 cursor-pointer"
-                  onClick={() => {
-                    if (activeTab === "Jobs") {
-                      router.push("/jobdescription");
-                    } else if (activeTab === "Business") {
-                      router.push("/businessdescription");
-                    }
-                  }}
+                  onClick={() =>
+                    router.push(
+                      activeTab === "Jobs"
+                        ? "/jobdescription"
+                        : "/businessdescription"
+                    )
+                  }
                 >
                   Explore Now
                 </div>
@@ -164,6 +156,22 @@ export default function TopTrending() {
             </SwiperSlide>
           ))}
         </Swiper>
+
+        {/* Arrows */}
+        <div className="flex gap-3 justify-end mt-5">
+          <button
+            onClick={() => swiperRef.current?.slidePrev()}
+            className="p-2 bg-white border border-gray-300 rounded-full shadow hover:bg-gray-100"
+          >
+            <FaArrowLeft className="text-gray-700" />
+          </button>
+          <button
+            onClick={() => swiperRef.current?.slideNext()}
+            className="p-2 bg-white border border-gray-300 rounded-full shadow hover:bg-gray-100"
+          >
+            <FaArrowRight className="text-gray-700" />
+          </button>
+        </div>
       </div>
     </section>
   );

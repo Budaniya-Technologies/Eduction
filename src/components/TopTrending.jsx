@@ -5,6 +5,7 @@ import { apiGet } from "../../Utils/http";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
+import { useRouter } from "next/navigation";
 
 const tabs = ["Jobs", "Business"];
 
@@ -12,6 +13,7 @@ export default function TopTrending() {
   const [activeTab, setActiveTab] = useState("Jobs");
   const [jobsData, setJobsData] = useState([]);
   const [businessData, setBusinessData] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -48,11 +50,10 @@ export default function TopTrending() {
     <section className="bg-gray-100 py-14 px-4">
       <div className="max-w-screen-xl mx-auto">
         <h2 className="text-3xl font-bold text-blue-800 border-b-4 border-black inline-block mb-8">
-            Top Trending
-          </h2>
+          Top Trending
+        </h2>
         {/* Heading and Tabs */}
         <div className="flex justify-between items-center flex-wrap mb-6">
-          
           <div className="flex gap-3 mt-3 sm:mt-0">
             {tabs.map((tab) => (
               <button
@@ -68,12 +69,18 @@ export default function TopTrending() {
               </button>
             ))}
           </div>
-          <a
-            href="#"
+          <button
+            onClick={() => {
+              if (activeTab === "Jobs") {
+                router.push("/jobdescription");
+              } else if (activeTab === "Business") {
+                router.push("/businessdescription");
+              }
+            }}
             className="text-sm font-semibold text-blue-700 underline hover:text-blue-900 mt-3 sm:mt-0"
           >
             See All →
-          </a>
+          </button>
         </div>
 
         {/* Swiper Slider */}
@@ -96,7 +103,9 @@ export default function TopTrending() {
                 <div className="w-full h-40">
                   <img
                     src={
-                      item.image || item.banner_image || "/assets/default-image.jpg"
+                      item.image ||
+                      item.banner_image ||
+                      "/assets/default-image.jpg"
                     }
                     alt={item.title || "Image"}
                     className="object-cover w-full h-full"
@@ -139,7 +148,16 @@ export default function TopTrending() {
                 </div>
 
                 {/* CTA */}
-                <div className="bg-blue-600 text-white text-center py-2 font-semibold text-sm hover:bg-blue-700 cursor-pointer">
+                <div
+                  className="bg-blue-600 text-white text-center py-2 font-semibold text-sm hover:bg-blue-700 cursor-pointer"
+                  onClick={() => {
+                    if (activeTab === "Jobs") {
+                      router.push("/jobdescription");
+                    } else if (activeTab === "Business") {
+                      router.push("/businessdescription");
+                    }
+                  }}
+                >
                   Explore Now
                 </div>
               </div>

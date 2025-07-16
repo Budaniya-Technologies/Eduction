@@ -180,9 +180,6 @@
 //     </section>
 //   );
 // }
-
-
-
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { FaMapMarkerAlt, FaArrowLeft, FaArrowRight } from "react-icons/fa";
@@ -240,11 +237,10 @@ export default function TopTrending() {
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-4 py-2 rounded-md text-sm font-bold border-b-2 ${
-                  activeTab === tab
+                className={`px-4 py-2 rounded-md text-sm font-bold border-b-2 ${activeTab === tab
                     ? "bg-blue-600 text-white border-lime-400"
                     : "bg-white text-gray-700 border-transparent"
-                }`}
+                  }`}
               >
                 {tab}
               </button>
@@ -330,8 +326,8 @@ export default function TopTrending() {
 
                   {/* Business specific data */}
                   {activeTab === "Business" && (
-                    <div className="text-xs text-gray-800 space-y-1 border-t pt-3 mt-auto">
-                      <div className="flex justify-between">
+                    <div className="font-semibold text-base/1 text-gray-800 space-y-1 border-t pt-3 mt-auto">
+                      <div className="flex justify-between ">
                         <span>Investment range</span>
                         <span className="font-bold text-black">
                           ₹

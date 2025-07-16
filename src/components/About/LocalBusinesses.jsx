@@ -78,18 +78,17 @@ export default function LocalBusinesses() {
               {/* Card Image */}
               <div className="relative h-40 w-full">
                 <img
-                  src={item.logo || "/assets/default-image.jpg"}
+                  src={item.banner_image || "/assets/default-image.jpg"}
                   alt={item.name}
-                  fill
-                  className="object-cover"
+                  className="object-cover w-full h-full"
                 />
-                <div className="absolute top-2 left-2 bg-white px-2 py-1 text-xs font-medium rounded shadow">
-                  <Image
-                    src={certLabel}
-                    alt="cert"
-                    width={18}
-                    height={18}
-                    className="inline-block mr-1"
+                <div className="absolute top-2 left-2 bg-white px-2 py-1 text-xs font-medium rounded shadow flex gap-2">
+                   <img
+                    src={item.logo || "/assets/default-image.jpg"}
+                    alt={item.name || "Category"}
+                    width={28}
+                    height={28}
+                    className="rounded-full object-cover"
                   />
                   CERTIFICATE
                 </div>
@@ -97,22 +96,22 @@ export default function LocalBusinesses() {
 
               {/* Tag */}
               <div className="bg-[#c9f4f2] flex items-center gap-2 px-4 py-2">
-                <Image src={badgeIcon} alt="badge" width={20} height={20} />
-                <span className="text-sm font-medium text-[#2e7d32]">Retail</span>
+                 <img
+                    src={item.category?.icon || "/assets/default-image.jpg"}
+                    alt={item.category?.name || "Category"}
+                    width={28}
+                    height={28}
+                    className="rounded-full object-cover"
+                  />
+                  <span className="bg-blue-200 text-blue-800 text-xs px-2 py-1 rounded-full font-semibold">
+                    {item.category?.name}
+                  </span>
               </div>
 
               {/* Card Details */}
               <div className="p-4 space-y-2 text-sm text-black">
                 <h3 className="text-lg font-bold">{item.name}</h3>
                 <p className="line-clamp-2">{item.description}</p>
-                <p>
-                  <strong>Email: </strong>
-                  {item.contact_email || "N/A"}
-                </p>
-                <p>
-                  <strong>Phone: </strong>
-                  {item.phone_number || "N/A"}
-                </p>
               </div>
 
               {/* Button */}

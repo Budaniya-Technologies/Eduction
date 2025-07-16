@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import { FaMapMarkerAlt, FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { MdOutlineDateRange } from "react-icons/md";
-import Image from "next/image";
 import { apiGet } from "../../Utils/http";
 
 // Custom Arrows
@@ -32,7 +31,7 @@ export default function Courses() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const res = await apiGet("api/courses/");
+        const res = await apiGet("school/course/");
         setCourses(res.data);
       } catch (error) {
         console.error("Failed to fetch courses:", error);

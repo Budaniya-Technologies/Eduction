@@ -1,11 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { FaMapMarkerAlt } from "react-icons/fa";
-import { FaBriefcase } from "react-icons/fa6";
+import { FaMapMarkerAlt, FaBriefcase } from "react-icons/fa";
 import { apiGet } from "../../Utils/http";
 
-const tabs = ["Jobs", "Business", "programsData"];
+const tabs = ["Jobs", "Business",];
 
 const programsData = [
   {
@@ -39,14 +38,14 @@ const programsData = [
 ];
 
 export default function TopTrending() {
-  const [activeTab, setActiveTab] = useState("Programs");
+  const [activeTab, setActiveTab] = useState("Jobs");
   const [jobsData, setJobsData] = useState([]);
   const [businessData, setBusinessData] = useState([]);
 
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const res = await apiGet("api/jobs/");
+        const res = await apiGet("api/job/");
         if (Array.isArray(res?.data)) {
           let delay = 500;
           res.data.forEach((item, index) => {
@@ -114,63 +113,89 @@ export default function TopTrending() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 mt-10">
           {getTabData().map((item, idx) => (
             <div
-              key={idx}
+              key={item.id || idx}
               className="bg-white rounded-xl shadow hover:shadow-lg overflow-hidden flex flex-col transition-all duration-300"
             >
+              {/* Top Image */}
               <div className="w-full h-40 relative">
                 <img
-                  src={item.image || item.logo || "/assets/default-image.jpg"}
-                  alt={item.title || item.name}
+                  src={item.image || item.banner_image || "/assets/default-image.jpg"}
+                  alt={item.title || "Image"}
                   className="object-cover w-full h-full"
                 />
               </div>
 
+              {/* Content */}
               <div className="p-4 flex flex-col flex-grow">
+                {/* Top icon + category */}
                 <div className="flex items-center gap-2 mb-2">
-                  <Image
-                    src="/assets/profile.png"
-                    alt="icon"
+                  <img
+                    src={item.category?.image || item.category?.icon || "/assets/default-image.jpg"}
+                    alt={item.category?.name || "Category"}
                     width={28}
                     height={28}
-                    className="rounded-full"
+                    className="rounded-full object-cover"
                   />
                   <span className="bg-blue-200 text-blue-800 text-xs px-2 py-1 rounded-full font-semibold">
-                    {activeTab}
+                    {item.category?.name || activeTab}
                   </span>
                 </div>
 
+                {/* Title */}
                 <h3 className="text-md font-bold text-gray-800">
                   {item.title || item.name}
                 </h3>
 
+                {/* Location */}
                 <div className="flex items-center text-xs text-gray-600 mt-2 gap-2">
                   <FaMapMarkerAlt className="text-gray-800 text-sm" />
-                  <span>{item.location || "India"}</span>
+                  <span>{item.category?.name || item.location || "India"}</span>
                 </div>
 
-                <div className="flex items-center text-xs text-gray-600 mt-1 gap-2">
-                  <FaBriefcase className="text-gray-800 text-sm" />
-                  <span>{item.company_name || item.type || "N/A"}</span>
-                </div>
+                {/* Job Type */}
+                {/* {item.job_type && (
+                  <div className="flex items-center text-xs text-gray-600 mt-1 gap-2">
+                    <FaBriefcase className="text-gray-800 text-sm" />
+                    <span>{item.job_type.replaceAll("_", " ")}</span>
+                  </div>
+                )} */}
 
-                <p className="text-xs text-gray-700 mt-2 flex-grow">
+                {/* Description */}
+                <p className="text-xs text-gray-700 mt-2 flex-grow line-clamp-3">
                   {item.description}
                 </p>
 
-                {item.posted_on && (
+                {/* Experience */}
+                {/* {item.experience_min !== undefined && (
                   <p className="text-xs text-gray-500 mt-2">
+                    <strong>Experience:</strong> {item.experience_min}–{item.experience_max} yrs
+                  </p>
+                )} */}
+
+                {/* Salary */}
+                {/* {item.salary_min !== undefined && (
+                  <p className="text-xs text-gray-500">
+                    <strong>Salary:</strong> ₹{item.salary_min}–{item.salary_max}
+                  </p>
+                )} */}
+
+                {/* Dates */}
+                {/* {item.posted_at && (
+                  <p className="text-xs text-gray-500 mt-1">
                     <strong>Posted:</strong>{" "}
-                    {new Date(item.posted_on).toLocaleDateString("en-IN")}
+                    {new Date(item.posted_at).toLocaleDateString("en-IN")}
                   </p>
                 )}
-                {item.deadline && (
+
+                {item.application_deadline && (
                   <p className="text-xs text-gray-500">
                     <strong>Deadline:</strong>{" "}
-                    {new Date(item.deadline).toLocaleDateString("en-IN")}
+                    {new Date(item.application_deadline).toLocaleDateString("en-IN")}
                   </p>
-                )}
+                )} */}
               </div>
 
+              {/* CTA */}
               <div className="bg-blue-600 text-white text-center py-2 font-semibold text-sm hover:bg-blue-700 cursor-pointer">
                 Explore Now
               </div>

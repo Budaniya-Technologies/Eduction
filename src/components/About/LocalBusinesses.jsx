@@ -206,7 +206,7 @@ export default function LocalBusinesses() {
                 <img
                   src={item.banner_image || "/assets/default-image.jpg"}
                   alt={item.name}
-                  fill
+
                   className="object-cover w-full h-full"
                 />
                 <div className="absolute top-2 left-2 bg-white px-2 py-1 text-xs font-medium rounded shadow">
@@ -237,8 +237,16 @@ export default function LocalBusinesses() {
 
               {/* Card Details */}
               <div className="p-4 space-y-2 text-sm text-black">
-                <h3 className="text-md leading-5 font-bold">{item.name}</h3>
-                <p className="line-clamp-2">{item.description}</p>
+                <h3 className="text-md font-bold text-gray-800 mb-1">
+                    {(item.title || item.name).length > 20
+                      ? (item.title || item.name).substring(0, 20) + '...'
+                      : (item.title || item.name)}
+                  </h3>
+                <p className="text-sm text-gray-700 mb-3">
+                    {item.description.length > 30
+                      ? item.description.substring(0, 30) + '...'
+                      : item.description}
+                  </p>
                 <div className=" font-semibold text-base/1 text-gray-800 space-y-1 border-t pt-3 mt-auto">
                   <div className="flex text-bold justify-between">
                     <span>Investment range</span>

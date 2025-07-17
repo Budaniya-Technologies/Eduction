@@ -238,8 +238,8 @@ export default function TopTrending() {
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`px-4 py-2 rounded-md text-sm font-bold border-b-2 ${activeTab === tab
-                    ? "bg-blue-600 text-white border-lime-400"
-                    : "bg-white text-gray-700 border-transparent"
+                  ? "bg-blue-600 text-white border-lime-400"
+                  : "bg-white text-gray-700 border-transparent"
                   }`}
               >
                 {tab}
@@ -310,8 +310,11 @@ export default function TopTrending() {
                   </div>
 
                   <h3 className="text-md font-bold text-gray-800 mb-1">
-                    {item.title || item.name}
+                    {(item.title || item.name).length > 20
+                      ? (item.title || item.name).substring(0, 20) + '...'
+                      : (item.title || item.name)}
                   </h3>
+
 
                   <div className="flex items-center text-xs text-gray-600 mb-2 gap-2">
                     <FaMapMarkerAlt className="text-gray-800 text-sm" />
@@ -320,13 +323,16 @@ export default function TopTrending() {
                     </span>
                   </div>
 
-                  <p className="text-xs text-gray-700 mb-3 line-clamp-3">
-                    {item.description}
+                  <p className="text-sm text-gray-700 mb-3">
+                    {item.description.length > 30
+                      ? item.description.substring(0, 30) + '...'
+                      : item.description}
                   </p>
+
 
                   {/* Business specific data */}
                   {activeTab === "Business" && (
-                    <div className="font-semibold text-base/1 text-gray-800 space-y-1 border-t pt-3 mt-auto">
+                    <div className="font-semibold text-sm line-clamp-2 text-gray-800 space-y-1 border-t pt-3 mt-auto">
                       <div className="flex justify-between ">
                         <span>Investment range</span>
                         <span className="font-bold text-black">

@@ -237,32 +237,32 @@ export default function LocalBusinesses() {
 
               {/* Card Details */}
               <div className="p-4 space-y-2 text-sm text-black">
-                <h3 className="text-lg font-bold">{item.name}</h3>
+                <h3 className="text-md leading-5 font-bold">{item.name}</h3>
                 <p className="line-clamp-2">{item.description}</p>
-                                   <div className="text-xs text-gray-800 space-y-1 border-t pt-3 mt-auto">
-                      <div className="flex justify-between">
-                        <span>Investment range</span>
-                        <span className="font-bold text-black">
-                          ₹
-                          {item.investment_min || 0}
-                          {item.investment_max
-                            ? ` - ₹${item.investment_max}`
-                            : ""}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Area Required</span>
-                        <span className="font-bold text-black">
-                          {item.area_required || "N/A"}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Franchise Outlets</span>
-                        <span className="font-bold text-black">
-                          {item.franchise_outlets || "0"}
-                        </span>
-                      </div>
-                      {/* <div className="flex justify-between mt-2">
+                <div className=" font-semibold text-base/1 text-gray-800 space-y-1 border-t pt-3 mt-auto">
+                  <div className="flex text-bold justify-between">
+                    <span>Investment range</span>
+                    <span className="font-bold text-black">
+                      ₹
+                      {item.investment_min || 0}
+                      {item.investment_max
+                        ? ` - ₹${item.investment_max}`
+                        : ""}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Area Required</span>
+                    <span className="font-bold text-black">
+                      {item.area_required || "N/A"}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Franchise Outlets</span>
+                    <span className="font-bold text-black">
+                      {item.franchise_outlets || "0"}
+                    </span>
+                  </div>
+                  {/* <div className="flex justify-between mt-2">
                         <span>Email</span>
                         <span className="text-right text-blue-700 text-[10px]">
                           {item.contact_email || "N/A"}
@@ -274,7 +274,7 @@ export default function LocalBusinesses() {
                           {item.phone_number || "N/A"}
                         </span>
                       </div> */}
-                      {/* {item.website && (
+                  {/* {item.website && (
                         <div className="flex justify-between">
                           <span>Website</span>
                           <a
@@ -287,7 +287,7 @@ export default function LocalBusinesses() {
                           </a>
                         </div>
                       )} */}
-                    </div>
+                </div>
               </div>
 
               {/* Button */}

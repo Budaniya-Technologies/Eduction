@@ -63,40 +63,42 @@ const Location = ({ children }) => {
 
   if (!locationGranted) {
     return (
-      <div className="fixed inset-0 bg-white/10 backdrop-blur-sm z-50 flex flex-col items-center justify-center text-white text-center px-4">
-        <h2 className="text-2xl font-bold mb-4">Enable Location Access</h2>
-        <p className="mb-4">Please enable location to continue using the website.</p>
+      <div className="fixed inset-0 bg-gradient-to-br from-pink-200 via-yellow-100 to-blue-200 z-50 flex flex-col items-center justify-center text-center px-6">
+        <div className="bg-white shadow-2xl rounded-3xl p-10 max-w-md w-full border-4 border-dashed border-blue-300 animate-fadeIn">
+          <h2 className="text-3xl font-extrabold text-pink-600 mb-4 font-[Comic Sans MS]">Hello! 📚</h2>
+          <p className="text-lg text-blue-800 mb-4 font-semibold">We need your location to help you explore cool things nearby!</p>
 
-        {errorMsg && <p className="text-red-400 mb-4">{errorMsg}</p>}
+          {errorMsg && <p className="text-red-500 font-bold mb-4">{errorMsg}</p>}
 
-        {loading ? (
-          <p className="animate-pulse mb-4">Requesting location...</p>
-        ) : showConfirmPopup ? (
-          <div className="flex flex-col items-center">
-            <p className="mb-4">Do you want to enable location access?</p>
-            <div className="flex gap-4">
-              <button
-                onClick={handleConfirmYes}
-                className="px-6 py-2 bg-green-600 hover:bg-green-700 rounded font-semibold"
-              >
-                Allow
-              </button>
-              <button
-                onClick={handleConfirmNo}
-                className="px-6 py-2 bg-red-600 hover:bg-red-700 rounded font-semibold"
-              >
-                Don't Allow
-              </button>
+          {loading ? (
+            <p className="text-purple-500 animate-pulse text-md font-semibold mb-4">🛰️ Finding your location...</p>
+          ) : showConfirmPopup ? (
+            <div className="flex flex-col items-center">
+              <p className="mb-4 text-blue-700 font-medium">Would you like to allow location access?</p>
+              <div className="flex gap-4">
+                <button
+                  onClick={handleConfirmYes}
+                  className="px-6 py-2 bg-green-400 hover:bg-green-500 text-white rounded-full shadow-md transition-all font-bold"
+                >
+                  ✅ Yes!
+                </button>
+                <button
+                  onClick={handleConfirmNo}
+                  className="px-6 py-2 bg-red-400 hover:bg-red-500 text-white rounded-full shadow-md transition-all font-bold"
+                >
+                  ❌ No
+                </button>
+              </div>
             </div>
-          </div>
-        ) : (
-          <button
-            onClick={handleTryAgain}
-            className="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded font-semibold"
-          >
-            Try Again
-          </button>
-        )}
+          ) : (
+            <button
+              onClick={handleTryAgain}
+              className="mt-2 px-8 py-2 bg-blue-400 hover:bg-blue-500 text-white rounded-full font-bold shadow-lg transition-all"
+            >
+              🚀 Try Again!
+            </button>
+          )}
+        </div>
       </div>
     );
   }

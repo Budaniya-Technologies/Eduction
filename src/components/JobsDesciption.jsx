@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { apiGet } from "../../Utils/http";
 import { useSearchParams } from "next/navigation";
 
-const JobsDescription = () => {
+const JobDesciptipon = () => {
   const [jobList, setJobList] = useState([]);
   const [selectedJob, setSelectedJob] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -192,4 +192,4 @@ const JobsDescription = () => {
   );
 };
 
-export default JobsDescription;
+export default JobDesciptipon;

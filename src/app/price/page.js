@@ -1,12 +1,12 @@
-import Price from '@/components/price'
+import Price from '@/components/Price'
 import React from 'react'
 
-const price = () => {
+function page() {
   return (
     <div>
-        <Price />
+      <Price/>
     </div>
   )
 }
 
-export default price
+export default page

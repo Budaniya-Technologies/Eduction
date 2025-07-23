@@ -1,36 +1,46 @@
-'use client';
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
-import axios from 'axios';
-import { apiGet } from '../../Utils/http';
+"use client";
+import React, { useState, useEffect } from "react";
+import { apiGet } from "../../Utils/http";
+import { useSearchParams } from "next/navigation";
 
 const BusinessDescription = () => {
   const [businessList, setBusinessList] = useState([]);
   const [selectedBusiness, setSelectedBusiness] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [showDetailMobile, setShowDetailMobile] = useState(false);
+  const searchParams = useSearchParams();
+  const businessIdFromQuery = searchParams.get("id");
 
-  // Fetch data on mount
   useEffect(() => {
     const fetchBusinesses = async () => {
       try {
-        const response = await apiGet('api/businesses/');
+        const response = await apiGet("api/businesses/");
         const data = response.data;
         setBusinessList(data);
-        setSelectedBusiness(data[0]); // default
+
+        // Check if the query param matches any business
+        const foundBusiness = data.find(
+          (item) => item.id == businessIdFromQuery
+        );
+        if (foundBusiness) {
+          setSelectedBusiness(foundBusiness);
+        } else {
+          setSelectedBusiness(data[0]); // fallback default
+        }
       } catch (error) {
-        console.error('Error fetching businesses:', error);
+        console.error("Error fetching businesses:", error);
       }
     };
+
     fetchBusinesses();
-  }, []);
+  }, [businessIdFromQuery]);
 
   // Detect mobile screen
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const handleCardClick = (biz) => {
@@ -46,23 +56,28 @@ const BusinessDescription = () => {
             key={biz.id}
             onClick={() => handleCardClick(biz)}
             className={`bg-white rounded-lg p-4 shadow-sm border hover:shadow-md transition cursor-pointer ${
-              selectedBusiness?.id === biz.id ? 'border-blue-500 shadow-md' : 'border-gray-200'
+              selectedBusiness?.id === biz.id
+                ? "border-blue-500 shadow-md"
+                : "border-gray-200"
             }`}
           >
             <div className="flex items-start gap-4">
               <img
-                src={biz.banner_image || '/placeholder.jpg'}
+                src={biz.banner_image || "/placeholder.jpg"}
                 alt={biz.name}
                 width={40}
                 height={40}
                 className="rounded"
               />
               <div className="flex-1">
-                <h3 className="text-base font-semibold text-gray-900">{biz.name}</h3>
+                <h3 className="text-base font-semibold text-gray-900">
+                  {biz.name}
+                </h3>
                 <p className="text-sm text-gray-600">{biz.category?.name}</p>
                 <p className="text-xs text-gray-500">{biz.subcategory?.name}</p>
                 <p className="text-xs text-gray-400 mt-1">
-                  Investment: ₹{biz.investment_min || 0} - ₹{biz.investment_max || 'N/A'}
+                  Investment: ₹{biz.investment_min || 0} - ₹
+                  {biz.investment_max || "N/A"}
                 </p>
               </div>
             </div>
@@ -87,15 +102,21 @@ const BusinessDescription = () => {
 
           <div className="flex items-center gap-4 mb-6">
             <img
-              src={selectedBusiness.banner_image || '/placeholder.jpg'}
+              src={selectedBusiness.banner_image || "/placeholder.jpg"}
               alt={selectedBusiness.name}
               width={64}
               height={64}
             />
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">{selectedBusiness.name}</h1>
-              <p className="text-sm text-gray-600">{selectedBusiness.subcategory?.name}</p>
-              <div className="text-xs text-gray-500 mt-1">{selectedBusiness.website}</div>
+              <h1 className="text-2xl font-bold text-gray-900">
+                {selectedBusiness.name}
+              </h1>
+              <p className="text-sm text-gray-600">
+                {selectedBusiness.subcategory?.name}
+              </p>
+              <div className="text-xs text-gray-500 mt-1">
+                {selectedBusiness.website}
+              </div>
             </div>
           </div>
 
@@ -107,8 +128,12 @@ const BusinessDescription = () => {
           </div>
 
           <section className="mb-6">
-            <h2 className="text-lg font-semibold text-gray-800 mb-2">Description</h2>
-            <p className="text-sm text-gray-700">{selectedBusiness.description}</p>
+            <h2 className="text-lg font-semibold text-gray-800 mb-2">
+              Description
+            </h2>
+            <p className="text-sm text-gray-700">
+              {selectedBusiness.description}
+            </p>
           </section>
 
           <div className="text-center mt-10">
@@ -128,7 +153,13 @@ const BusinessDescription = () => {
 
   return (
     <div className="flex flex-col md:flex-row h-screen bg-[#f9f9f9]">
-      {isMobile ? (showDetailMobile ? renderBusinessDetail() : renderBusinessList()) : (
+      {isMobile ? (
+        showDetailMobile ? (
+          renderBusinessDetail()
+        ) : (
+          renderBusinessList()
+        )
+      ) : (
         <>
           {renderBusinessList()}
           {renderBusinessDetail()}

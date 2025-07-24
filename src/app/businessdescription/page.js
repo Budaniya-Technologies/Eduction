@@ -1,11 +1,11 @@
 import BusinessDescription from '@/components/BusinessDescription'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 function page() {
   return (
-    <div>
-      <BusinessDescription/>
-    </div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <BusinessDescription/>
+    </Suspense>
   )
 }
 

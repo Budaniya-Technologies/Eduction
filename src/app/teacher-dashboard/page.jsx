@@ -12,8 +12,10 @@ const TeacherDashboardPage = () => {
   const [currentSection, setCurrentSection] = useState('Manage Students');
 
   const cards = [
-    { title: 'Total Students Assigned', count: 180, color: '#10B981' },
+    { title: 'Total Classes Assigned', count: 5, color: '#10B981' },
     { title: 'Subjects Assigned', count: 2, color: '#8B5CF6' },
+    { title: 'Pending Exams', count: 10, color: '#10B981' },
+    { title: 'Quiz Created', count: 25, color: '#8B5CF6' },
   ];
 
   const sidebarItems = [

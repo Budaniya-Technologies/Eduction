@@ -10,7 +10,8 @@ const BusinessDashboardPage = () => {
   const cards = [
     { title: 'Total Services', count: 35, color: '#10B981' },
     { title: 'Total Products', count: 142, color: '#6366F1' },
-    // { title: 'Team Members', count: 8, color: '#F59E0B' },
+    { title: 'Team Members', count: 281, color: '#F59E0B' },
+    { title: 'Frenchies', count: 3, color: '#6366F1' },
   ];
 
   const sidebarItems = [

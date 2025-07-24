@@ -13,6 +13,8 @@ const TeacherDashboardPage = () => {
   const cards = [
     { title: 'Total Students Assigned', count: 180, color: '#10B981' },
     { title: 'Subjects Assigned', count: 2,         color: '#8B5CF6' },
+    { title: 'Total Classes Assigned', count: 4, color: '#10B981' },
+    { title: 'Total Live Classes', count: 2,         color: '#8B5CF6' },
   ];
 
   const sidebarItems = [

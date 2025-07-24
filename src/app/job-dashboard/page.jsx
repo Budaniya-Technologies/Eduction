@@ -9,6 +9,8 @@ const JobDashboardPage = () => {
   const cards = [
     { title: 'Jobs Posted', count: 52, color: '#F59E0B' },
     { title: 'Total Applications', count: 18, color: '#3B82F6' },
+    { title: 'Total Hired', count: 52, color: '#F59E0B' },
+    { title: 'Shortlisted Cadidates', count: 18, color: '#3B82F6' },
   ];
 
   const sidebarItems = [

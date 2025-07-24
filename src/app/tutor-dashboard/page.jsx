@@ -9,6 +9,8 @@ const HomeTutorDashboardPage = () => {
   const cards = [
     { title: 'Total Students', count: 40, color: '#F59E0B' },
     { title: 'Subjects Offered', count: 6, color: '#10B981' },
+    { title: 'Exams Created', count: 12, color: '#F59E0B' },
+    { title: 'Classes Offered', count: 4, color: '#10B981' },
   ];
 
   const sidebarItems = [

@@ -13,9 +13,9 @@ import {
 
 const navItems = [
   { label: "HOME", icon: FiHome, path: "/" },
-  { label: "JOBS", icon: FiBriefcase, path: "/jobs" },
-  { label: "BUSINESS", icon: FiFolder, path: "/businesses" },
-  { label: "GURUKUL", icon: FiBookOpen, path: "/students" },
+  { label: "JOBS", icon: FiBriefcase, path: "/jobdescription" },
+  { label: "BUSINESS", icon: FiFolder, path: "/businessdescription" },
+  { label: "GURUKUL", icon: FiBookOpen, path: "/gurukul" },
   { label: "QUIZ", icon: FiMessageSquare, path: "/quiz" },
   { label: "SURVEY", icon: FiSettings, path: "/survey" },
   { label: "SERVICES", icon: FiTool, path: "/services" },

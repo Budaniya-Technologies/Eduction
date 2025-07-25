@@ -87,7 +87,7 @@ export default function Navbar() {
         {/* Desktop Buttons */}
         <div className="hidden md:flex gap-4">
           <button
-            onClick={() => router.push("/registration")}
+            onClick={() => router.push("/login")}
             className="bg-[#b2faff] text-black border border-black px-5 py-1.5 rounded-full hover:bg-[#a2eff0] transition font-medium"
           >
             Sign Up
@@ -189,7 +189,7 @@ export default function Navbar() {
             <button
               onClick={() => {
                 setIsMobileOpen(false);
-                router.push("/registration");
+                router.push("/login");
               }}
               className="bg-[#b2faff] text-black border border-black px-4 py-2 rounded-full hover:bg-[#a2eff0] font-medium"
             >

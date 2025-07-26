@@ -57,7 +57,7 @@ export default function Courses() {
   };
 
   return (
-    <section className="bg-gray-100 py-10 px-4">
+    <section className="bg-gray-100 pt-10 pb-1 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
         <div className="flex justify-between items-center mb-6">
@@ -77,7 +77,9 @@ export default function Courses() {
           <Slider {...settings} ref={(slider) => (sliderRef = slider)}>
             {courses.map((item) => (
               <div key={item.id} className="px-2">
-                <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden h-full flex flex-col">
+                <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden h-full flex flex-col 
+                  sm:max-w-sm sm:mx-auto sm:scale-[0.95] sm:text-sm">
+
                   {/* Image with aspect ratio */}
                   <div className="relative w-full aspect-[4/3] overflow-hidden">
                     <img

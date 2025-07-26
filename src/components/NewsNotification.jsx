@@ -25,7 +25,7 @@ export default function NewsNotification() {
   const rightPost = newsEvents[4];
 
   return (
-    <section className="bg-gray-100 px-4 py-12">
+    <section className="bg-gray-100 px-4 pt-[100px]">
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
         <div className="flex justify-between items-center mb-6">
@@ -54,7 +54,7 @@ export default function NewsNotification() {
         </div>
 
         {/* News Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-1">
           {/* Left Main News */}
           {mainPost && (
             <div className="bg-white rounded-xl shadow overflow-hidden">

@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 const BusinessHeader = ({ data }) => {
@@ -11,16 +13,25 @@ const BusinessHeader = ({ data }) => {
               {data.rating} ★
             </span>
             <span>{data.reviews} Ratings</span>
-            {data.isClaimed && <span className="text-xs text-gray-500">Claimed</span>}
+            {data.isClaimed && (
+              <span className="text-xs text-gray-500">Claimed</span>
+            )}
           </div>
           <p className="text-gray-600 mt-1">{data.location}</p>
           <p className="text-green-600 font-medium">{data.timing}</p>
           <div className="mt-2 flex gap-2 flex-wrap">
-            <a href={`tel:${data.contact}`} className="bg-green-600 text-white px-4 py-1 rounded">
+            <a
+              href={`tel:${data.contact}`}
+              className="bg-green-600 text-white px-4 py-1 rounded"
+            >
               📞 {data.contact}
             </a>
-            <button className="bg-blue-600 text-white px-4 py-1 rounded">Enquire Now</button>
-            <button className="bg-green-500 text-white px-4 py-1 rounded">WhatsApp</button>
+            <button className="bg-blue-600 text-white px-4 py-1 rounded">
+              Enquire Now
+            </button>
+            <button className="bg-green-500 text-white px-4 py-1 rounded">
+              WhatsApp
+            </button>
           </div>
         </div>
         <div className="mt-4 md:mt-0 grid grid-cols-3 gap-2">
@@ -28,7 +39,7 @@ const BusinessHeader = ({ data }) => {
             <img
               key={index}
               src={img}
-              alt="Gallery"
+              alt={`Gallery image ${index + 1}`}
               className="w-24 h-24 object-cover rounded shadow"
             />
           ))}

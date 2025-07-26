@@ -38,7 +38,7 @@ const businessData = {
   ],
 };
 
-const BusinessProfile: React.FC = () => {
+const BusinessProfile = () => {
   return (
     <div className="p-6 bg-white text-black max-w-6xl mx-auto">
       {/* Business Header */}
@@ -54,6 +54,7 @@ const BusinessProfile: React.FC = () => {
           href={businessData.website}
           className="mt-4 md:mt-0 bg-blue-600 text-white px-4 py-2 rounded"
           target="_blank"
+          rel="noopener noreferrer"
         >
           Visit Website
         </a>

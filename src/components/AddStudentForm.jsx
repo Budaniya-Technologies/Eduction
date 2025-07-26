@@ -1,12 +1,12 @@
-'use client';
-import React, { useState } from 'react';
+'use client'
+import React, { useState } from 'react'
 
-const districts = ['Ajmer', 'Jaipur', 'Udaipur', 'Jodhpur', 'Sirohi', 'Kota', 'Bikaner'];
-const blocks = ['Block A', 'Block B', 'Block C'];
-const classes = ['Nursery', 'LKG', 'UKG', '1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th'];
-const castes = ['General', 'OBC', 'SC', 'ST'];
-const schoolTypes = ['Govt. School', 'State Private', 'Other State School', 'First Time Study', 'Aayu Anusaar'];
-const streams = ['Science', 'Commerce', 'Arts'];
+const districts = ['Ajmer', 'Jaipur', 'Udaipur', 'Jodhpur', 'Sirohi', 'Kota', 'Bikaner']
+const blocks = ['Block A', 'Block B', 'Block C']
+const classes = ['Nursery', 'LKG', 'UKG', '1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th']
+const castes = ['General', 'OBC', 'SC', 'ST']
+const schoolTypes = ['Govt. School', 'State Private', 'Other State School', 'First Time Study', 'Aayu Anusaar']
+const streams = ['Science', 'Commerce', 'Arts']
 
 const StudentAdmissionForm = () => {
   const [formData, setFormData] = useState({
@@ -30,22 +30,18 @@ const StudentAdmissionForm = () => {
     prevClass: '',
     resultStatus: '',
     stream: '',
-    mobile: ''
-  });
+    mobile: '',
+  })
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+  }
 
-  const [dob, setDob] = useState('');
-  const [regDate, setRegDate] = useState('');
+  const [dob, setDob] = useState('')
+  const [regDate, setRegDate] = useState('')
 
-  const validateDate = (dateStr) => {
-    // Basic check for DD/MM/YYYY format using regex
-    return /^\d{2}\/\d{2}\/\d{4}$/.test(dateStr);
-  };
-
+  const validateDate = (dateStr) => /^\d{2}\/\d{2}\/\d{4}$/.test(dateStr)
 
   return (
     <div className="max-w-full mx-auto p-6 bg-white rounded-xl shadow space-y-6">
@@ -58,18 +54,13 @@ const StudentAdmissionForm = () => {
           placeholder="DD/MM/YYYY"
           value={dob}
           onChange={(e) => setDob(e.target.value)}
-          className={`w-full border rounded-md py-2 pl-3 pr-10 text-sm focus:outline-none
-              ${dob === ''
-              ? 'border-gray-300'
-              : validateDate(dob)
-                ? 'border-green-500'
-                : 'border-red-500'}`}
+          className={`w-full border rounded-md py-2 pl-3 pr-10 text-sm focus:outline-none ${
+            dob === '' ? 'border-gray-300' : validateDate(dob) ? 'border-green-500' : 'border-red-500'
+          }`}
         />
-
         <input type="text" name="studentName" placeholder="Student Name" className="input" onChange={handleChange} />
         <input type="text" name="fatherName" placeholder="Father's Name" className="input" onChange={handleChange} />
         <input type="text" name="motherName" placeholder="Mother's Name" className="input" onChange={handleChange} />
-
         <input type="date" name="dob" className="input" onChange={handleChange} />
 
         <select name="gender" className="input" onChange={handleChange}>
@@ -81,7 +72,9 @@ const StudentAdmissionForm = () => {
 
         <select name="category" className="input" onChange={handleChange}>
           <option value="">Select Category</option>
-          {castes.map(caste => <option key={caste}>{caste}</option>)}
+          {castes.map((caste) => (
+            <option key={caste}>{caste}</option>
+          ))}
         </select>
       </div>
 
@@ -92,10 +85,11 @@ const StudentAdmissionForm = () => {
         <div>
           <input list="districts" name="district" placeholder="District" className="input" onChange={handleChange} />
           <datalist id="districts">
-            {districts.map((d, i) => <option key={i} value={d} />)}
+            {districts.map((d, i) => (
+              <option key={i} value={d} />
+            ))}
           </datalist>
         </div>
-
         <input type="text" name="school" placeholder="School Name" className="input" onChange={handleChange} />
       </div>
 
@@ -131,7 +125,9 @@ const StudentAdmissionForm = () => {
       <div>
         <input list="classes" name="prevClass" placeholder="Previous Class" className="input w-full" onChange={handleChange} />
         <datalist id="classes">
-          {classes.map(c => <option key={c} value={c} />)}
+          {classes.map((c) => (
+            <option key={c} value={c} />
+          ))}
         </datalist>
       </div>
 
@@ -140,7 +136,9 @@ const StudentAdmissionForm = () => {
         <label className="font-medium">Stream for XI (if applicable)</label>
         <select name="stream" className="input w-full" onChange={handleChange}>
           <option value="">Select Stream</option>
-          {streams.map(s => <option key={s}>{s}</option>)}
+          {streams.map((s) => (
+            <option key={s}>{s}</option>
+          ))}
         </select>
       </div>
 
@@ -153,7 +151,7 @@ const StudentAdmissionForm = () => {
         Submit Admission
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default StudentAdmissionForm;
+export default StudentAdmissionForm

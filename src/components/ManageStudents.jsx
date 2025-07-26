@@ -1,4 +1,3 @@
-// components/ManageStudents.tsx
 'use client';
 
 import React, { useState, useMemo } from 'react';
@@ -157,40 +156,39 @@ const dummyStudents = [
   },
 ];
 
-const ManageStudents: React.FC = () => {
+const ManageStudents = () => {
   const [students, setStudents] = useState(dummyStudents);
-  const [editingId, setEditingId] = useState<number | null>(null);
-  const [editData, setEditData] = useState<any>({});
-  const [filterClass, setFilterClass] = useState<string>('All');
+  const [editingId, setEditingId] = useState(null);
+  const [editData, setEditData] = useState({});
+  const [filterClass, setFilterClass] = useState('All');
 
-  const startEdit = (s: any) => {
+  const startEdit = (s) => {
     setEditingId(s.id);
     setEditData({ ...s });
   };
+
   const cancelEdit = () => {
     setEditingId(null);
     setEditData({});
   };
+
   const saveChanges = () => {
     setStudents((prev) =>
-      prev.map((s) =>
-        s.id === editingId ? { ...editData, id: s.id } : s
-      )
+      prev.map((s) => (s.id === editingId ? { ...editData, id: s.id } : s))
     );
     setEditingId(null);
   };
-  const handleChange = (e: any) => {
+
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setEditData((p: any) => ({ ...p, [name]: value }));
+    setEditData((p) => ({ ...p, [name]: value }));
   };
 
-  // derive unique classes for filter dropdown
   const classOptions = useMemo(() => {
     const setClasses = new Set(students.map((s) => s.prevClass || ''));
     return ['All', ...Array.from(setClasses).filter((c) => c)];
   }, [students]);
 
-  // apply filter
   const filtered = useMemo(() => {
     return filterClass === 'All'
       ? students
@@ -203,12 +201,8 @@ const ManageStudents: React.FC = () => {
         Manage Students
       </h2>
 
-      {/* Filter */}
       <div className="mb-6 flex flex-wrap items-center gap-3">
-        <label
-          htmlFor="classFilter"
-          className="text-sm font-medium text-gray-700"
-        >
+        <label htmlFor="classFilter" className="text-sm font-medium text-gray-700">
           Filter by Class:
         </label>
         <select
@@ -225,29 +219,17 @@ const ManageStudents: React.FC = () => {
         </select>
       </div>
 
-      {/* Mobile Card View */}
+      {/* Mobile View */}
       <div className="md:hidden space-y-4">
         {filtered.map((st) => (
-          <div
-            key={st.id}
-            className="bg-white rounded-lg shadow p-4"
-          >
+          <div key={st.id} className="bg-white rounded-lg shadow p-4">
             {editingId === st.id ? (
               <>
                 <div className="space-y-2">
                   {[
-                    'admissionNo',
-                    'studentName',
-                    'fatherName',
-                    'motherName',
-                    'dob',
-                    'gender',
-                    'caste',
-                    'district',
-                    'school',
-                    'prevClass',
-                    'stream',
-                    'mobile',
+                    'admissionNo', 'studentName', 'fatherName', 'motherName',
+                    'dob', 'gender', 'caste', 'district', 'school',
+                    'prevClass', 'stream', 'mobile'
                   ].map((field) => (
                     <div key={field}>
                       <label className="block text-xs font-medium text-gray-600">
@@ -310,7 +292,6 @@ const ManageStudents: React.FC = () => {
                     <p className="text-xs text-gray-500">Mobile</p>
                     <p className="font-medium">{st.mobile}</p>
                   </div>
-                  {/* add any two more key fields as needed */}
                 </div>
                 <div className="flex justify-end mt-3">
                   <button
@@ -326,25 +307,15 @@ const ManageStudents: React.FC = () => {
         ))}
       </div>
 
-      {/* Desktop Table View */}
+      {/* Desktop View */}
       <div className="hidden md:block overflow-x-auto">
         <table className="w-full bg-white rounded-lg shadow overflow-hidden">
           <thead className="bg-gray-100">
             <tr>
               {[
-                'Admission No',
-                'Student Name',
-                'Father Name',
-                'Mother Name',
-                'DOB',
-                'Gender',
-                'Caste',
-                'District',
-                'School',
-                'Prev Class',
-                'Stream',
-                'Mobile',
-                'Action',
+                'Admission No', 'Student Name', 'Father Name', 'Mother Name',
+                'DOB', 'Gender', 'Caste', 'District', 'School',
+                'Prev Class', 'Stream', 'Mobile', 'Action'
               ].map((h) => (
                 <th
                   key={h}
@@ -360,23 +331,11 @@ const ManageStudents: React.FC = () => {
               editingId === st.id ? (
                 <tr key={st.id} className="bg-yellow-50">
                   {[
-                    'admissionNo',
-                    'studentName',
-                    'fatherName',
-                    'motherName',
-                    'dob',
-                    'gender',
-                    'caste',
-                    'district',
-                    'school',
-                    'prevClass',
-                    'stream',
-                    'mobile',
+                    'admissionNo', 'studentName', 'fatherName', 'motherName',
+                    'dob', 'gender', 'caste', 'district', 'school',
+                    'prevClass', 'stream', 'mobile'
                   ].map((field) => (
-                    <td
-                      key={field}
-                      className="px-2 py-1 border-t text-sm"
-                    >
+                    <td key={field} className="px-2 py-1 border-t text-sm">
                       {field === 'gender' ? (
                         <select
                           name={field}
@@ -417,23 +376,11 @@ const ManageStudents: React.FC = () => {
               ) : (
                 <tr key={st.id} className="hover:bg-gray-50">
                   {[
-                    st.admissionNo,
-                    st.studentName,
-                    st.fatherName,
-                    st.motherName,
-                    st.dob,
-                    st.gender,
-                    st.caste,
-                    st.district,
-                    st.school,
-                    st.prevClass,
-                    st.stream || '–',
-                    st.mobile,
+                    st.admissionNo, st.studentName, st.fatherName, st.motherName,
+                    st.dob, st.gender, st.caste, st.district, st.school,
+                    st.prevClass, st.stream || '–', st.mobile
                   ].map((val, idx) => (
-                    <td
-                      key={idx}
-                      className="px-3 py-2 border-t text-sm text-gray-700"
-                    >
+                    <td key={idx} className="px-3 py-2 border-t text-sm text-gray-700">
                       {val}
                     </td>
                   ))}

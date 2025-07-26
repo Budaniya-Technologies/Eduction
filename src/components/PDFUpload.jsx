@@ -3,27 +3,26 @@
 import { useState } from 'react'
 
 export default function PdfUpload() {
-  const [pdfFiles, setPdfFiles] = useState<File[]>([])
+  const [pdfFiles, setPdfFiles] = useState([])
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const [subject, setSubject] = useState("")
-  const classes = ['Nursery', 'LKG', 'UKG', '1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th'];
+  const [formData, setFormData] = useState({})
+  const classes = ['Nursery', 'LKG', 'UKG', '1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th']
 
-  const handlePdfChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePdfChange = (e) => {
     if (e.target.files) {
       const files = Array.from(e.target.files)
       setPdfFiles(files)
     }
   }
 
-  
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prev => ({ ...prev, [name]: value }))
+  }
 
   const handleSubmit = () => {
-    // TODO: Upload logic here
     alert("PDF study material submitted!")
   }
 
@@ -41,30 +40,27 @@ export default function PdfUpload() {
           onChange={handlePdfChange}
           className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-purple-600 file:text-white hover:file:bg-purple-700"
         />
-       {pdfFiles.length > 0 && (
-  <ul className="mt-4 space-y-2 text-sm text-gray-700">
-    {pdfFiles.map((file, index) => (
-      <li
-        key={index}
-        className="flex justify-between items-center px-4 py-2 border rounded-md bg-gray-50"
-      >
-        <span className="truncate flex items-center gap-2">
-          📄 <span className="max-w-xs truncate">{file.name}</span>
-        </span>
-        <button
-          onClick={() => {
-            setPdfFiles((prev) => prev.filter((_, i) => i !== index))
-          }}
-          className="text-red-500 hover:text-red-700 text-xl font-bold leading-none"
-          title="Remove"
-        >
-          &times;
-        </button>
-      </li>
-    ))}
-  </ul>
-)}
-
+        {pdfFiles.length > 0 && (
+          <ul className="mt-4 space-y-2 text-sm text-gray-700">
+            {pdfFiles.map((file, index) => (
+              <li
+                key={index}
+                className="flex justify-between items-center px-4 py-2 border rounded-md bg-gray-50"
+              >
+                <span className="truncate flex items-center gap-2">
+                  📄 <span className="max-w-xs truncate">{file.name}</span>
+                </span>
+                <button
+                  onClick={() => setPdfFiles(prev => prev.filter((_, i) => i !== index))}
+                  className="text-red-500 hover:text-red-700 text-xl font-bold leading-none"
+                  title="Remove"
+                >
+                  &times;
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
       {/* Title */}
@@ -91,8 +87,15 @@ export default function PdfUpload() {
         ></textarea>
       </div>
 
+      {/* Class Selection */}
       <div>
-        <input list="classes" name="prevClass" placeholder="Class" className="input w-full" onChange={handleChange} />
+        <input
+          list="classes"
+          name="prevClass"
+          placeholder="Class"
+          className="input w-full"
+          onChange={handleChange}
+        />
         <datalist id="classes">
           {classes.map(c => <option key={c} value={c} />)}
         </datalist>

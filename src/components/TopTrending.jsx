@@ -81,14 +81,15 @@ export default function TopTrending() {
         {/* Swiper */}
         <Swiper
           modules={[Autoplay]}
-          spaceBetween={20}
+          spaceBetween={10}
           loop
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
           }}
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           breakpoints={{
-            0: { slidesPerView: 1.2 },
+            0: { slidesPerView: 1 },
+            420: { slidesPerView: 1 },
             640: { slidesPerView: 2 },
             1024: { slidesPerView: 3 },
             1280: { slidesPerView: 4 },
@@ -96,7 +97,7 @@ export default function TopTrending() {
         >
           {getTabData().map((item, idx) => (
             <SwiperSlide key={item.id || idx}>
-              <div className="bg-white rounded-xl shadow hover:shadow-lg overflow-hidden flex flex-col transition-all duration-300 max-w-[300px] mx-auto h-full">
+              <div className="bg-white rounded-xl shadow hover:shadow-lg overflow-hidden flex flex-col transition-all duration-300 max-w-8xl mx-auto h-full">
                 {/* Top image */}
                 <div className="w-full h-40">
                   <img

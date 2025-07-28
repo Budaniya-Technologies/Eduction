@@ -27,8 +27,8 @@ const CustomerReview = () => {
 
   return (
     <section className="p-8 bg-gray-100">
-      <h2 className="text-2xl md:text-3xl font-bold text-blue-800 mb-6 border-b-2 border-black inline-block">
-        Customer Review
+      <h2 className="text-lg md:text-xl font-bold text-black px-3 py-1 rounded-full shadow-lg border-4 border-white inline-block mb-4">
+        📝 Customer Review
       </h2>
 
       <Swiper

@@ -52,7 +52,7 @@ export default function HeroSlider() {
             onMouseEnter={() => setAutoplay(false)}
             onMouseLeave={() => setAutoplay(true)}
         >
-            <div className="relative h-[55vh] min-h-[100px]">
+            <div className="relative h-[55vh] min-h-screen">
                 {slidesData.map((slide, index) => (
                     <div
                         key={index}

@@ -44,8 +44,8 @@ export default function TopTrending() {
   return (
     <section className="bg-gray-100 py-1 px-4 relative">
       <div className="max-w-screen-xl mx-auto">
-        <h2 className="text-3xl font-bold text-blue-800 border-b-4 border-black inline-block mb-8">
-          Top Trending
+        <h2 className="text-xl md:text-xl font-bold text-black px-6 py-2 rounded-full shadow-lg border-4 border-white inline-block mb-4">
+          🎓Top Treanding 
         </h2>
 
         {/* Tabs */}

@@ -31,16 +31,16 @@ export default function Home() {
   return (
     <section>
       {/* Conditional rendering based on screen size */}
-       <Location >
-      {isMobile ? <MobSlider /> : <HeroSlider />}
-      <OurServices />
-      <TopTrending />
-      <Courses />
-      <NewsNotification />
-      <CustomerReview />
-      <ContactUs />
-      <Footer />
-      </Location>
+      
+        {isMobile ? <MobSlider /> : <HeroSlider />}
+        <OurServices />
+        <TopTrending />
+        <Courses />
+        <NewsNotification />
+        <CustomerReview />
+        <ContactUs />
+        <Footer />
+      {/* <Location ></Location> */}
     </section>
   );
 }

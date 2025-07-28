@@ -39,7 +39,7 @@ export default function BottomNavbar() {
               className="flex flex-col items-center text-xs font-semibold transition-all duration-200 group"
             >
               <Icon
-                className={`text-2xl mb-1 transition-all duration-200 
+                className={`text-xl mb-1 transition-all duration-200 
                   ${isActive ? "text-blue-600" : "text-gray-500"} 
                   group-hover:text-blue-600 group-hover:scale-110`}
               />

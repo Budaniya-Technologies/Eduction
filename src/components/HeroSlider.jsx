@@ -52,7 +52,7 @@ export default function HeroSlider() {
             onMouseEnter={() => setAutoplay(false)}
             onMouseLeave={() => setAutoplay(true)}
         >
-            <div className="relative h-[90vh] min-h-[500px]">
+            <div className="relative h-[55vh] min-h-[100px]">
                 {slidesData.map((slide, index) => (
                     <div
                         key={index}
@@ -77,11 +77,11 @@ export default function HeroSlider() {
                                 <h2 className="text-lg md:text-xl font-bold text-red-500 mb-2">{slide.title}</h2>
                                 <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4">{slide.description}</h1>
                                 <p className="text-sm sm:text-base md:text-lg mb-6 font-semibold text-black/90">{slide.description2}</p>
-                                <a href={slide.buttonUrl}
+                                {/* <a href={slide.buttonUrl}
                                     className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md text-sm sm:text-base md:text-lg font-semibold tra nsition-colors"
                                 >
                                     {slide.buttonText}
-                                </a>
+                                </a> */}
                             </div>
                         </div>
                     </div>

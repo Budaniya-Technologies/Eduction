@@ -36,10 +36,10 @@ export default function OurServices() {
   }, []);
 
   return (
-    <section className="bg-gray-100 pt-16 pb-1 px-4">
+    <section className="bg-gray-100 pt-[0.5rem] pb-1 px-4">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-xl md:text-xl font-extrabold text-black px-6 py-2 rounded-full shadow-lg border-4 border-white inline-block mb-4">
-          🎓 Our Services
+        <h2 className="text-lg md:text-xl font-bold text-black px-3 py-1 rounded-full shadow-lg border-4 border-white inline-block mb-4">
+          💼 Our Services
         </h2>
 
         {services.length === 0 ? (

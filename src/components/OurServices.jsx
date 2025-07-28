@@ -36,7 +36,7 @@ export default function OurServices() {
   }, []);
 
   return (
-    <section className="bg-gray-100 py-16 px-4">
+    <section className="bg-gray-100 pt-16 pb-1 px-4">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl font-bold text-blue-800 mb-6 border-b-4 border-black inline-block shadow-md px-3">
           Our Services
@@ -82,7 +82,7 @@ export default function OurServices() {
                           : "More info coming soon."}
                       </p>
                     </div>
-                    <div className="flex justify-between items-center px-3 py-2 border-t text-xs text-gray-600">
+                    <div className="flex justify-between items-center px-3 py-1 border-t text-xs text-gray-600">
                       <span className="flex items-center gap-1">
                         <FaClock className="text-black text-sm" /> Recently
                         Added
@@ -98,7 +98,7 @@ export default function OurServices() {
             </Swiper>
 
             {/* Navigation Buttons */}
-            <div className="flex gap-3 justify-end mt-5">
+            <div className="flex gap-3 justify-end mt-10">
               <button
                 onClick={() => swiperRef.current?.slidePrev()}
                 className="p-2 bg-white border border-gray-300 rounded-full shadow hover:bg-gray-100"

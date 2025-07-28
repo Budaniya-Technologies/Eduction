@@ -42,7 +42,7 @@ export default function TopTrending() {
   const getTabData = () => (activeTab === "Jobs" ? jobsData : businessData);
 
   return (
-    <section className="bg-gray-100 py-14 px-4 relative">
+    <section className="bg-gray-100 py-1 px-4 relative">
       <div className="max-w-screen-xl mx-auto">
         <h2 className="text-3xl font-bold text-blue-800 border-b-4 border-black inline-block mb-8">
           Top Trending
@@ -50,16 +50,15 @@ export default function TopTrending() {
 
         {/* Tabs */}
         <div className="flex justify-between items-center flex-wrap mb-6">
-          <div className="flex gap-3 mt-3 sm:mt-0">
+          <div className="flex gap-3 mt-1 sm:mt-0">
             {tabs.map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-4 py-2 rounded-md text-sm font-bold border-b-2 ${
-                  activeTab === tab
-                    ? "bg-blue-600 text-white border-lime-400"
-                    : "bg-white text-gray-700 border-transparent"
-                }`}
+                className={`px-4 py-2 rounded-md text-sm font-bold border-b-2 ${activeTab === tab
+                  ? "bg-blue-600 text-white border-lime-400"
+                  : "bg-white text-gray-700 border-transparent"
+                  }`}
               >
                 {tab}
               </button>

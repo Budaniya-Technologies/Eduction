@@ -38,8 +38,8 @@ export default function OurServices() {
   return (
     <section className="bg-gray-100 pt-16 pb-1 px-4">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold text-blue-800 mb-6 border-b-4 border-black inline-block shadow-md px-3">
-          Our Services
+        <h2 className="text-xl md:text-xl font-extrabold text-black px-6 py-2 rounded-full shadow-lg border-4 border-white inline-block mb-4">
+          🎓 Our Services
         </h2>
 
         {services.length === 0 ? (
@@ -82,7 +82,7 @@ export default function OurServices() {
                           : "More info coming soon."}
                       </p>
                     </div>
-                    <div className="flex justify-between items-center px-3 py-1 border-t text-xs text-gray-600">
+                    {/* <div className="flex justify-between items-center px-3 py-1 border-t text-xs text-gray-600">
                       <span className="flex items-center gap-1">
                         <FaClock className="text-black text-sm" /> Recently
                         Added
@@ -91,7 +91,7 @@ export default function OurServices() {
                         <FaCommentDots className="text-black text-sm" /> 0
                         Comments
                       </span>
-                    </div>
+                    </div> */}
                   </div>
                 </SwiperSlide>
               ))}

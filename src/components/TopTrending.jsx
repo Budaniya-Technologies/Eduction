@@ -81,7 +81,7 @@ export default function TopTrending() {
         {/* Swiper */}
         <Swiper
           modules={[Autoplay]}
-          spaceBetween={10}
+          spaceBetween={20}
           loop
           onSwiper={(swiper) => {
             swiperRef.current = swiper;

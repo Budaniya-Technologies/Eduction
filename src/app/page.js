@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import HeroSlider from "@/components/HeroSlider";
 import CustomerReview from "@/components/CustomerReview";
 import MobSlider from "@/components/Mobslider";
+import Location from "@/components/Location";
 
 export default function Home() {
   const [isMobile, setIsMobile] = useState(false);
@@ -30,6 +31,7 @@ export default function Home() {
   return (
     <section>
       {/* Conditional rendering based on screen size */}
+       <Location >
       {isMobile ? <MobSlider /> : <HeroSlider />}
       <OurServices />
       <TopTrending />
@@ -38,6 +40,7 @@ export default function Home() {
       <CustomerReview />
       <ContactUs />
       <Footer />
+      </Location>
     </section>
   );
 }

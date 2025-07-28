@@ -1,7 +1,7 @@
-'use client';
-import React, { useState } from 'react';
+'use client'
+import React, { useState } from 'react'
 
-const AddService: React.FC = () => {
+const AddService = () => {
   const [formData, setFormData] = useState({
     serviceName: '',
     category: '',
@@ -9,26 +9,23 @@ const AddService: React.FC = () => {
     price: '',
     duration: '',
     tags: '',
-  });
+  })
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Service Submitted:', formData);
-    alert('✅ Service Submitted!');
-  };
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log('Service Submitted:', formData)
+    alert('✅ Service Submitted!')
+  }
 
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold text-raisin-black">Add New Service</h2>
 
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white shadow-md rounded-lg p-6 space-y-4"
-      >
+      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-6 space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <input
             type="text"
@@ -71,7 +68,7 @@ const AddService: React.FC = () => {
           value={formData.description}
           onChange={handleChange}
           placeholder="Service Description"
-          rows={4}
+          rows="4"
           className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-jungle-green"
         />
 
@@ -92,7 +89,7 @@ const AddService: React.FC = () => {
         </button>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default AddService;
+export default AddService

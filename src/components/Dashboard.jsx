@@ -1,33 +1,8 @@
-'use client';
-import React, { useState } from 'react';
-import { HiMenu, HiX, HiChevronRight, HiChevronDown } from 'react-icons/hi';
+'use client'
+import React, { useState } from 'react'
+import { HiMenu, HiX, HiChevronRight, HiChevronDown } from 'react-icons/hi'
 
-interface DashboardCard {
-  title: string;
-  count: number;
-  color: string;
-}
-
-interface NewsItem {
-  title: string;
-  icon?: React.ReactNode;
-}
-
-interface SidebarItem {
-  section: string;
-  items: (string | { label: string; subItems: string[] })[];
-}
-
-interface DashboardProps {
-  title: string;
-  cards: DashboardCard[];
-  sidebarItems: SidebarItem[];
-  news: NewsItem[];
-  mainComponent: React.ReactNode;
-  onSectionClick: (label: string) => void;
-}
-
-const Dashboard: React.FC<DashboardProps> = ({
+const Dashboard = ({
   title,
   cards,
   sidebarItems,
@@ -35,11 +10,11 @@ const Dashboard: React.FC<DashboardProps> = ({
   mainComponent,
   onSectionClick,
 }) => {
-  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [expanded, setExpanded] = useState({})
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
-  const toggleExpand = (label: string) =>
-    setExpanded(prev => ({ ...prev, [label]: !prev[label] }));
+  const toggleExpand = (label) =>
+    setExpanded((prev) => ({ ...prev, [label]: !prev[label] }))
 
   return (
     <div className="flex flex-col py-16 md:flex-row min-h-screen bg-gray-100 antialiased text-gray-800">
@@ -77,8 +52,8 @@ const Dashboard: React.FC<DashboardProps> = ({
                       key={i}
                       className="cursor-pointer text-gray-600 hover:text-blue-700 hover:bg-blue-50 px-3 py-2 rounded-md flex items-center"
                       onClick={() => {
-                        onSectionClick(item);
-                        setSidebarOpen(false);
+                        onSectionClick(item)
+                        setSidebarOpen(false)
                       }}
                     >
                       <span className="mr-3 text-blue-500">•</span>
@@ -107,8 +82,8 @@ const Dashboard: React.FC<DashboardProps> = ({
                               key={subIdx}
                               className="cursor-pointer text-gray-500 hover:text-blue-600 hover:bg-blue-50 px-3 py-1 rounded-md"
                               onClick={() => {
-                                onSectionClick(sub);
-                                setSidebarOpen(false);
+                                onSectionClick(sub)
+                                setSidebarOpen(false)
                               }}
                             >
                               {sub}
@@ -127,7 +102,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 
       {/* Main Content Area */}
       <main className="flex-1 p-8 md:p-12 overflow-y-auto">
-        {/* 1️⃣ Metric Cards */}
+        {/* Metric Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {cards.map((card, i) => (
             <div
@@ -148,9 +123,9 @@ const Dashboard: React.FC<DashboardProps> = ({
           ))}
         </div>
 
-        {/* 2️⃣ Bento Row: Charts */}
+        {/* Charts Row */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          {/* Student Engagement (Line Chart) */}
+          {/* Line Chart */}
           <div className="lg:col-span-2 bg-white rounded-lg shadow-sm p-6">
             <h4 className="text-xl font-semibold text-gray-800 mb-4">
               Student Engagement
@@ -165,7 +140,7 @@ const Dashboard: React.FC<DashboardProps> = ({
             />
           </div>
 
-          {/* Content Uploads (Donut Chart) */}
+          {/* Donut Chart */}
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h4 className="text-xl font-semibold text-gray-800 mb-4">
               Content Upload Distribution
@@ -181,14 +156,11 @@ const Dashboard: React.FC<DashboardProps> = ({
           </div>
         </div>
 
-        {/* 3️⃣ Detail Panel + News */}
+        {/* Detail + News */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          {/* Main Dynamic Panel */}
           <div className="lg:col-span-2 bg-white rounded-lg shadow-sm p-6 overflow-y-auto h-[400px]">
             {mainComponent}
           </div>
-
-          {/* News & Announcements */}
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h4 className="text-xl font-semibold text-blue-700 mb-4">
               News & Announcements
@@ -205,7 +177,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         </div>
       </main>
     </div>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard

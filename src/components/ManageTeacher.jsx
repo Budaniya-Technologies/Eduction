@@ -1,4 +1,4 @@
-// components/ManageTeachers.tsx
+// components/ManageTeachers.jsx
 'use client';
 
 import React, { useState } from 'react';
@@ -69,10 +69,10 @@ export default function ManageTeachers() {
     },
   ]);
 
-  const [editingId, setEditingId] = useState<number | null>(null);
-  const [editData, setEditData] = useState<any>({});
+  const [editingId, setEditingId] = useState(null);
+  const [editData, setEditData] = useState({});
 
-  const startEdit = (t: any) => {
+  const startEdit = (t) => {
     setEditingId(t.id);
     setEditData({ ...t });
   };
@@ -89,9 +89,9 @@ export default function ManageTeachers() {
     cancelEdit();
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setEditData((p: any) => ({ ...p, [name]: value }));
+    setEditData((p) => ({ ...p, [name]: value }));
   };
 
   return (
@@ -103,10 +103,7 @@ export default function ManageTeachers() {
       {/* Mobile: Cards */}
       <div className="md:hidden space-y-4">
         {teachers.map((t) => (
-          <div
-            key={t.id}
-            className="bg-white rounded-lg shadow p-4 space-y-3"
-          >
+          <div key={t.id} className="bg-white rounded-lg shadow p-4 space-y-3">
             {editingId === t.id ? (
               <>
                 <input
@@ -131,30 +128,26 @@ export default function ManageTeachers() {
                   className="w-full border rounded px-3 py-2 text-sm"
                 />
                 <div>
-                  <label className="block text-sm font-medium mb-1">
-                    Classes
-                  </label>
+                  <label className="block text-sm font-medium mb-1">Classes</label>
                   <Select
                     isMulti
                     options={classOptions}
                     value={editData.classes}
                     onChange={(sel) =>
-                      setEditData((p: any) => ({ ...p, classes: sel }))
+                      setEditData((p) => ({ ...p, classes: sel }))
                     }
                     className="react-select-container"
                     classNamePrefix="react-select"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1">
-                    Subjects
-                  </label>
+                  <label className="block text-sm font-medium mb-1">Subjects</label>
                   <Select
                     isMulti
                     options={subjectOptions}
                     value={editData.subjects}
                     onChange={(sel) =>
-                      setEditData((p: any) => ({ ...p, subjects: sel }))
+                      setEditData((p) => ({ ...p, subjects: sel }))
                     }
                     className="react-select-container"
                     classNamePrefix="react-select"
@@ -219,14 +212,7 @@ export default function ManageTeachers() {
         <table className="min-w-full bg-white rounded-lg shadow overflow-hidden">
           <thead className="bg-gray-100">
             <tr>
-              {[
-                'Name',
-                'Email',
-                'Mobile',
-                'Classes',
-                'Subjects',
-                'Actions',
-              ].map((h) => (
+              {['Name', 'Email', 'Mobile', 'Classes', 'Subjects', 'Actions'].map((h) => (
                 <th
                   key={h}
                   className="px-4 py-2 text-left text-sm font-semibold text-gray-600"
@@ -270,7 +256,7 @@ export default function ManageTeachers() {
                       options={classOptions}
                       value={editData.classes}
                       onChange={(sel) =>
-                        setEditData((p: any) => ({ ...p, classes: sel }))
+                        setEditData((p) => ({ ...p, classes: sel }))
                       }
                       className="react-select-container"
                       classNamePrefix="react-select"
@@ -282,7 +268,7 @@ export default function ManageTeachers() {
                       options={subjectOptions}
                       value={editData.subjects}
                       onChange={(sel) =>
-                        setEditData((p: any) => ({ ...p, subjects: sel }))
+                        setEditData((p) => ({ ...p, subjects: sel }))
                       }
                       className="react-select-container"
                       classNamePrefix="react-select"
@@ -305,15 +291,9 @@ export default function ManageTeachers() {
                 </tr>
               ) : (
                 <tr key={t.id} className="hover:bg-gray-50">
-                  <td className="px-4 py-2 border text-sm">
-                    {t.teacherName}
-                  </td>
-                  <td className="px-4 py-2 border text-sm">
-                    {t.email}
-                  </td>
-                  <td className="px-4 py-2 border text-sm">
-                    {t.mobile}
-                  </td>
+                  <td className="px-4 py-2 border text-sm">{t.teacherName}</td>
+                  <td className="px-4 py-2 border text-sm">{t.email}</td>
+                  <td className="px-4 py-2 border text-sm">{t.mobile}</td>
                   <td className="px-4 py-2 border text-sm">
                     {t.classes.map((c) => c.label).join(', ')}
                   </td>

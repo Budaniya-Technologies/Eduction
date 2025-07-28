@@ -2,17 +2,8 @@
 
 import { useState } from 'react'
 
-type NewsItem = {
-  id: number
-  title: string
-  category: string
-  date: string
-  coverUrl: string
-  published: boolean
-}
-
 export default function NewsManager() {
-  const [news, setNews] = useState<NewsItem[]>([
+  const [news, setNews] = useState([
     {
       id: 1,
       title: 'Exam Date Announced',
@@ -31,19 +22,18 @@ export default function NewsManager() {
     },
   ])
 
-  const togglePublish = (id: number) => {
+  const togglePublish = (id) => {
     setNews(news.map(n => n.id === id ? { ...n, published: !n.published } : n))
   }
 
-  const deleteNews = (id: number) => {
+  const deleteNews = (id) => {
     if (confirm('Are you sure you want to delete this news?')) {
       setNews(news.filter(n => n.id !== id))
     }
   }
 
-  const editNews = (id: number) => {
+  const editNews = (id) => {
     alert(`Navigate to edit page for news ID: ${id}`)
-    // You can navigate to /news/edit/${id} or use a modal
   }
 
   return (
@@ -76,7 +66,9 @@ export default function NewsManager() {
                 <td className="p-3">
                   <span
                     className={`px-2 py-1 rounded-full text-xs font-medium ${
-                      item.published ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'
+                      item.published
+                        ? 'bg-green-100 text-green-700'
+                        : 'bg-yellow-100 text-yellow-700'
                     }`}
                   >
                     {item.published ? 'Published' : 'Draft'}

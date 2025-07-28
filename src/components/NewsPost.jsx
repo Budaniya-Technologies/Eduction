@@ -4,19 +4,18 @@ import { useState } from 'react'
 
 export default function NewsPost() {
   const [title, setTitle] = useState('')
-  const [coverImage, setCoverImage] = useState<File | null>(null)
+  const [coverImage, setCoverImage] = useState(null)
   const [category, setCategory] = useState('')
   const [tags, setTags] = useState('')
   const [description, setDescription] = useState('')
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       setCoverImage(e.target.files[0])
     }
   }
 
   const handleSubmit = () => {
-    // TODO: Upload logic
     alert('News submitted!')
   }
 

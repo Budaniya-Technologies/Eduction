@@ -1,6 +1,6 @@
-'use client';
-import React, { useState } from 'react';
-import Select from 'react-select';
+'use client'
+import React, { useState } from 'react'
+import Select from 'react-select'
 
 const classOptions = [
   { value: 'Class 1', label: 'Class 1' },
@@ -15,7 +15,7 @@ const classOptions = [
   { value: 'Class 10', label: 'Class 10' },
   { value: 'Class 11', label: 'Class 11' },
   { value: 'Class 12', label: 'Class 12' },
-];
+]
 
 const subjectOptions = [
   { value: 'Math', label: 'Math' },
@@ -45,25 +45,25 @@ const subjectOptions = [
   { value: 'Psychology', label: 'Psychology' },
   { value: 'Sociology', label: 'Sociology' },
   { value: 'Philosophy', label: 'Philosophy' },
-];
+]
 
 const AddTeacherForm = () => {
-  const [selectedClasses, setSelectedClasses] = useState([]);
-  const [selectedSubjects, setSelectedSubjects] = useState([]);
+  const [selectedClasses, setSelectedClasses] = useState([])
+  const [selectedSubjects, setSelectedSubjects] = useState([])
   const [formData, setFormData] = useState({
     teacherName: '',
     email: '',
     mobile: '',
-  });
-  const [errors, setErrors] = useState({ email: '', mobile: '' });
+  })
+  const [errors, setErrors] = useState({ email: '', mobile: '' })
 
-  const handleClassChange = (selectedOptions: any) => setSelectedClasses(selectedOptions);
-  const handleSubjectChange = (selectedOptions: any) => setSelectedSubjects(selectedOptions);
+  const handleClassChange = (selectedOptions) => setSelectedClasses(selectedOptions)
+  const handleSubjectChange = (selectedOptions) => setSelectedSubjects(selectedOptions)
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+  }
 
   return (
     <div className="max-w-full mx-auto p-4 bg-white shadow rounded-md space-y-6">
@@ -139,7 +139,7 @@ const AddTeacherForm = () => {
         Add Teacher
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default AddTeacherForm;
+export default AddTeacherForm

@@ -45,9 +45,22 @@ export default function NewsNotification() {
           variants={fadeUp}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="Heading text-sm md:text-xl font-bold text-black px-5 py-1 rounded-full shadow-lg border-4 border-white inline-block mb-4">
+          <h2 className="text-sm md:text-xl font-bold text-black px-5 py-1 rounded-full shadow-lg border-4 border-white inline-block mb-4"
+            style={{
+              fontFamily: '"Palatino Linotype", "Book Antiqua", Palatino, serif',
+              letterSpacing: '1px',
+              wordSpacing: '-3px',
+              color: '#000000',
+              fontWeight: 400,
+              textDecoration: 'none',
+              fontStyle: 'normal',
+              fontVariant: 'normal',
+              textTransform: 'none',
+            }}
+          >
             🔔 News & Notification
           </h2>
+
         </motion.div>
 
         {/* Title + Explore Button */}
@@ -56,7 +69,19 @@ export default function NewsNotification() {
           variants={fadeUp}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-base md:text-xl lg:text-3xl font-bold text-black Heading">
+          <h2 className="text-base md:text-xl lg:text-3xl font-bold text-black Heading"
+            style={{
+              fontFamily: '"Palatino Linotype", "Book Antiqua", Palatino, serif',
+              letterSpacing: '1px',
+              wordSpacing: '-3px',
+              color: '#000000',
+              fontWeight: 400,
+              textDecoration: 'none',
+              fontStyle: 'normal',
+              fontVariant: 'normal',
+              textTransform: 'none',
+            }}
+          >
             Latest Updates <br /> Announcements
           </h2>
           <Link

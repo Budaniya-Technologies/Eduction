@@ -50,11 +50,30 @@ export default function TopTrending() {
       transition={{ duration: 0.7, ease: "easeOut" }}
     >
       <div className="max-w-screen-xl mx-auto">
+        {/* <motion.h2
+          className="Heading text-sm md:text-xl font-bold text-black px-5 py-1 rounded-full shadow-lg border-4 border-white inline-block mb-4"
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          🎓Top Trending
+        </motion.h2> */}
         <motion.h2
           className="Heading text-sm md:text-xl font-bold text-black px-5 py-1 rounded-full shadow-lg border-4 border-white inline-block mb-4"
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2 }}
+          style={{
+            fontFamily: '"Palatino Linotype", "Book Antiqua", Palatino, serif',
+            letterSpacing: '1px',
+            wordSpacing: '-3px',
+            color: '#000000',
+            fontWeight: 400,
+            textDecoration: 'none',
+            fontStyle: 'normal',
+            fontVariant: 'normal',
+            textTransform: 'none',
+          }}
         >
           🎓Top Trending
         </motion.h2>

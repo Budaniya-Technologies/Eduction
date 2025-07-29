@@ -61,7 +61,20 @@ export default function Courses() {
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
         <div className="flex justify-between items-center mb-6">
-          <h2 className="Heading text-sm md:text-xl font-bold text-black px-5 py-1 rounded-full shadow-lg border-4 border-white inline-block mb-4">
+
+          <h2 className="text-sm md:text-xl font-bold text-black px-5 py-1 rounded-full shadow-lg border-4 border-white inline-block mb-4"
+            style={{
+              fontFamily: '"Palatino Linotype", "Book Antiqua", Palatino, serif',
+              letterSpacing: '1px',
+              wordSpacing: '-3px',
+              color: '#000000',
+              fontWeight: 400,
+              textDecoration: 'none',
+              fontStyle: 'normal',
+              fontVariant: 'normal',
+              textTransform: 'none',
+            }}
+          >
             💼 Courses
           </h2>
           <a

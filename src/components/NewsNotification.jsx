@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { apiGet } from "../../Utils/http";
+import { motion } from "framer-motion";
 
 export default function NewsNotification() {
   const [newsEvents, setNewsEvents] = useState([]);
@@ -24,40 +25,82 @@ export default function NewsNotification() {
   const sidePosts = newsEvents.slice(1, 4);
   const rightPost = newsEvents[4];
 
+  const fadeUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
-    <section className="bg-gray-100 px-4 pt-[100px]">
+    <motion.section
+      className="bg-gray-100 px-4 pt-[100px]"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ staggerChildren: 0.2 }}
+    >
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl md:text-xl font-bold text-black px-6 py-2 rounded-full shadow-lg border-4 border-white inline-block mb-4">
+        <motion.div
+          className="flex justify-between items-center mb-6"
+          variants={fadeUp}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-sm md:text-xl font-bold text-black px-5 py-1 rounded-full shadow-lg border-4 border-white inline-block mb-4"
+            style={{
+              fontFamily: '"Palatino Linotype", "Book Antiqua", Palatino, serif',
+              letterSpacing: '1px',
+              wordSpacing: '-3px',
+              color: '#000000',
+              fontWeight: 400,
+              textDecoration: 'none',
+              fontStyle: 'normal',
+              fontVariant: 'normal',
+              textTransform: 'none',
+            }}
+          >
             🔔 News & Notification
           </h2>
-          <a
-            href="#"
-            className="text-black font-semibold text-sm hover:underline flex items-center gap-1"
-          >
-            See All →
-          </a>
-        </div>
+
+        </motion.div>
 
         {/* Title + Explore Button */}
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-3xl font-bold text-black ">
-            News & <br /> Notification
+        <motion.div
+          className="flex justify-between items-center mb-4"
+          variants={fadeUp}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-base md:text-xl lg:text-3xl font-bold text-black Heading"
+            style={{
+              fontFamily: '"Palatino Linotype", "Book Antiqua", Palatino, serif',
+              letterSpacing: '1px',
+              wordSpacing: '-3px',
+              color: '#000000',
+              fontWeight: 400,
+              textDecoration: 'none',
+              fontStyle: 'normal',
+              fontVariant: 'normal',
+              textTransform: 'none',
+            }}
+          >
+            Latest Updates <br /> Announcements
           </h2>
           <Link
             href="/newBlogs"
-            className="bg-orange-500 text-white font-semibold px-6 py-2 rounded-full shadow hover:bg-orange-600"
+            className="bg-orange-500 text-white font-semibold px-6 py-1 rounded-full shadow hover:bg-orange-600 kodchasan-extralight"
           >
             Explore All
           </Link>
-        </div>
+        </motion.div>
 
         {/* News Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-1">
           {/* Left Main News */}
           {mainPost && (
-            <div className="bg-white rounded-xl shadow overflow-hidden">
+            <motion.div
+              className="bg-white rounded-xl shadow overflow-hidden"
+              variants={fadeUp}
+              transition={{ duration: 0.6 }}
+            >
               <img
                 src={mainPost.image}
                 alt={mainPost.title}
@@ -74,13 +117,22 @@ export default function NewsNotification() {
                 </h3>
                 <p className="text-sm text-gray-600">{mainPost.content}</p>
               </div>
-            </div>
+            </motion.div>
           )}
 
           {/* Center Side Posts */}
-          <div className="flex flex-col gap-6">
+          <motion.div
+            className="flex flex-col gap-6"
+            variants={fadeUp}
+            transition={{ duration: 0.6 }}
+          >
             {sidePosts.map((post) => (
-              <div key={post.id} className="flex gap-4">
+              <motion.div
+                key={post.id}
+                className="flex gap-4"
+                variants={fadeUp}
+                transition={{ duration: 0.5 }}
+              >
                 <img
                   src={post.image}
                   alt={post.title}
@@ -102,13 +154,17 @@ export default function NewsNotification() {
                     {post.content}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           {/* Right News Card */}
           {rightPost && (
-            <div className="bg-white rounded-xl shadow overflow-hidden">
+            <motion.div
+              className="bg-white rounded-xl shadow overflow-hidden"
+              variants={fadeUp}
+              transition={{ duration: 0.6 }}
+            >
               <img
                 src={rightPost.image}
                 alt={rightPost.title}
@@ -125,10 +181,10 @@ export default function NewsNotification() {
                 </h3>
                 <p className="text-sm text-gray-600">{rightPost.content}</p>
               </div>
-            </div>
+            </motion.div>
           )}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

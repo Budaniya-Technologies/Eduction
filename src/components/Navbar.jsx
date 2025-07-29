@@ -36,9 +36,8 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`w-full fixed top-0 left-0 z-50 px-2 md:px-8 py-4 transition-all duration-300 ${
-        isScrolled ? "bg-white shadow-md" : "bg-transparent"
-      }`}
+      className={`w-full fixed top-0 left-0 z-50 px-2 md:px-8 py-4 transition-all duration-300 ${isScrolled ? "bg-white shadow-md" : "bg-transparent"
+        }`}
     >
       <div className="flex justify-between items-center max-w-7xl mx-auto">
         {/* Left: Logo and both Menu Buttons */}
@@ -69,14 +68,13 @@ export default function Navbar() {
         </div>
 
         {/* Desktop Nav */}
-        <ul className="hidden md:flex gap-8 text-base font-medium">
+        <ul className="hidden md:flex gap-8 text-base font-medium ">
           {navItems.map((item) => (
             <li key={item.name}>
               <Link
                 href={item.path}
-                className={`hover:text-blue-600 transition ${
-                  pathname === item.path ? "font-bold text-black" : "text-black"
-                }`}
+                className={`hover:text-blue-600 transition ${pathname === item.path ? "font-bold text-black" : "text-black"
+                  }`}
               >
                 {item.name}
               </Link>
@@ -85,20 +83,22 @@ export default function Navbar() {
         </ul>
 
         {/* Desktop Buttons */}
-        <div className="hidden md:flex gap-4">
+        <div className="hidden md:flex gap-4 kodchasan-extralight">
           <button
-            onClick={() => router.push("/login")}
-            className="bg-[#b2faff] text-black border border-black px-5 py-1.5 rounded-full hover:bg-[#a2eff0] transition font-medium"
+            onClick={() => router.push("/signup")}
+            className="px-6 py-2 rounded-full border border-cyan-300 bg-white/10 text-black hover:bg-cyan-500 hover:text-black shadow-md transition duration-300 ease-in-out font-semibold backdrop-blur-md"
           >
             Sign Up
           </button>
+
           <button
             onClick={() => router.push("/login")}
-            className="bg-[#b2faff] text-black border border-black px-5 py-1.5 rounded-full hover:bg-[#a2eff0] transition font-medium"
+            className="px-6 py-2 rounded-full border border-white bg-cyan-300 text-black hover:bg-white hover:text-blue-700 shadow-md transition duration-300 ease-in-out font-semibold"
           >
-            Log in
+            Log In
           </button>
         </div>
+
       </div>
 
       {/* ✅ Fullscreen Sidebar (20% width, left) */}
@@ -173,11 +173,10 @@ export default function Navbar() {
                 key={item.name}
                 href={item.path}
                 onClick={() => setIsMobileOpen(false)}
-                className={`text-2xl ${
-                  pathname === item.path
-                    ? "text-blue-700 font-bold"
-                    : "text-black"
-                }`}
+                className={`text-2xl ${pathname === item.path
+                  ? "text-blue-700 font-bold"
+                  : "text-black"
+                  }`}
               >
                 {item.name}
               </Link>

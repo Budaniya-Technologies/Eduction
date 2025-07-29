@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { apiGet } from "../../Utils/http";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
+import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
 
@@ -14,11 +15,9 @@ export default function OurServices() {
       try {
         const response = await apiGet("api/services/");
         const data = response.data;
-
         const activeServices = Array.isArray(data)
           ? data.filter((item) => item.is_active === true)
           : [];
-
         setServices(activeServices);
       } catch (error) {
         console.error("Error fetching services:", error);
@@ -28,35 +27,64 @@ export default function OurServices() {
     fetchServices();
   }, []);
 
-  return (
-    <section className="bg-gray-100 pt-10 pb-2 px-6">
-      <div className="max-w-7xl mx-auto">
-         <h2 className="text-lg sm:text-xl font-bold text-black mb-3 sm:mb-4 px-4 py-1 bg-white inline-block border-2 rounded-full shadow">
-          🎓 Our Services
-        </h2>
+  // Auto-scroll logic for mobile horizontal scroll
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
 
-        {/* Mobile View - 4 items per row */}
-        <div className="grid grid-cols-3 gap-4 md:hidden px-2">
-          {services.map((service, index) => (
-            <div
-              key={index}
-              className="flex flex-col items-center justify-center p-2"
-            >
-              <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center shadow-md mb-2 overflow-hidden">
-                <img
-                  src={service.image}
-                  alt={service.name}
-                  className="w-12 h-12 object-contain transition-transform duration-300 hover:scale-125"
-                />
+    const scrollInterval = setInterval(() => {
+      if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
+        container.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        container.scrollBy({ left: container.clientWidth * 0.5, behavior: "smooth" });
+      }
+    }, 3000); // every 3 seconds
+
+    return () => clearInterval(scrollInterval);
+  }, [services]);
+
+  return (
+    <motion.section
+      className="bg-gray-100 pt-16 pb-4 px-4"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ staggerChildren: 0.2 }}
+    >
+      <div className="max-w-7xl mx-auto">
+        <h2 className="text-xl font-extrabold text-black mb-6 text-center">
+          🎓 Our Services
+        </motion.h2>
+
+        {/* Mobile View (auto-scrollable horizontal list) */}
+        <div className="md:hidden overflow-x-auto" ref={scrollRef}>
+          <div className="flex gap-4 w-max px-1">
+            {services.map((service, index) => (
+              <div
+                key={index}
+                className="min-w-[45%] bg-white rounded-lg flex flex-col items-center justify-center p-4 shadow-sm"
+              >
+                <div
+                  className="w-12 h-12 rounded-full flex items-center justify-center mb-2"
+                  style={{
+                    backgroundColor: service.bgColor || "#e0e0e0",
+                  }}
+                >
+                  <img
+                    src={service.image}
+                    alt={service.name}
+                    className="w-8 h-8 object-contain"
+                  />
+                </div>
+                <span className="text-sm font-semibold text-gray-700 text-center">
+                  {service.name}
+                </span>
               </div>
-              <span className="text-xs font-semibold text-gray-700 text-center">
-                {service.name}
-              </span>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
-        {/* Desktop View - Swiper Carousel with minimal spacing */}
+        {/* Desktop View (Swiper Carousel) */}
         <div className="hidden md:block">
           <Swiper
             modules={[Autoplay, Pagination]}
@@ -67,27 +95,27 @@ export default function OurServices() {
             className="!pr-0"
           >
             {services.map((service, index) => (
-              <SwiperSlide
-                key={index}
-                className={index === services.length - 1 ? "!pr-0" : ""}
-              >
-                <div className="flex flex-col items-center justify-center text-center">
-                  <div className="w-24 h-24 rounded-full bg-white flex items-center justify-center shadow-md mb-2 overflow-hidden">
-                    <img
-                      src={service.image}
-                      alt={service.name}
-                      className="w-14 h-14 object-contain transition-transform duration-300 hover:scale-125"
-                    />
-                  </div>
-                  <h3 className="text-base font-semibold text-gray-800">
+              <SwiperSlide key={index}>
+                <div className="max-w-sm mx-auto bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden text-center p-6">
+                  <img
+                    src={service.image}
+                    alt={service.name}
+                    className="w-full h-40 object-cover mb-3 rounded"
+                  />
+                  <h3 className="text-lg font-semibold text-gray-800">
                     {service.name}
                   </h3>
+                  <p className="text-sm text-gray-600 mt-1">
+                    {service.url
+                      ? `URL: ${service.url}`
+                      : "More info coming soon."}
+                  </p>
                 </div>
               </SwiperSlide>
             ))}
           </Swiper>
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }

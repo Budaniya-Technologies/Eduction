@@ -58,7 +58,7 @@ export default function OurServices() {
     >
       <div className="max-w-7xl mx-auto">
         <motion.h2
-          className="text-xl font-extrabold text-black mb-6 text-left Heading"
+          className="Heading text-sm md:text-xl font-bold text-black px-5 py-1 rounded-full shadow-lg border-4 border-white inline-block mb-4"
           variants={fadeUp}
           transition={{ duration: 0.6 }}
         >

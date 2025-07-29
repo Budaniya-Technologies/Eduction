@@ -39,12 +39,12 @@ const CustomerReview = () => {
       className="p-8 bg-gray-100"
     >
       <motion.h2
-        className="text-lg md:text-xl font-bold text-black px-3 py-1 rounded-full shadow-lg border-4 border-white inline-block mb-4"
+        className="Heading text-sm md:text-xl font-bold text-black px-5 py-1 rounded-full shadow-lg border-4 border-white inline-block mb-4"
         variants={fadeInUp}
       >
         📝 Customer Review
       </motion.h2>
-
+       
       <Swiper
         modules={[Autoplay, Pagination]}
         spaceBetween={20}

@@ -61,9 +61,9 @@ export default function Courses() {
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
         <div className="flex justify-between items-center mb-6">
-           <h2 className="text-xl md:text-xl font-bold text-black px-6 py-2 rounded-full shadow-lg border-4 border-white inline-block mb-4">
-          💼 Courses
-        </h2>
+          <h2 className="Heading text-sm md:text-xl font-bold text-black px-5 py-1 rounded-full shadow-lg border-4 border-white inline-block mb-4">
+            💼 Courses
+          </h2>
           <a
             href="#"
             className="text-black font-semibold hover:underline flex items-center gap-1"

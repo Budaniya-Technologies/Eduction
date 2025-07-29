@@ -10,7 +10,6 @@ import "slick-carousel/slick/slick-theme.css";
 import Footer from "@/components/Footer";
 import HeroSlider from "@/components/HeroSlider";
 import CustomerReview from "@/components/CustomerReview";
-import MobSlider from "@/components/Mobslider";
 import Location from "@/components/Location";
 
 export default function Home() {
@@ -33,7 +32,7 @@ export default function Home() {
       {/* Conditional rendering based on screen size */}
       
       <Location/>
-        {isMobile ? <MobSlider /> : <HeroSlider />}
+        <HeroSlider />
         <OurServices />
         <TopTrending />
         <Courses />

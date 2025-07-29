@@ -32,6 +32,7 @@ export default function Home() {
     <section>
       {/* Conditional rendering based on screen size */}
       
+      <Location/>
         {isMobile ? <MobSlider /> : <HeroSlider />}
         <OurServices />
         <TopTrending />
@@ -40,7 +41,6 @@ export default function Home() {
         <CustomerReview />
         <ContactUs />
         <Footer />
-      {/* <Location ></Location> */}
     </section>
   );
 }

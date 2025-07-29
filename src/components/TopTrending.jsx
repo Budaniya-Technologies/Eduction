@@ -42,7 +42,7 @@ export default function TopTrending() {
   const getTabData = () => (activeTab === "Jobs" ? jobsData : businessData);
 
   return (
-    <section className="bg-gray-100 py-1 px-4 relative">
+    <section className="bg-gray-100 py-1 relative" style={{paddingLeft: '1.5rem', paddingRight: '1.5rem'}}>
       <div className="max-w-screen-xl mx-auto">
         <h2 className="text-xl md:text-xl font-bold text-black px-6 py-2 rounded-full shadow-lg border-4 border-white inline-block mb-4">
           🎓Top Treanding 
@@ -97,9 +97,9 @@ export default function TopTrending() {
         >
           {getTabData().map((item, idx) => (
             <SwiperSlide key={item.id || idx}>
-              <div className="bg-white rounded-xl shadow hover:shadow-lg overflow-hidden flex flex-col transition-all duration-300 max-w-8xl mx-auto h-full">
+              <div className="bg-white rounded-xl shadow hover:shadow-lg overflow-hidden flex flex-col transition-all duration-300 max-w-7xl mx-auto h-full">
                 {/* Top image */}
-                <div className="w-full h-40">
+                <div className="w-full aspect-[4/3] bg-gray-200">
                   <img
                     src={
                       item.banner_image ||
@@ -107,12 +107,12 @@ export default function TopTrending() {
                       "/assets/default-image.jpg"
                     }
                     alt={item.title || item.name || "Image"}
-                    className="object-cover w-full h-full"
+                    className="w-full h-full object-cover"
                   />
                 </div>
 
                 {/* Content */}
-                <div className="p-4 flex flex-col flex-grow">
+                <div className="p-2 flex flex-col flex-grow">
                   <div className="flex items-center gap-2 mb-2">
                     <img
                       src={

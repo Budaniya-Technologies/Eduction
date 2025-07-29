@@ -4,9 +4,8 @@ import { FaMapMarkerAlt, FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { apiGet } from "../../Utils/http";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
-import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
 import "swiper/css";
+import { useRouter } from "next/navigation";
 
 const tabs = ["Jobs", "Business"];
 
@@ -43,15 +42,16 @@ export default function TopTrending() {
   const getTabData = () => (activeTab === "Jobs" ? jobsData : businessData);
 
   return (
-    <section className="bg-gray-100 py-1 relative" style={{paddingLeft: '1.5rem', paddingRight: '1.5rem'}}>
+    <section className="bg-gray-100 py-4 px-4 sm:px-6 md:px-8">
       <div className="max-w-screen-xl mx-auto">
-        <h2 className="text-xl md:text-xl font-bold text-black px-6 py-2 rounded-full shadow-lg border-4 border-white inline-block mb-4">
-          🎓Top Treanding 
+        {/* Title */}
+        <h2 className="text-lg sm:text-xl font-bold text-black mb-3 sm:mb-4 px-4 py-1 bg-white inline-block border-2 rounded-full shadow">
+          🎓 Top Trending
         </h2>
 
         {/* Tabs */}
-        <div className="flex justify-between items-center flex-wrap mb-6">
-          <div className="flex gap-3 mt-1 sm:mt-0">
+        <div className="flex justify-between items-center flex-wrap mb-4">
+          <div className="flex gap-2 sm:gap-4">
             {tabs.map((tab) => (
               <button
                 key={tab}
@@ -78,7 +78,7 @@ export default function TopTrending() {
           >
             See All →
           </button>
-        </motion.div>
+        </div>
 
         {/* Swiper */}
         <Swiper
@@ -97,9 +97,9 @@ export default function TopTrending() {
         >
           {getTabData().map((item, idx) => (
             <SwiperSlide key={item.id || idx}>
-              <div className="bg-white rounded-xl shadow hover:shadow-lg overflow-hidden flex flex-col transition-all duration-300 max-w-7xl mx-auto h-full">
-                {/* Top image */}
-                <div className="w-full aspect-[4/3] bg-gray-200">
+              <div className="bg-white rounded-lg shadow-md hover:shadow-lg overflow-hidden flex flex-col transition-all duration-300 h-full">
+                {/* Image */}
+                <div className="w-full h-36 sm:h-40 bg-gray-100 overflow-hidden">
                   <img
                     src={
                       item.banner_image ||
@@ -139,18 +139,15 @@ export default function TopTrending() {
                     </span>
                   </div>
 
-                  <p className="text-sm text-gray-700 mb-3">
-                    {item.description.length > 30
-                      ? item.description.substring(0, 30) + "..."
-                      : item.description}
+                  <p className="text-xs text-gray-700 line-clamp-2 mb-2">
+                    {item.description || ""}
                   </p>
 
-                  {/* Business specific data */}
                   {activeTab === "Business" && (
-                    <div className="font-semibold text-sm line-clamp-2 text-gray-800 space-y-1 border-t pt-3 mt-auto">
-                      <div className="flex justify-between ">
-                        <span>Investment range</span>
-                        <span className="font-bold text-black">
+                    <div className="text-xs text-gray-800 border-t pt-2 mt-auto space-y-1 font-medium">
+                      <div className="flex justify-between">
+                        <span>Investment</span>
+                        <span>
                           ₹{item.investment_min || 0}
                           {item.investment_max
                             ? ` - ₹${item.investment_max}`
@@ -171,14 +168,6 @@ export default function TopTrending() {
 
                 {/* Button */}
                 <div
-                  className="bg-blue-600 text-white text-center py-2 font-semibold text-sm hover:bg-blue-700 cursor-pointer"
-                  // onClick={() =>
-                  //   router.push(
-                  //     activeTab === "Jobs"
-                  //       ? "/jobdescription"
-                  //       : "/businessdescription"
-                  //   )
-                  // }
                   onClick={() =>
                     router.push(
                       activeTab === "Jobs"
@@ -196,7 +185,7 @@ export default function TopTrending() {
         </Swiper>
 
         {/* Arrows */}
-        <div className="flex gap-3 justify-end mt-5">
+        <div className="flex gap-2 justify-end mt-4">
           <button
             onClick={() => swiperRef.current?.slidePrev()}
             className="p-2 bg-white border rounded-full hover:bg-gray-100"
@@ -209,8 +198,8 @@ export default function TopTrending() {
           >
             <FaArrowRight className="text-gray-700" />
           </button>
-        </motion.div>
+        </div>
       </div>
-    </motion.section>
+    </section>
   );
 }

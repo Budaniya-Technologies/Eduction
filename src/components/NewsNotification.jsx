@@ -188,3 +188,5 @@ export default function NewsNotification() {
     </motion.section>
   );
 }
+
+

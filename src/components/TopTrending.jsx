@@ -71,11 +71,10 @@ export default function TopTrending() {
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-4 py-2 rounded-md text-sm font-bold border-b-2 ${
-                  activeTab === tab
-                    ? "bg-blue-600 text-white border-lime-400"
-                    : "bg-white text-gray-700 border-transparent"
-                }`}
+                className={`px-4 py-2 rounded-md text-sm font-bold border-b-2 ${activeTab === tab
+                  ? "bg-blue-600 text-white border-lime-400"
+                  : "bg-white text-gray-700 border-transparent"
+                  }`}
               >
                 {tab}
               </button>
@@ -114,8 +113,9 @@ export default function TopTrending() {
         >
           {getTabData().map((item, idx) => (
             <SwiperSlide key={item.id || idx}>
-              <div className="bg-white rounded-xl shadow hover:shadow-lg overflow-hidden flex flex-col transition-all duration-300 max-w-8xl mx-auto h-full">
-                {/* Top image */}
+              {/* <div className="bg-white rounded-xl shadow hover:shadow-lg overflow-hidden flex flex-col transition-all duration-300 max-w-8xl mx-auto h-full"> */}
+              {/* Top image */}
+              <div>
                 <div className="w-full aspect-[4/3] bg-gray-200">
                   <img
                     src={
@@ -207,7 +207,7 @@ export default function TopTrending() {
                 >
                   Explore Now
                 </div>
-              </motion.div>
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>

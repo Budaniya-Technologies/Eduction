@@ -174,8 +174,8 @@ export default function Navbar() {
                 href={item.path}
                 onClick={() => setIsMobileOpen(false)}
                 className={`text-2xl ${pathname === item.path
-                    ? "text-blue-700 font-bold"
-                    : "text-black"
+                  ? "text-blue-700 font-bold"
+                  : "text-black"
                   }`}
               >
                 {item.name}

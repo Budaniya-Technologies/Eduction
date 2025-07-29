@@ -127,7 +127,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import { apiGet } from "../../Utils/http";
-import Image from "next/image";
 
 export default function HeroSlider() {
   const [slides, setSlides] = useState([]);
@@ -137,7 +136,7 @@ export default function HeroSlider() {
   useEffect(() => {
     const fetchSlides = async () => {
       try {
-        const response = await apiGet("https://api.mypratham.com/api/slider/");
+        const response = await apiGet("/api/slider/");
         if (Array.isArray(response?.data)) {
           const transformedSlides = response.data.flatMap((item) =>
             item.slides.map((slide) => ({
@@ -177,7 +176,7 @@ export default function HeroSlider() {
       onMouseEnter={() => setAutoplay(false)}
       onMouseLeave={() => setAutoplay(true)}
     >
-      <div className="relative h-[55vh] min-h-screen">
+      <div className="relative h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[90vh] xl:h-screen">
         {slides.map((slide, index) => (
           <div
             key={index}
@@ -187,16 +186,11 @@ export default function HeroSlider() {
           >
             {/* Image Background */}
             <div className="absolute inset-0">
-              <div className="relative w-full h-full">
-                <img
-                  src={slide.image}
-                  alt={slide.title}
-                  fill
-                  className="object-fill"
-                  style={{ width: "100%", height: "100%" }}
-                  priority={index === 0}
-                />
-              </div>
+              <img
+                src={slide.image}
+                alt={slide.title}
+                className="w-full h-full object-cover"
+              />
             </div>
 
             {/* Slide Content */}
@@ -284,3 +278,4 @@ export default function HeroSlider() {
     </div>
   );
 }
+

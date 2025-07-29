@@ -4,8 +4,9 @@ import { FaMapMarkerAlt, FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { apiGet } from "../../Utils/http";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
-import "swiper/css";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import "swiper/css";
 
 const tabs = ["Jobs", "Business"];
 
@@ -42,14 +43,48 @@ export default function TopTrending() {
   const getTabData = () => (activeTab === "Jobs" ? jobsData : businessData);
 
   return (
-    <section className="bg-gray-100 py-1 relative" style={{paddingLeft: '1.5rem', paddingRight: '1.5rem'}}>
+    <motion.section
+      className="bg-gray-100 py-1 px-4 relative"
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+    >
       <div className="max-w-screen-xl mx-auto">
-        <h2 className="text-xl md:text-xl font-bold text-black px-6 py-2 rounded-full shadow-lg border-4 border-white inline-block mb-4">
-          🎓Top Treanding 
-        </h2>
+        {/* <motion.h2
+          className="Heading text-sm md:text-xl font-bold text-black px-5 py-1 rounded-full shadow-lg border-4 border-white inline-block mb-4"
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          🎓Top Trending
+        </motion.h2> */}
+        <motion.h2
+          className="Heading text-sm md:text-xl font-bold text-black px-5 py-1 rounded-full shadow-lg border-4 border-white inline-block mb-4"
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.2 }}
+          style={{
+            fontFamily: '"Palatino Linotype", "Book Antiqua", Palatino, serif',
+            letterSpacing: '1px',
+            wordSpacing: '-3px',
+            color: '#000000',
+            fontWeight: 400,
+            textDecoration: 'none',
+            fontStyle: 'normal',
+            fontVariant: 'normal',
+            textTransform: 'none',
+          }}
+        >
+          🎓Top Trending
+        </motion.h2>
 
         {/* Tabs */}
-        <div className="flex justify-between items-center flex-wrap mb-6">
+        <motion.div
+          className="flex justify-between items-center flex-wrap mb-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+        >
           <div className="flex gap-3 mt-1 sm:mt-0">
             {tabs.map((tab) => (
               <button
@@ -76,7 +111,7 @@ export default function TopTrending() {
           >
             See All →
           </button>
-        </div>
+        </motion.div>
 
         {/* Swiper */}
         <Swiper
@@ -97,8 +132,9 @@ export default function TopTrending() {
         >
           {getTabData().map((item, idx) => (
             <SwiperSlide key={item.id || idx}>
-              <div className="bg-white rounded-xl shadow hover:shadow-lg overflow-hidden flex flex-col transition-all duration-300 max-w-7xl mx-auto h-full">
-                {/* Top image */}
+              {/* <div className="bg-white rounded-xl shadow hover:shadow-lg overflow-hidden flex flex-col transition-all duration-300 max-w-8xl mx-auto h-full"> */}
+              {/* Top image */}
+              <div>
                 <div className="w-full aspect-[4/3] bg-gray-200">
                   <img
                     src={
@@ -144,15 +180,15 @@ export default function TopTrending() {
                   </div>
 
                   <p className="text-sm text-gray-700 mb-3">
-                    {item.description.length > 30
+                    {item.description?.length > 30
                       ? item.description.substring(0, 30) + "..."
                       : item.description}
                   </p>
 
-                  {/* Business specific data */}
+                  {/* Business-specific */}
                   {activeTab === "Business" && (
                     <div className="font-semibold text-sm line-clamp-2 text-gray-800 space-y-1 border-t pt-3 mt-auto">
-                      <div className="flex justify-between ">
+                      <div className="flex justify-between">
                         <span>Investment range</span>
                         <span className="font-bold text-black">
                           ₹{item.investment_min || 0}
@@ -180,13 +216,6 @@ export default function TopTrending() {
                 {/* CTA */}
                 <div
                   className="bg-blue-600 text-white text-center py-2 font-semibold text-sm hover:bg-blue-700 cursor-pointer"
-                  // onClick={() =>
-                  //   router.push(
-                  //     activeTab === "Jobs"
-                  //       ? "/jobdescription"
-                  //       : "/businessdescription"
-                  //   )
-                  // }
                   onClick={() =>
                     router.push(
                       activeTab === "Jobs"
@@ -203,7 +232,12 @@ export default function TopTrending() {
         </Swiper>
 
         {/* Arrows */}
-        <div className="flex gap-3 justify-end mt-5">
+        <motion.div
+          className="flex gap-3 justify-end mt-5"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+        >
           <button
             onClick={() => swiperRef.current?.slidePrev()}
             className="p-2 bg-white border border-gray-300 rounded-full shadow hover:bg-gray-100"
@@ -216,8 +250,8 @@ export default function TopTrending() {
           >
             <FaArrowRight className="text-gray-700" />
           </button>
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }

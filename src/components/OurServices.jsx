@@ -31,7 +31,19 @@ export default function OurServices() {
   return (
     <section className="bg-gray-100 pt-10 pb-2 px-6">
       <div className="max-w-7xl mx-auto">
-         <h2 className="text-lg sm:text-xl font-bold text-black mb-3 sm:mb-4 px-4 py-1 bg-white inline-block border-2 rounded-full shadow">
+        <h2 className="text-lg sm:text-xl font-bold text-black mb-3 sm:mb-4 px-4 py-1 bg-white inline-block border-2 rounded-full shadow"
+          style={{
+            fontFamily: '"Palatino Linotype", "Book Antiqua", Palatino, serif',
+            letterSpacing: '1px',
+            wordSpacing: '-3px',
+            color: '#000000',
+            fontWeight: 400,
+            textDecoration: 'none',
+            fontStyle: 'normal',
+            fontVariant: 'normal',
+            textTransform: 'none',
+          }}
+        >
           🎓 Our Services
         </h2>
 
@@ -60,11 +72,11 @@ export default function OurServices() {
         <div className="hidden md:block">
           <Swiper
             modules={[Autoplay, Pagination]}
-            spaceBetween={8} // 0.5rem
+            spaceBetween={1} // 0.5rem
             slidesPerView={4}
             autoplay={{ delay: 2500, disableOnInteraction: false }}
             pagination={{ clickable: true }}
-            className="!pr-0"
+            className="!pr-0 "
           >
             {services.map((service, index) => (
               <SwiperSlide

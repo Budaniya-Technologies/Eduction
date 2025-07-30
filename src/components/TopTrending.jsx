@@ -45,7 +45,18 @@ export default function TopTrending() {
     <section className="bg-gray-100 py-4 px-4 sm:px-6 md:px-8">
       <div className="max-w-screen-xl mx-auto">
         {/* Title */}
-        <h2 className="text-lg sm:text-xl font-bold text-black mb-3 sm:mb-4 px-4 py-1 bg-white inline-block border-2 rounded-full shadow">
+        <h2 className="text-lg sm:text-xl font-bold text-black mb-3 sm:mb-4 px-4 py-1 bg-white inline-block border-2 rounded-full shadow"
+        style={{
+          fontFamily: '"Palatino Linotype", "Book Antiqua", Palatino, serif',
+          letterSpacing: '1px',
+          wordSpacing: '-3px',
+          color: '#000000',
+          fontWeight: 400,
+          textDecoration: 'none',
+          fontStyle: 'normal',
+          fontVariant: 'normal',
+          textTransform: 'none',}}
+        >
           🎓 Top Trending
         </h2>
 

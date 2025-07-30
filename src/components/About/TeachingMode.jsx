@@ -18,23 +18,23 @@ const features = [
 
 export default function TeachingMode() {
   return (
-    <div className="p-8 bg-gray-50 min-h-screen flex flex-col lg:flex-row gap-10">
+    <div className="p-4 sm:p-6 lg:p-8 bg-gray-50 min-h-screen flex flex-col lg:flex-row gap-10">
       {/* Left Side */}
       <div className="lg:w-1/2">
-        <h1 className="text-4xl font-bold text-blue-700">PRATHAM</h1>
-        <h2 className="text-6xl font-bold mt-4 leading-tight">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-blue-700">PRATHAM</h1>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mt-4 leading-tight">
           Innovative <br /> Online Teaching <br /> Mode
         </h2>
-        <p className="text-blue-600 mt-4 text-xl">Lorem Ipsum available</p>
+        <p className="text-lg sm:text-xl text-blue-600 mt-4">Lorem Ipsum available</p>
 
         {/* Feature List */}
         <div className="mt-6 space-y-6">
           {features.map((f, index) => (
             <div key={index} className="flex items-start gap-4">
-              <div className="text-green-600 text-3xl">✅</div>
+              <div className="text-green-600 text-2xl sm:text-3xl">✅</div>
               <div>
-                <p className="font-bold">{f.title}</p>
-                <p className="text-gray-600">{f.desc}</p>
+                <p className="font-semibold sm:font-bold text-base sm:text-lg">{f.title}</p>
+                <p className="text-gray-600 text-sm sm:text-base">{f.desc}</p>
               </div>
             </div>
           ))}
@@ -44,8 +44,8 @@ export default function TeachingMode() {
       {/* Right Side (Image Layout) */}
       <div className="lg:w-1/2 flex flex-col gap-4">
         {/* Top row: Two images */}
-        <div className="flex gap-4">
-          <div className="w-1/2 rounded-xl overflow-hidden">
+        <div className="flex flex-col sm:flex-row gap-4">
+          <div className="w-full sm:w-1/2 rounded-xl overflow-hidden">
             <Image
               src="/assets/news1.jpeg"
               width={400}
@@ -54,7 +54,7 @@ export default function TeachingMode() {
               className="w-full h-full object-cover rounded-xl"
             />
           </div>
-          <div className="w-1/2 rounded-xl overflow-hidden">
+          <div className="w-full sm:w-1/2 rounded-xl overflow-hidden">
             <Image
               src="/assets/news.jpeg"
               width={400}
@@ -66,7 +66,7 @@ export default function TeachingMode() {
         </div>
 
         {/* Middle row: Tall image */}
-        <div className="rounded-xl overflow-hidden h-[260px]">
+        <div className="rounded-xl overflow-hidden h-[200px] sm:h-[260px]">
           <Image
             src="/assets/teacherAbout.jpeg"
             width={400}
@@ -77,8 +77,8 @@ export default function TeachingMode() {
         </div>
 
         {/* Bottom row: Two small images side by side */}
-        <div className="flex gap-4">
-          <div className="w-1/2 rounded-xl overflow-hidden">
+        <div className="flex flex-col sm:flex-row gap-4">
+          <div className="w-full sm:w-1/2 rounded-xl overflow-hidden">
             <Image
               src="/assets/studentAbout.jpeg"
               width={400}
@@ -87,7 +87,7 @@ export default function TeachingMode() {
               className="w-full h-full object-cover rounded-xl"
             />
           </div>
-          <div className="w-1/2 rounded-xl overflow-hidden">
+          <div className="w-full sm:w-1/2 rounded-xl overflow-hidden">
             <Image
               src="/assets/student1.avif"
               width={400}

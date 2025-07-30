@@ -176,7 +176,8 @@ export default function HeroSlider() {
       onMouseEnter={() => setAutoplay(false)}
       onMouseLeave={() => setAutoplay(true)}
     >
-      <div className="relative h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[90vh] xl:h-screen">
+      {/* Full screen height on desktop */}
+      <div className="relative h-[40vh] sm:h-[40vh] md:h-[65vh] lg:h-[80vh]">
         {slides.map((slide, index) => (
           <div
             key={index}
@@ -185,11 +186,11 @@ export default function HeroSlider() {
             }`}
           >
             {/* Image Background */}
-            <div className="absolute inset-0">
+            <div className="absolute inset-0 bg-gray-200">
               <img
                 src={slide.image}
                 alt={slide.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-fill object-center"
               />
             </div>
 
@@ -278,4 +279,6 @@ export default function HeroSlider() {
     </div>
   );
 }
+
+
 

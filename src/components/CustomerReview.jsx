@@ -7,12 +7,6 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { apiGet } from "../../Utils/http";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { motion } from "framer-motion";
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-};
 
 const CustomerReview = () => {
   const [reviews, setReviews] = useState([]);
@@ -31,30 +25,18 @@ const CustomerReview = () => {
   }, []);
 
   return (
-    <motion.section
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-      variants={fadeInUp}
-      className="p-8 bg-gray-100"
-    >
-      <motion.h2
+    <section className="p-8 bg-gray-100">
+      <h2
         className="Heading text-sm md:text-xl font-bold text-black px-5 py-1 rounded-full shadow-lg border-4 border-white inline-block mb-4"
-        variants={fadeInUp}
         style={{
           fontFamily: '"Palatino Linotype", "Book Antiqua", Palatino, serif',
           letterSpacing: '1px',
           wordSpacing: '-3px',
-          color: '#000000',
           fontWeight: 400,
-          textDecoration: 'none',
-          fontStyle: 'normal',
-          fontVariant: 'normal',
-          textTransform: 'none',
         }}
       >
         📝 Customer Review
-      </motion.h2>
+      </h2>
 
       <Swiper
         modules={[Autoplay, Pagination]}
@@ -71,10 +53,7 @@ const CustomerReview = () => {
       >
         {reviews.map((review, index) => (
           <SwiperSlide key={index}>
-            <motion.div
-              variants={fadeInUp}
-              className="flex flex-col bg-white p-6 rounded-xl shadow-md border-l-4 border-blue-400 w-full h-full"
-            >
+            <div className="flex flex-col bg-white p-6 rounded-xl shadow-md border-l-4 border-blue-400 w-full h-full">
               <div className="flex items-center mb-4 space-x-4">
                 <div className="w-14 h-14 relative">
                   <Image
@@ -95,18 +74,13 @@ const CustomerReview = () => {
                   </div>
                 </div>
               </div>
-              <p className="text-gray-700 text-sm md:text-base">
-                {review.content}
-              </p>
-            </motion.div>
+              <p className="text-gray-700 text-sm md:text-base">{review.content}</p>
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>
 
-      <motion.div
-        className="flex gap-3 justify-end mt-5"
-        variants={fadeInUp}
-      >
+      <div className="flex gap-3 justify-end mt-5">
         <button
           onClick={() => swiperRef.current?.slidePrev()}
           className="p-2 bg-white border border-gray-300 rounded-full shadow hover:bg-gray-100"
@@ -119,8 +93,8 @@ const CustomerReview = () => {
         >
           <FaArrowRight className="text-gray-700" />
         </button>
-      </motion.div>
-    </motion.section>
+      </div>
+    </section>
   );
 };
 

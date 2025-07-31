@@ -77,7 +77,7 @@ export default function HeroSlider() {
             </div>
 
             {/* Content Overlay */}
-            <div className="absolute inset-0 flex items-center px-4 md:px-6">
+            <div className="absolute inset-0 flex items-center px-4 md:px-[100px]">
               <div
                 className={`max-w-3xl text-black transform transition-all duration-700 ease-in-out ${index === current ? "translate-x-0 opacity-100" : "translate-x-10 opacity-0"
                   }`}

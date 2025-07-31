@@ -52,9 +52,9 @@ const ContactUs = () => {
   };
 
   return (
-    <section className="min-h-screen bg-gray-200 px-4 sm:px-6 lg:px-8 py-6 sm:py-10 flex justify-center items-center">
+    <section className="bg-gray-100 px-4 sm:px-6 lg:px-8 py-6 sm:py-10 flex justify-center items-center">
       <Toaster position="top-right" />
-      <div className="bg-white rounded-2xl shadow-xl flex flex-col md:flex-row overflow-hidden max-w-6xl w-full">
+      <div className="bg-white rounded-2xl shadow-xl flex flex-col md:flex-row overflow-hidden max-w-6xl w-full mb-10">
         {/* Image Section */}
         <div className="relative w-full md:w-1/2 h-64 sm:h-80 md:h-auto">
           <Image

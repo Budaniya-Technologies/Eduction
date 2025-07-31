@@ -23,6 +23,9 @@ text-transform: none;
   font-weight: 200;
   font-style: normal;
 }
+@media (min-width: 768px) and (max-width: 868px) {
 .classet .swiper-wrapper .swiper-slide {
-  padding:0 55px !important
+  padding:0 50px !important
 }
+}
+

@@ -85,7 +85,7 @@ export default function Navbar() {
         {/* Desktop Buttons */}
         <div className="hidden md:flex gap-4 kodchasan-extralight">
           <button
-            onClick={() => router.push("/signup")}
+            onClick={() => router.push("/registration")}
             className="px-6 py-2 rounded-full border border-cyan-300 bg-white/10 text-black hover:bg-cyan-500 hover:text-black shadow-md transition duration-300 ease-in-out font-semibold backdrop-blur-md"
           >
             Sign Up

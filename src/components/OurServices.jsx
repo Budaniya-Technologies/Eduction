@@ -31,37 +31,47 @@ export default function OurServices() {
   return (
     <section className="bg-gray-100 pt-10 pb-2 px-6">
       <div className="max-w-7xl mx-auto">
-         <h2 className="text-lg sm:text-xl font-bold text-black mb-3 sm:mb-4 px-4 py-1 bg-white inline-block border-2 rounded-full shadow">
+        <h2 className="text-lg sm:text-xl font-bold text-black mb-3 sm:mb-4 px-4 py-1 bg-white inline-block border-2 rounded-full shadow">
           🎓 Our Services
         </h2>
 
-        {/* Mobile View - 4 items per row */}
-        <div className="grid grid-cols-3 gap-4 md:hidden px-2">
-          {services.map((service, index) => (
-            <div
-              key={index}
-              className="flex flex-col items-center justify-center p-2"
-            >
-              <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center shadow-md mb-2 overflow-hidden">
+  <div className="md:hidden px-2 py-2">
+      <Swiper
+        modules={[Autoplay]}
+        autoplay={{ delay: 2000, disableOnInteraction: false }}
+        loop={true}
+        slidesPerView={4}
+        spaceBetween={8}
+      >
+        {services.map((service, index) => (
+          <SwiperSlide key={index}>
+            <div className="flex flex-col items-center justify-start p-2">
+              {/* Image Circle */}
+              <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center shadow-md mb-2 overflow-hidden">
                 <img
                   src={service.image}
                   alt={service.name}
                   className="w-12 h-12 object-contain transition-transform duration-300 hover:scale-125"
                 />
               </div>
-              <span className="text-xs font-semibold text-gray-700 text-center">
+
+              {/* Text */}
+              <span className="text-xs font-semibold text-gray-700 text-center leading-tight h-8 flex items-center justify-center">
                 {service.name}
               </span>
             </div>
-          ))}
-        </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+
 
         {/* Desktop View - Swiper Carousel with minimal spacing */}
         <div className="hidden md:block">
           <Swiper
             modules={[Autoplay, Pagination]}
             spaceBetween={8} // 0.5rem
-            slidesPerView={4}
+            slidesPerView={8}
             autoplay={{ delay: 2500, disableOnInteraction: false }}
             pagination={{ clickable: true }}
             className="!pr-0"

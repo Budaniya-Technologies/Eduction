@@ -4,28 +4,35 @@ import { useEffect, useState } from "react";
 import { apiPost } from "../../Utils/http";
 
 const Location = ({ children }) => {
-  const [locationGranted, setLocationGranted] = useState(false);
-  const [hasConfirmed, setHasConfirmed] = useState(false);
+  const [locationChecked, setLocationChecked] = useState(false);
 
   useEffect(() => {
     const granted = sessionStorage.getItem("locationAccessGranted");
-    if (granted === "true") {
-      setLocationGranted(true);
-    } else {
-      handleConfirm();
+    const denied = sessionStorage.getItem("locationAccessDenied");
+
+    // If user already responded before, skip prompt
+    if (granted === "true" || denied === "true") {
+      setLocationChecked(true);
+      return;
     }
+
+    // Ask only once
+    handleConfirm();
   }, []);
 
   const handleConfirm = async () => {
     const confirmed = window.confirm("Do you want to allow location access?");
-    setHasConfirmed(true);
 
     if (!confirmed) {
-      return; // Do not proceed
+      sessionStorage.setItem("locationAccessDenied", "true");
+      setLocationChecked(true);
+      return;
     }
 
     if (!navigator.geolocation) {
       console.error("Geolocation not supported.");
+      sessionStorage.setItem("locationAccessDenied", "true");
+      setLocationChecked(true);
       return;
     }
 
@@ -37,35 +44,25 @@ const Location = ({ children }) => {
         try {
           await apiPost("authapp/api/auth/get-locations/", payload);
           sessionStorage.setItem("locationAccessGranted", "true");
-          setLocationGranted(true);
         } catch (error) {
           console.error("API Error:", error);
+        } finally {
+          setLocationChecked(true);
         }
       },
       (error) => {
         console.error("Location access denied or failed.", error);
+        sessionStorage.setItem("locationAccessDenied", "true");
+        setLocationChecked(true);
       }
     );
   };
 
-  // Block access with blur if location not granted
-  if (!locationGranted) {
+  // Show a loader/message while location check is happening
+  if (!locationChecked) {
     return (
-      <div className="relative w-full h-screen overflow-hidden">
-        <div className="absolute inset-0 backdrop-blur-sm bg-white/40 z-50 flex items-center justify-center">
-          {!hasConfirmed && (
-            <p className="text-xl font-semibold text-gray-700">
-              Requesting location access...
-            </p>
-          )}
-          {hasConfirmed && (
-            <p className="text-xl font-semibold text-red-600 text-center px-6">
-              Location access is required to use this site. Please refresh and allow location.
-            </p>
-          )}
-        </div>
-        {/* Render children but keep them blurred */}
-        <div className="pointer-events-none blur-sm select-none">{children}</div>
+      <div className="w-full h-screen flex items-center justify-center text-lg text-gray-700">
+        Checking location permission...
       </div>
     );
   }

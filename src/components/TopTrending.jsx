@@ -44,7 +44,6 @@ export default function TopTrending() {
   return (
     <section className="bg-gray-100 py-4 px-4 sm:px-6 md:px-8">
       <div className="max-w-screen-xl mx-auto">
-        {/* Title */}
         <h2 className="text-lg sm:text-xl font-bold text-black mb-3 sm:mb-4 px-4 py-1 bg-white inline-block border-2 rounded-full shadow">
           🎓 Top Trending
         </h2>
@@ -97,9 +96,19 @@ export default function TopTrending() {
         >
           {getTabData().map((item, idx) => (
             <SwiperSlide key={item.id || idx}>
-              <div className="bg-white rounded-lg shadow-md hover:shadow-lg overflow-hidden flex flex-col transition-all duration-300 h-full">
+              <div
+                className={`bg-white rounded-lg shadow-md hover:shadow-lg overflow-hidden flex flex-col transition-all duration-300 ${
+                  activeTab === "Jobs"
+                    ? "min-h-[300px] max-h-[300px]"
+                    : "min-h-[420px] max-h-[420px]"
+                }`}
+              >
                 {/* Image */}
-                <div className="w-full h-36 sm:h-40 bg-gray-100 overflow-hidden">
+                <div
+                  className={`w-full overflow-hidden ${
+                    activeTab === "Jobs" ? "h-32 sm:h-36" : "h-40 sm:h-48"
+                  } bg-gray-100`}
+                >
                   <img
                     src={
                       item.banner_image ||
@@ -128,7 +137,11 @@ export default function TopTrending() {
                     </span>
                   </div>
 
-                  <h3 className="text-sm font-semibold text-gray-800 mb-1 line-clamp-1">
+                  <h3
+                    className={`font-semibold text-gray-800 mb-1 line-clamp-1 ${
+                      activeTab === "Jobs" ? "text-sm" : "text-base"
+                    }`}
+                  >
                     {(item.title || item.name)?.substring(0, 30)}
                   </h3>
 
@@ -139,7 +152,11 @@ export default function TopTrending() {
                     </span>
                   </div>
 
-                  <p className="text-xs text-gray-700 line-clamp-2 mb-2">
+                  <p
+                    className={`text-xs text-gray-700 ${
+                      activeTab === "Jobs" ? "line-clamp-2" : "line-clamp-3"
+                    } mb-2`}
+                  >
                     {item.description || ""}
                   </p>
 
@@ -175,7 +192,11 @@ export default function TopTrending() {
                         : `/businessdescription?id=${item.id}`
                     )
                   }
-                  className="bg-blue-600 text-white text-center py-1.5 text-xs sm:text-sm font-semibold cursor-pointer hover:bg-blue-700"
+                  className={`text-center text-white font-semibold cursor-pointer hover:bg-blue-700 mt-auto ${
+                    activeTab === "Jobs"
+                      ? "bg-blue-600 py-1.5 text-xs sm:text-sm"
+                      : "bg-blue-700 py-2 text-sm sm:text-base"
+                  }`}
                 >
                   Explore Now
                 </div>
@@ -184,7 +205,7 @@ export default function TopTrending() {
           ))}
         </Swiper>
 
-        {/* Arrows */}
+        {/* Navigation Arrows */}
         <div className="flex gap-2 justify-end mt-4">
           <button
             onClick={() => swiperRef.current?.slidePrev()}

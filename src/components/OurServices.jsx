@@ -29,7 +29,7 @@ export default function OurServices() {
   }, []);
 
   return (
-    <section className="bg-gray-100 pt-10 pb-2 px-6">
+    <section className="bg-gray-100 pt-10 pb-2 px-6 classet">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-lg sm:text-xl font-bold text-black mb-3 sm:mb-4 px-4 py-1 bg-white inline-block border-2 rounded-full shadow">
           🎓 Our Services
@@ -47,7 +47,7 @@ export default function OurServices() {
           <SwiperSlide key={index}>
             <div className="flex flex-col items-center justify-start p-2">
               {/* Image Circle */}
-              <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center shadow-md mb-2 overflow-hidden">
+              <div className=" w-16 h-16 rounded-full bg-white flex items-center justify-center shadow-md mb-2 overflow-hidden">
                 <img
                   src={service.image}
                   alt={service.name}
@@ -81,8 +81,8 @@ export default function OurServices() {
                 key={index}
                 className={index === services.length - 1 ? "!pr-0" : ""}
               >
-                <div className="flex flex-col items-center justify-center text-center">
-                  <div className="w-24 h-24 rounded-full bg-white flex items-center justify-center shadow-md mb-2 overflow-hidden">
+                <div className="flex flex-col items-center justify-center text-center ">
+                  <div className="w-24 h-24 rounded-full bg-white flex items-center justify-center shadow-md mb-2 overflow-hidden ">
                     <img
                       src={service.image}
                       alt={service.name}

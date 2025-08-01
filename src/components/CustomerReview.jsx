@@ -10,7 +10,7 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 const CustomerReview = () => {
   const [reviews, setReviews] = useState([]);
-  const swiperRef = useRef(null); // ✅ Create a ref for Swiper instance
+  const swiperRef = useRef(null);
 
   useEffect(() => {
     const fetchTestimonials = async () => {
@@ -21,21 +21,28 @@ const CustomerReview = () => {
         console.error("Failed to fetch testimonials:", error);
       }
     };
-
     fetchTestimonials();
   }, []);
 
   return (
     <section className="p-8 bg-gray-100">
-      <h2 className="text-2xl md:text-3xl font-bold text-blue-800 mb-6 border-b-2 border-black inline-block">
-        Customer Review
+      <h2
+        className="Heading text-sm md:text-xl font-bold text-black px-5 py-1 rounded-full shadow-lg border-4 border-white inline-block mb-4"
+        style={{
+          fontFamily: '"Palatino Linotype", "Book Antiqua", Palatino, serif',
+          letterSpacing: '1px',
+          wordSpacing: '-3px',
+          fontWeight: 400,
+        }}
+      >
+        📝 Customer Review
       </h2>
 
       <Swiper
         modules={[Autoplay, Pagination]}
         spaceBetween={20}
         slidesPerView={1}
-        onSwiper={(swiper) => (swiperRef.current = swiper)} // ✅ Attach swiper instance
+        onSwiper={(swiper) => (swiperRef.current = swiper)}
         breakpoints={{
           640: { slidesPerView: 1 },
           768: { slidesPerView: 2 },
@@ -46,7 +53,7 @@ const CustomerReview = () => {
       >
         {reviews.map((review, index) => (
           <SwiperSlide key={index}>
-            <div className="flex flex-col bg-white p-6 rounded-xl shadow-md border-l-4 border-green-400 w-full h-full">
+            <div className="flex flex-col bg-white p-6 rounded-xl shadow-md border-l-4 border-blue-400 w-full h-full">
               <div className="flex items-center mb-4 space-x-4">
                 <div className="w-14 h-14 relative">
                   <Image
@@ -67,15 +74,12 @@ const CustomerReview = () => {
                   </div>
                 </div>
               </div>
-              <p className="text-gray-700 text-sm md:text-base">
-                {review.content}
-              </p>
+              <p className="text-gray-700 text-sm md:text-base">{review.content}</p>
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
 
-      {/* Navigation Buttons */}
       <div className="flex gap-3 justify-end mt-5">
         <button
           onClick={() => swiperRef.current?.slidePrev()}

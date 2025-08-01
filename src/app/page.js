@@ -1,3 +1,5 @@
+"use client";
+import { useEffect, useState } from "react";
 import ContactUs from "@/components/ContactUs";
 import Courses from "@/components/Courses";
 import NewsNotification from "@/components/NewsNotification";
@@ -10,12 +12,26 @@ import HeroSlider from "@/components/HeroSlider";
 import CustomerReview from "@/components/CustomerReview";
 import Location from "@/components/Location";
 
-
-// src/app/page.js
 export default function Home() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Function to check screen width
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 769); // Tailwind breakpoint for md (768px)
+    };
+
+    handleResize(); // Initial check
+    window.addEventListener("resize", handleResize); // Add listener
+
+    return () => window.removeEventListener("resize", handleResize); // Cleanup
+  }, []);
+
   return (
-    <Location>
-      <section>
+    <section>
+      {/* Conditional rendering based on screen size */}
+      
+      <Location/>
         <HeroSlider />
         <OurServices />
         <TopTrending />
@@ -24,7 +40,6 @@ export default function Home() {
         <CustomerReview />
         <ContactUs />
         <Footer />
-      </section>
-    </Location>
+    </section>
   );
 }

@@ -41,9 +41,7 @@ export default function Navbar() {
       }`}
     >
       <div className="flex justify-between items-center max-w-7xl mx-auto">
-        {/* Left: Logo and both Menu Buttons */}
         <div className="flex items-center gap-4">
-          {/* Fullscreen sidebar trigger (desktop only) */}
           <button
             onClick={() => setIsSidebarOpen(true)}
             className="text-2xl text-black md:block hidden"
@@ -51,7 +49,6 @@ export default function Navbar() {
             <FiMenu />
           </button>
 
-          {/* Mobile menu trigger (mobile only) */}
           <button
             onClick={() => setIsMobileOpen(true)}
             className="text-2xl text-black md:hidden"
@@ -68,7 +65,6 @@ export default function Navbar() {
           />
         </div>
 
-        {/* Desktop Nav */}
         <ul className="hidden md:flex gap-8 text-base font-medium">
           {navItems.map((item) => (
             <li key={item.name}>
@@ -84,35 +80,31 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Desktop Buttons */}
-        <div className="hidden md:flex gap-4">
+        <div className="hidden md:flex gap-4 kodchasan-extralight">
           <button
             onClick={() => router.push("/registration")}
             className="bg-[#b2faff] text-black border border-black px-5 py-1.5 rounded-full hover:bg-[#a2eff0] transition font-medium"
           >
             Sign Up
           </button>
+
           <button
             onClick={() => router.push("/login")}
-            className="bg-[#b2faff] text-black border border-black px-5 py-1.5 rounded-full hover:bg-[#a2eff0] transition font-medium"
+            className="px-6 py-2 rounded-full border border-white bg-cyan-300 text-black hover:bg-white hover:text-blue-700 shadow-md transition duration-300 ease-in-out font-semibold"
           >
-            Log in
+            Log In
           </button>
         </div>
       </div>
 
-      {/* ✅ Fullscreen Sidebar (20% width, left) */}
       {isSidebarOpen && (
         <>
-          {/* Backdrop */}
           <div
             className="fixed inset-0 bg-black bg-opacity-40 z-40"
             onClick={() => setIsSidebarOpen(false)}
           ></div>
 
-          {/* Sidebar with no gap at top or left */}
           <div className="fixed top-0 left-0 h-screen w-[20%] bg-white z-50 shadow-md flex flex-col items-center justify-center">
-            {/* Close button inside the sidebar with manual positioning */}
             <button
               onClick={() => setIsSidebarOpen(false)}
               className="absolute top-4 right-4 text-2xl text-black"
@@ -120,34 +112,17 @@ export default function Navbar() {
               <FiX />
             </button>
 
-            {/* Media Icons */}
             <div className="flex flex-col gap-6 text-2xl text-black">
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
                 <FaFacebookF />
               </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
                 <FaTwitter />
               </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
                 <FaInstagram />
               </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
                 <FaLinkedinIn />
               </a>
             </div>
@@ -155,10 +130,8 @@ export default function Navbar() {
         </>
       )}
 
-      {/* ✅ Mobile Navbar */}
       {isMobileOpen && (
         <div className="fixed top-0 left-0 w-full h-screen bg-white z-50 flex flex-col items-center justify-center text-center md:hidden">
-          {/* Close Button */}
           <button
             onClick={() => setIsMobileOpen(false)}
             className="absolute top-4 right-4 text-3xl text-black"
@@ -166,7 +139,6 @@ export default function Navbar() {
             <FiX />
           </button>
 
-          {/* Nav Links */}
           <div className="flex flex-col gap-6 mt-8">
             {navItems.map((item) => (
               <Link
@@ -174,9 +146,7 @@ export default function Navbar() {
                 href={item.path}
                 onClick={() => setIsMobileOpen(false)}
                 className={`text-2xl ${
-                  pathname === item.path
-                    ? "text-blue-700 font-bold"
-                    : "text-black"
+                  pathname === item.path ? "text-blue-700 font-bold" : "text-black"
                 }`}
               >
                 {item.name}
@@ -184,7 +154,6 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Buttons */}
           <div className="flex flex-col gap-4 mt-10 w-2/3">
             <button
               onClick={() => {

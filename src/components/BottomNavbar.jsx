@@ -26,7 +26,7 @@ export default function BottomNavbar() {
 
   return (
     <nav className="fixed bottom-0 left-0 w-full bg-white shadow-md border-t z-50">
-      <div className="flex justify-around items-center py-2">
+      <div className="flex justify-around items-center py-1 sm:py-2">
         {navItems.map((item, index) => {
           const Icon = item.icon;
           const isActive = index === activeIndex;
@@ -36,10 +36,10 @@ export default function BottomNavbar() {
               href={item.path || "#"}
               key={item.label}
               onClick={() => setActiveIndex(index)}
-              className="flex flex-col items-center text-xs font-semibold transition-all duration-200 group"
+              className="flex flex-col items-center text-[10px] sm:text-xs font-medium transition-all duration-200 group"
             >
               <Icon
-                className={`text-2xl mb-1 transition-all duration-200 
+                className={`text-base sm:text-xl mb-[2px] transition-all duration-200 
                   ${isActive ? "text-blue-600" : "text-gray-500"} 
                   group-hover:text-blue-600 group-hover:scale-110`}
               />

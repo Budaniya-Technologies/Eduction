@@ -1,15 +1,38 @@
-/* src/app/globals.css or src/index.css */
-
-/*
-  Add any Tailwind base styles or imports here first if using Tailwind
-*/
+/* Tailwind base imports */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* --- Global Input Field Styles --- */
+/* Custom font imports */
+@import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=DM+Serif+Text:ital@0;1&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Kodchasan:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Special+Gothic+Expanded+One&display=swap');
 
-/* Base styling for all standard input types, textarea, input with datalist, and select */
+/* Typography classes */
+.Heading {
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  letter-spacing: 1px;
+  word-spacing: -3px;
+  color: #000000;
+  font-weight: 400;
+  text-decoration: none;
+  font-style: normal;
+  font-variant: normal;
+  text-transform: none;
+}
+
+.kodchasan-extralight {
+  font-family: "Kodchasan", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+/* Responsive padding for swiper-slide */
+@media (min-width: 768px) and (max-width: 868px) {
+  .classet .swiper-wrapper .swiper-slide {
+    padding: 0 50px !important;
+  }
+}
+
+/* Global Input Field Styles */
 input[type='text'],
 input[type='email'],
 input[type='password'],
@@ -17,197 +40,137 @@ input[type='tel'],
 input[type='url'],
 input[type='number'],
 input[type='search'],
-input[type='date'], /* Added date input */
+input[type='date'],
 input[list],
 textarea,
-select { /* Added select element */
-  /* Box model */
-  display: block; /* Makes it take full width of parent */
+select {
+  display: block;
   width: 100%;
-  padding: 0.5rem 1rem; /* Adjust padding as needed (Tailwind p-3 p-4) */
-  margin-bottom: 1rem; /* Space between inputs (Tailwind mb-4) */
-
-  /* Border */
-  border: 1px solid #d1d5db; /* Light gray border (Tailwind border-gray-300) */
-  border-radius: 0.375rem; /* Rounded corners (Tailwind rounded-md) */
-
-  /* Background */
-  background-color: #ffffff; /* White background (Tailwind bg-white) */
-
-  /* Text appearance */
-  color: #1f2937; /* Dark gray text (Tailwind text-gray-800) */
-  font-size: 1rem; /* Base font size (Tailwind text-base) */
-  line-height: 1.5; /* Line height (Tailwind leading-normal) */
-
-  /* Appearance for select dropdown (removes default OS styling) */
-  -webkit-appearance: none; /* For Chrome, Safari */
-  -moz-appearance: none;    /* For Firefox */
-  appearance: none;         /* Standard property */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%236B7280'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'%3E%3C/path%3E%3C/svg%3E"); /* Custom SVG arrow */
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  background-color: #ffffff;
+  color: #1f2937;
+  font-size: 1rem;
+  line-height: 1.5;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%236B7280'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'%3E%3C/path%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 0.75rem center; /* Position the arrow */
-  background-size: 1.5em 1.5em; /* Size of the arrow */
-  padding-right: 2.5rem; /* Make space for the custom arrow */
-
-
-  /* Focus state (optional - Tailwind provides focus:ring and focus:border) */
-  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth transition */
+  background-position: right 0.75rem center;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
-/* Specific styling for the focus state */
-input[type='text']:focus,
-input[type='email']:focus,
-input[type='password']:focus,
-input[type='tel']:focus,
-input[type='url']:focus,
-input[type='number']:focus,
-input[type='search']:focus,
-input[type='date']:focus, /* Added date input */
-input[list]:focus,
+input:focus,
 textarea:focus,
-select:focus { /* Added select element */
-  outline: none; /* Remove default browser outline */
-  border-color: #3b82f6; /* Blue border on focus (Tailwind border-blue-500) */
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25); /* Subtle blue shadow (Tailwind focus:ring-blue-500) */
+select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
 }
 
-/* Placeholder styling */
 input::placeholder,
 textarea::placeholder {
-  color: #9ca3af; /* Light gray placeholder text (Tailwind placeholder-gray-400) */
+  color: #9ca3af;
 }
 
-/* Styling for specific input types if needed */
 input[type='number'] {
-  /* Remove default spinner arrows in some browsers */
-  -moz-appearance: textfield; /* Firefox */
+  -moz-appearance: textfield;
 }
 input[type='number']::-webkit-outer-spin-button,
 input[type='number']::-webkit-inner-spin-button {
-  -webkit-appearance: none; /* Chrome, Safari, Edge */
+  -webkit-appearance: none;
   margin: 0;
 }
 
-/* Style the date picker icon in Webkit browsers */
 input[type="date"]::-webkit-calendar-picker-indicator {
-  /* You can hide it if you prefer a text-only input or use a custom icon */
-  /* display: none; */
-  /* Re-style it if you want to keep it but change its look */
-  opacity: 0.7; /* Make it slightly transparent */
+  opacity: 0.7;
   cursor: pointer;
-  filter: invert(0.5) sepia(1) saturate(5) hue-rotate(175deg); /* Example: Change icon color to blueish */
+  filter: invert(0.5) sepia(1) saturate(5) hue-rotate(175deg);
 }
 
-
-/* Disabled state */
 input:disabled,
 textarea:disabled,
-select:disabled { /* Added select element */
-  background-color: #f3f4f6; /* Light gray background (Tailwind bg-gray-100) */
-  color: #6b7280; /* Gray text (Tailwind text-gray-500) */
+select:disabled {
+  background-color: #f3f4f6;
+  color: #6b7280;
   cursor: not-allowed;
 }
 
-/* --- react-select specific styling --- */
-/*
-  Note: react-select is highly customizable via its 'styles' prop and 'classNames' prop.
-  These global styles target the default classNames react-select generates.
-  Using 'classNamePrefix="select"' is highly recommended for react-select components
-  as it allows you to target specific elements with more specificity and less conflict.
-  e.g., '.select__control', '.select__menu', '.select__option', etc.
-*/
-
-/* Apply base input styles to the control container */
+/* --- react-select styling --- */
 .select__control {
-  /* Using important to override react-select's inline styles sometimes */
   display: flex !important;
   width: 100% !important;
-  padding: 0.25rem 0.5rem !important; /* Adjust padding as needed for the select control */
-  margin-bottom: 1rem; /* Space between inputs (Tailwind mb-4) */
-  min-height: 2.75rem; /* Ensure consistent height with other inputs if padding is different */
-
-  border: 1px solid #d1d5db !important; /* Light gray border */
-  border-radius: 0.375rem !important; /* Rounded corners */
-  background-color: #ffffff !important; /* White background */
-
-  /* Text appearance */
-  color: #1f2937 !important; /* Dark gray text */
-  font-size: 1rem !important; /* Base font size */
-  line-height: 1.5 !important; /* Line height */
-
-  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth transition */
-  box-shadow: none !important; /* Remove default shadow */
+  padding: 0.25rem 0.5rem !important;
+  margin-bottom: 1rem;
+  min-height: 2.75rem;
+  border: 1px solid #d1d5db !important;
+  border-radius: 0.375rem !important;
+  background-color: #ffffff !important;
+  color: #1f2937 !important;
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  box-shadow: none !important;
 }
 
-/* Focus state for react-select control */
 .select__control--is-focused {
-  border-color: #3b82f6 !important; /* Blue border on focus */
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25) !important; /* Subtle blue shadow */
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25) !important;
 }
 
-/* Placeholder for react-select */
 .select__placeholder {
-  color: #9ca3af !important; /* Light gray placeholder text */
+  color: #9ca3af !important;
 }
 
-/* Menu (dropdown list) */
 .select__menu {
-  background-color: #ffffff; /* White background for dropdown */
-  border: 1px solid #d1d5db; /* Border for dropdown */
-  border-radius: 0.375rem; /* Rounded corners for dropdown */
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Tailwind shadow-md */
-  z-index: 10; /* Ensure dropdown appears above other content */
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+              0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  z-index: 10;
 }
 
-/* Individual options in the dropdown */
 .select__option {
   padding: 0.5rem 1rem;
-  color: #1f2937; /* Dark text */
+  color: #1f2937;
   cursor: pointer;
-  background-color: #ffffff; /* Default background */
+  background-color: #ffffff;
 }
 
-/* Hover state for options */
 .select__option--is-focused {
-  background-color: #f3f4f6; /* Light gray on hover (Tailwind bg-gray-100) */
-  color: #1f2937; /* Dark text on hover */
+  background-color: #f3f4f6;
+  color: #1f2937;
 }
 
-/* Selected option in the dropdown (if not using multi-select) */
 .select__option--is-selected {
-  background-color: #eff6ff; /* Light blue background for selected (Tailwind bg-blue-50) */
-  color: #2563eb; /* Blue text for selected (Tailwind text-blue-700) */
+  background-color: #eff6ff;
+  color: #2563eb;
 }
 
-/* Multi-select indicator (e.g., for 'x' to remove tag) */
 .select__multi-value__remove {
-  color: #6b7280; /* Gray for the 'x' */
+  color: #6b7280;
   cursor: pointer;
 }
 .select__multi-value__remove:hover {
-  background-color: #ef4444; /* Red background on hover */
-  color: #ffffff; /* White 'x' on hover */
-  border-radius: 0.375rem; /* Rounded corners */
-}
-
-/* Selected tags in multi-select */
-.select__multi-value {
-  background-color: #e0e7ff; /* Light blue tag background (Tailwind bg-indigo-100) */
+  background-color: #ef4444;
+  color: #ffffff;
   border-radius: 0.375rem;
-  color: #3b82f6; /* Blue tag text (Tailwind text-indigo-700) */
 }
 
-/* Disabled state for react-select */
+.select__multi-value {
+  background-color: #e0e7ff;
+  border-radius: 0.375rem;
+  color: #3b82f6;
+}
+
 .select__control--is-disabled {
-  background-color: #f3f4f6 !important; /* Light gray background */
-  color: #6b7280 !important; /* Gray text */
+  background-color: #f3f4f6 !important;
+  color: #6b7280 !important;
   cursor: not-allowed !important;
 }
-
-/* --- Optional: Styles for input with datalist --- */
-/* (The main input styling already applies to input[list], but you can add specifics) */
-/*
-input[list] {
-  // Specific styles for inputs connected to a datalist
-}
-*/

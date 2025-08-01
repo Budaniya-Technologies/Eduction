@@ -22,12 +22,57 @@ export default function PdfUpload() {
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = () => {
-    alert("PDF study material submitted!")
-  }
+  const handleSubmit = async () => {
+    const token = JSON.parse(localStorage.getItem('user'))?.token;
+  
+    if (!token) {
+      alert("No auth token found. Please login again.");
+      return;
+    }
+  
+    if (pdfFiles.length === 0) {
+      alert("Please upload at least one PDF file.");
+      return;
+    }
+  
+    try {
+      for (const file of pdfFiles) {
+        const form = new FormData();
+        form.append('title', title || file.name);
+        form.append('file', file);
+        form.append('class_obj', 1); // Replace with dynamic class ID if needed
+        form.append('subject', 1);   // Replace with dynamic subject ID if needed
+        form.append('owner', 6);     // Replace with logged-in user ID if available
+  
+        const res = await fetch('https://api.mypratham.com/school/upload-file/', {
+          method: 'POST',
+          headers: {
+            Authorization: `token ${token}`,
+          },
+          body: form,
+        });
+  
+        if (!res.ok) {
+          const errorData = await res.json();
+          console.error("Upload error:", errorData);
+          throw new Error(errorData?.detail || "Upload failed");
+        }
+      }
+  
+      alert("All files uploaded successfully!");
+      setPdfFiles([]);
+      setTitle('');
+      setDescription('');
+      setSubject('');
+    } catch (err) {
+      console.error("Upload failed:", err);
+      alert(`Error uploading: ${err.message}`);
+    }
+  };
+  
 
   return (
-    <div className="max-w-6xl mx-auto bg-white p-6 rounded-lg shadow-lg space-y-6">
+    <div className="max-w-full mx-auto bg-white p-6 rounded-lg shadow-lg space-y-6">
       <h1 className="text-2xl font-bold text-gray-800">Upload PDF Study Material</h1>
 
       {/* PDF Upload */}

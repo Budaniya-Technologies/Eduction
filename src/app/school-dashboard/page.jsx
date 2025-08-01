@@ -1,5 +1,6 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Dashboard from '@/components/Dashboard';
 import PostJob from '@/components/PostJob';
 import NewsPost from '@/components/NewsPost';
@@ -11,7 +12,25 @@ import ManageTeachers from '@/components/ManageTeacher';
 import AddBundleStudentsEditable from '@/components/AddBundleStudents';
 
 const SchoolDashboardPage = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    // Ensure this runs only on the client
+    const token = localStorage.getItem('token');
+    if (!token) {
+      router.replace('/login'); // redirect to login if token not found
+    }
+  }, []);
+
   const [currentSection, setCurrentSection] = useState('Manage Students');
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedToken = localStorage.getItem('token');
+      setToken(savedToken);
+    }
+  }, []);
 
   const cards = [
     { title: 'Total Students', count: 320, color: '#EF4444' },

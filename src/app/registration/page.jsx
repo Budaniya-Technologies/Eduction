@@ -14,7 +14,7 @@ const RegistrationPage = () => {
     { id: 'tutor', label: 'Home Tutor' },
     { id: 'business', label: 'Business Provider' },
     { id: 'job', label: 'Job Provider' },
-    { id: 'school', label: 'Institute' },
+    { id: 'institute', label: 'Institute' },
   ];
 
   const services = [
@@ -76,8 +76,8 @@ const RegistrationPage = () => {
                 <label
                   key={option.id}
                   className={`flex items-center justify-between p-3 border rounded-md transition cursor-pointer ${selectedProfession === option.id
-                      ? 'bg-blue-50 border-blue-600'
-                      : 'hover:bg-gray-100 border-gray-300'
+                    ? 'bg-blue-50 border-blue-600'
+                    : 'hover:bg-gray-100 border-gray-300'
                     }`}
                 >
                   <span className="text-gray-700">{option.label}</span>
@@ -94,6 +94,22 @@ const RegistrationPage = () => {
                   />
                 </label>
               ))}
+              {selectedProfession === 'institute' && (
+                <div className="mt-4">
+                  <label className="block text-gray-700 font-medium mb-1">Institute Type *</label>
+                  <select
+                    className="w-full border px-3 py-2 rounded-md"
+                    onChange={(e) => localStorage.setItem('instituteSubRole', e.target.value)}
+                    defaultValue=""
+                  >
+                    <option value="" disabled>Select institute type</option>
+                    <option value="private_school">Private School</option>
+                    <option value="govt_school">Government School</option>
+                    <option value="tuition_teacher">Tuition Teacher</option>
+                  </select>
+                </div>
+              )}
+
               <button
                 onClick={handleProviderSubmit}
                 className="w-full mt-4 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
@@ -125,8 +141,8 @@ const RegistrationPage = () => {
                 <label
                   key={service.id}
                   className={`flex items-center justify-between p-3 border rounded-md transition cursor-pointer ${selectedServices.includes(service.id)
-                      ? 'bg-blue-50 border-blue-600'
-                      : 'hover:bg-gray-100 border-gray-300'
+                    ? 'bg-blue-50 border-blue-600'
+                    : 'hover:bg-gray-100 border-gray-300'
                     }`}
                 >
                   <span className="text-gray-700">{service.label}</span>

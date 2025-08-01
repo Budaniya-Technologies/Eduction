@@ -53,9 +53,13 @@ const AddBundleStudentsEditable = () => {
         const wb = XLSX.read(arr, { type: 'array' });
         const ws = wb.Sheets[wb.SheetNames[0]];
         const json = XLSX.utils.sheet_to_json(ws);
-        const valid = json.every(
-          (s) => s.studentName && s.admissionNo && s.fatherName
+        const requiredFields = ['username', 'first_name', 'last_name', 'email', 'phone_number', 'password'];
+
+        const valid = json.every((row) =>
+          requiredFields.every((field) => row[field])
         );
+        
+        
         if (!valid) {
           setMessage('Missing required fields.');
           setUploadStatus('error');
@@ -78,34 +82,73 @@ const AddBundleStudentsEditable = () => {
     };
     reader.readAsArrayBuffer(file);
   };
-
   const uploadStudentsToBackend = async () => {
     if (!data.length) {
       setMessage('No data to upload.');
       setUploadStatus('error');
       return;
     }
+  
     setUploading(true);
     setUploadStatus('processing');
     setMessage('Uploading...');
+  
+    const token = localStorage.getItem('token'); // ✅ Use stored token
+  
+    if (!token) {
+      setUploadStatus('error');
+      setMessage('Authentication token missing. Please login again.');
+      setUploading(false);
+      return;
+    }
+  
     try {
-      const res = await fetch('/api/students/bulk-add', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-      if (!res.ok) throw new Error('Upload failed');
+      for (const student of data) {
+        if (!student.first_name || !student.email || !student.phone_number) {
+          throw new Error(`Missing required fields for: ${student.studentName || 'Unnamed Student'}`);
+        }
+  
+        const payload = {
+          username: student.username,
+          first_name: student.first_name,
+          last_name: student.last_name,
+          email: student.email,
+          phone_number: student.phone_number,
+          address: student.address,
+          password: student.password,
+          user_role_selected: [student.user_role_selected || 'student']
+        };
+  
+        console.log("Uploading student:", payload);
+  
+        const res = await fetch('https://api.mypratham.com/authapp/api/auth/admin/teacher/student/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`, // ✅ Use dynamic token
+          },
+          body: JSON.stringify(payload),
+        });
+  
+        if (!res.ok) {
+          const error = await res.json();
+          console.error("Server error:", error);
+          throw new Error(`Failed for ${payload.email || payload.username}: ${error.message || 'Unknown error'}`);
+        }
+      }
+  
       setUploadStatus('success');
-      setMessage('Uploaded successfully!');
+      setMessage('All students uploaded successfully!');
       setData([]);
       setFile(null);
     } catch (err) {
-      setMessage(err.message || 'Unexpected error.');
       setUploadStatus('error');
+      setMessage(err.message || 'Upload failed.');
     } finally {
       setUploading(false);
     }
   };
+  
 
   const handleEditChange = (e) => {
     const { name, value } = e.target;
@@ -125,7 +168,7 @@ const AddBundleStudentsEditable = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-4 sm:p-6 bg-white rounded-lg shadow-md">
+    <div className="max-w-full mx-auto p-4 sm:p-6 bg-white rounded-lg shadow-md">
       <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
         Bulk Student Admission
       </h1>

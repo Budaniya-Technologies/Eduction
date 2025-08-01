@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useRef, useCallback } from 'react';
 import { GoogleMap, Marker, useLoadScript, Autocomplete } from '@react-google-maps/api';
 
 const libraries = ['places'];
@@ -13,24 +13,17 @@ const defaultCenter = {
 };
 const zoom = 13;
 
-const MapSelector = ({ onLocationSelect }) => {
+const MapSelector = ({ lat, lng, setLat, setLng }) => {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || 'AIzaSyBhp-ITrRHV-ZP6eauxYlTQU-1WvZHA2hM',
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
     libraries,
   });
 
-  const [marker, setMarker] = useState(null);
-  const [center, setCenter] = useState(defaultCenter);
   const autocompleteRef = useRef(null);
-  const [lat, setLat] = useState('');
-  const [lng, setLng] = useState('');
 
-  const handleLocationChange = (latVal, lngVal, locLabel = '') => {
+  const handleLocationChange = (latVal, lngVal) => {
     setLat(latVal.toFixed(6));
     setLng(lngVal.toFixed(6));
-    setMarker({ lat: latVal, lng: lngVal });
-    setCenter({ lat: latVal, lng: lngVal });
-    onLocationSelect && onLocationSelect(latVal.toFixed(6), lngVal.toFixed(6), locLabel);
   };
 
   const onMapClick = useCallback((e) => {
@@ -46,13 +39,13 @@ const MapSelector = ({ onLocationSelect }) => {
       return;
     }
     const location = place.geometry.location;
-    const latVal = location.lat();
-    const lngVal = location.lng();
-    const locLabel = place.formatted_address || place.name;
-    handleLocationChange(latVal, lngVal, locLabel);
+    handleLocationChange(location.lat(), location.lng());
   };
 
   if (!isLoaded) return <p className="text-center text-gray-600">Loading Map...</p>;
+
+  const currentLat = parseFloat(lat) || defaultCenter.lat;
+  const currentLng = parseFloat(lng) || defaultCenter.lng;
 
   return (
     <section className="w-full">
@@ -88,10 +81,12 @@ const MapSelector = ({ onLocationSelect }) => {
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
           zoom={zoom}
-          center={center}
+          center={{ lat: currentLat, lng: currentLng }}
           onClick={onMapClick}
         >
-          {marker && <Marker position={marker} />}
+          {lat && lng && (
+            <Marker position={{ lat: parseFloat(lat), lng: parseFloat(lng) }} />
+          )}
         </GoogleMap>
       </div>
     </section>

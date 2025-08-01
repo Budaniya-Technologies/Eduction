@@ -37,6 +37,10 @@ const ServiceProviderRegistration = () => {
     accountPhone: '',
     password: '',
     confirmPassword: '',
+    username: '',     // NEW
+    schoolName: '',   // NEW
+    firstName: '',    // NEW
+    lastName: '',     // NEW
   });
 
   const [errors, setErrors] = useState({});
@@ -55,43 +59,53 @@ const ServiceProviderRegistration = () => {
     setErrors((prev) => ({ ...prev, [e.target.name]: '' }));
   };
 
+  // const validateMobileStep = () => {
+  //   let newErrors = {};
+  //   if (mobileStep === 1) {
+  //     if (!formData.companyName.trim()) newErrors.companyName = 'Required';
+  //     if (!formData.phone.trim()) newErrors.phone = 'Required';
+  //     if (!formData.email.trim()) newErrors.email = 'Required';
+  //     if (!formData.address.trim()) newErrors.address = 'Required';
+  //   } else if (mobileStep === 2) {
+  //     if (!formData.docType.trim()) newErrors.docType = 'Required';
+  //     if (!formData.identityNumber.trim()) newErrors.identityNumber = 'Required';
+  //     if (!idPreview) newErrors.idPreview = 'ID Image Required';
+  //   } else if (mobileStep === 3) {
+  //     if (!formData.accountEmail.trim()) newErrors.accountEmail = 'Required';
+  //     if (!formData.accountPhone.trim()) newErrors.accountPhone = 'Required';
+  //     if (!formData.password.trim()) newErrors.password = 'Required';
+  //     if (!formData.confirmPassword.trim()) newErrors.confirmPassword = 'Required';
+  //     if (formData.password !== formData.confirmPassword)
+  //       newErrors.confirmPassword = 'Passwords do not match';
+  //     if (!lat || !lng) newErrors.latlng = 'Select location';
+  //   }
+  //   setErrors(newErrors);
+  //   return Object.keys(newErrors).length === 0;
+  // };
+
+  // const validateDesktopForm = () => {
+  //   let newErrors = {};
+  //   Object.entries(formData).forEach(([key, value]) => {
+  //     if (!value.trim()) newErrors[key] = 'Required';
+  //   });
+  //   if (!lat || !lng) newErrors.latlng = 'Select a location on the map';
+  //   if (!idPreview) newErrors.idPreview = 'ID Image Required';
+  //   if (!logoPreview) newErrors.logoPreview = 'Logo Image Required';
+  //   if (formData.password !== formData.confirmPassword)
+  //     newErrors.confirmPassword = 'Passwords do not match';
+  //   setErrors(newErrors);
+  //   return Object.keys(newErrors).length === 0;
+  // };
+
   const validateMobileStep = () => {
-    let newErrors = {};
-    if (mobileStep === 1) {
-      if (!formData.companyName.trim()) newErrors.companyName = 'Required';
-      if (!formData.phone.trim()) newErrors.phone = 'Required';
-      if (!formData.email.trim()) newErrors.email = 'Required';
-      if (!formData.address.trim()) newErrors.address = 'Required';
-    } else if (mobileStep === 2) {
-      if (!formData.docType.trim()) newErrors.docType = 'Required';
-      if (!formData.identityNumber.trim()) newErrors.identityNumber = 'Required';
-      if (!idPreview) newErrors.idPreview = 'ID Image Required';
-    } else if (mobileStep === 3) {
-      if (!formData.accountEmail.trim()) newErrors.accountEmail = 'Required';
-      if (!formData.accountPhone.trim()) newErrors.accountPhone = 'Required';
-      if (!formData.password.trim()) newErrors.password = 'Required';
-      if (!formData.confirmPassword.trim()) newErrors.confirmPassword = 'Required';
-      if (formData.password !== formData.confirmPassword)
-        newErrors.confirmPassword = 'Passwords do not match';
-      if (!lat || !lng) newErrors.latlng = 'Select location';
-    }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    setErrors({});
+    return true;
+  };
+  const validateDesktopForm = () => {
+    setErrors({});
+    return true;
   };
 
-  const validateDesktopForm = () => {
-    let newErrors = {};
-    Object.entries(formData).forEach(([key, value]) => {
-      if (!value.trim()) newErrors[key] = 'Required';
-    });
-    if (!lat || !lng) newErrors.latlng = 'Select a location on the map';
-    if (!idPreview) newErrors.idPreview = 'ID Image Required';
-    if (!logoPreview) newErrors.logoPreview = 'Logo Image Required';
-    if (formData.password !== formData.confirmPassword)
-      newErrors.confirmPassword = 'Passwords do not match';
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
 
   const handleProceed = () => {
     if (isMobile) {
@@ -111,19 +125,111 @@ const ServiceProviderRegistration = () => {
     }
   };
 
-  const handleSubmit = () => {
-    const profession = localStorage.getItem('selectedProfession');
-    if (validateMobileStep()) {
-      switch (profession) {
-        case 'school': router.push('/school-dashboard'); break;
-        case 'tutor': router.push('/tutor-dashboard'); break;
-        case 'business': router.push('/business-dashboard'); break;
-        case 'job': router.push('/job-dashboard'); break;
-        default: alert('Invalid profession selected.');
+  // const handleSubmit = () => {
+  //   const profession = localStorage.getItem('selectedProfession');
+  //   if (validateMobileStep()) {
+  //     switch (profession) {
+  //       case 'school': router.push('/school-dashboard'); break;
+  //       case 'tutor': router.push('/tutor-dashboard'); break;
+  //       case 'business': router.push('/business-dashboard'); break;
+  //       case 'job': router.push('/job-dashboard'); break;
+  //       default: alert('Invalid profession selected.');
+  //     }
+  //   }
+  //   localStorage.removeItem('selectedProfession');
+  // };
+  const handleSubmit = async () => {
+    const selectedProfession = localStorage.getItem('selectedProfession');
+    const instituteSubRole = localStorage.getItem('instituteSubRole');
+    
+    
+  console.log('🔍 selectedProfession:', selectedProfession);
+  console.log('🔍 instituteSubRole:', instituteSubRole);
+  
+
+
+    const professionMap = {
+      school: 'institute',
+      tutor: 'home_tutor',
+      business: 'business_provider',
+      job: 'job_provider'
+    };
+    
+    const mappedProfession = professionMap[selectedProfession] || 'institute';
+    
+    console.log('selectedProfession:', selectedProfession);
+
+    const body = {
+      username: formData.username || formData.companyName?.replace(/\s+/g, '_')?.toLowerCase(),
+      first_name: formData.firstName || formData.companyName?.split(' ')[0] || 'First',
+      last_name: formData.lastName || formData.companyName?.split(' ').slice(1).join(' ') || 'Last',
+      email: formData.accountEmail || 'default@example.com',
+      phone_number: formData.accountPhone || '0000000000',
+      password: formData.password || 'defaultpassword',
+      user_type: 'provider',
+      provider_role: mappedProfession,
+      institute_sub_role: instituteSubRole || 'Private_school',
+
+      school_name: formData.schoolName || formData.companyName || 'Unnamed School',
+      // 🔥 These fields were missing
+      address: formData.address || '',
+      location: {
+        lat: lat || '',
+        lng: lng || ''
+      },
+      doc_type: formData.docType || '',
+      identity_number: formData.identityNumber || '',
+      logo_url: logoPreview || '', // Base64 image from file upload
+      identity_proof_url: idPreview || '', // Base64 image from file upload
+    };
+
+    console.log('Submitting payload:', body);
+
+    try {
+      const response = await fetch('https://api.mypratham.com/authapp/api/auth/register/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+    
+      const text = await response.text(); // <-- changed this
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (err) {
+        console.warn('Failed to parse JSON, got raw text:', text);
+        data = { message: text };
       }
+    
+      if (response.ok) {
+        console.log('Registration successful:', data);
+
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('username', data.username);
+
+        // localStorage.removeItem('selectedProfession');
+        localStorage.removeItem('instituteSubRole');
+    
+        switch (selectedProfession) {
+          case 'institute': router.push('/school-dashboard'); break;
+          case 'tutor': router.push('/tutor-dashboard'); break;
+          case 'business': router.push('/business-dashboard'); break;
+          case 'job': router.push('/job-dashboard'); break;
+          default: router.push('/register-provider');
+        }
+      } else {
+        console.error('API Error:', data);
+        alert(data?.message || 'Registration failed');
+      }
+    } catch (error) {
+      console.error('API Exception:', error);
+      alert('Something went wrong.');
     }
-    localStorage.removeItem('selectedProfession');
+    
   };
+
+
+
 
   const renderInput = (label, name, type = 'text', full = false) => (
     <div className={`flex flex-col ${full ? 'col-span-2' : ''}`}>
@@ -188,6 +294,15 @@ const ServiceProviderRegistration = () => {
               {renderInput('Email *', 'email')}
               {renderInput('Full Address *', 'address', 'text', true)}
             </div>
+            <section>
+              <h3 className="text-xl font-bold text-blue-700 mt-8 mb-4">API Required Fields</h3>
+              <div className="grid grid-cols-2 gap-4">
+                {renderInput('Username *', 'username')}
+                {renderInput('School Name *', 'schoolName')}
+                {renderInput('First Name *', 'firstName')}
+                {renderInput('Last Name *', 'lastName')}
+              </div>
+            </section>
           </section>
         );
       case 'logo':
@@ -249,8 +364,13 @@ const ServiceProviderRegistration = () => {
     <div className="min-h-screen bg-gray-50 text-gray-800 px-6 md:px-10 py-20">
       <div className="space-y-6">
         {isMobile
-          ? getMobileSections().map((s) => renderSection(s))
-          : ['general', 'logo', 'business', 'idproof', 'account', 'map'].map((s) => renderSection(s))}
+          ? getMobileSections().map((s) => (
+            <React.Fragment key={s}>{renderSection(s)}</React.Fragment>
+          ))
+          : ['general', 'logo', 'business', 'idproof', 'account', 'map'].map((s) => (
+            <React.Fragment key={s}>{renderSection(s)}</React.Fragment>
+          ))}
+
       </div>
 
       <div className="flex gap-3 mt-10">

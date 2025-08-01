@@ -46,9 +46,49 @@ export default function QuizCreate() {
     setQuestions(questions.filter((_, i) => i !== index))
   }
 
-  const handleSubmit = () => {
-    alert("Quiz Created!")
-  }
+  const handleSubmit = async () => {
+    const token = JSON.parse(localStorage.getItem('user'))?.token;
+  
+    if (!token) {
+      alert("No token found. Please login first.");
+      return;
+    }
+  
+    try {
+      for (const q of questions) {
+        const payload = {
+          chapter: 1, // You can dynamically set this based on your UI
+          question_text: q.question,
+          question_type: 'MCQ',
+          options: q.options.map((opt, idx) => ({
+            text: opt,
+            is_correct: q.correctIndex === idx,
+          })),
+        };
+  
+        const response = await fetch("https://api.mypratham.com/school/create-quiz/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `token ${token}`,
+          },
+          body: JSON.stringify(payload),
+        });
+  
+        const data = await response.json();
+  
+        if (!response.ok) {
+          throw new Error(data?.msg || "Error creating quiz question.");
+        }
+      }
+  
+      alert("All questions created successfully!");
+    } catch (error) {
+      console.error("Quiz creation error:", error);
+      alert(error.message || "Failed to create quiz.");
+    }
+  };
+  
 
   return (
     <div className="max-w-full mx-auto bg-white p-6 rounded-lg shadow-lg space-y-6">

@@ -1,14 +1,27 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Dashboard from '@/components/Dashboard';
 import AddStudentForm from '@/components/AddStudentForm';
 import VideoUpload from '@/components/VideoUpload';
-import UploadPhoto from '@/components/UploadPhoto';
 import PDFUpload from '@/components/PDFUpload';
 import QuizCreate from '@/components/QuizCreate';
 import TeacherContentManager from '@/components/ContentManager';
+import CreateZoomMeeting from '@/components/CreateZoomMeeting';
+import AddLessonContent from '@/components/AddLessonContent';
 
 const TeacherDashboardPage = () => {
+
+  const router = useRouter();
+
+  useEffect(() => {
+    // Ensure this runs only on the client
+    const token = localStorage.getItem('token');
+    if (!token) {
+      router.replace('/login'); // redirect to login if token not found
+    }
+  }, []);
+
   const [currentSection, setCurrentSection] = useState('Manage Students');
 
   const cards = [
@@ -28,7 +41,7 @@ const TeacherDashboardPage = () => {
       items: [
         {
           label: 'Add Your Content',
-          subItems: ['Add Quiz', 'Add PDF', 'Add Videos', 'Add Images', 'Live Classes', 'Manage Content'],
+          subItems: ['Add Content', 'Add Quiz', 'Add PDF', 'Add Videos', 'Live Classes', 'Manage Content'],
         },
       ],
     },
@@ -52,23 +65,23 @@ const TeacherDashboardPage = () => {
   const renderMainComponent = () => {
     switch (currentSection) {
       case 'Add Students':
-        return <div><AddStudentForm/></div>;
+        return <div><AddStudentForm /></div>;
+      case 'Add Content':
+        return <div><AddLessonContent/></div>;
       case 'Add Quiz':
-        return <div><QuizCreate/></div>;
+        return <div><QuizCreate /></div>;
       case 'Add PDF':
-        return <div><PDFUpload/></div>;
+        return <div><PDFUpload /></div>;
       case 'Add Videos':
-        return <div><VideoUpload/></div>;
-      case 'Add Images':
-        return <div><UploadPhoto/></div>;
+        return <div><VideoUpload /></div>;
       case 'Live Classes':
-        return <div>📺 Live Classes Component</div>;
+        return <div><CreateZoomMeeting /></div>;
       case 'Create Exam':
         return <div>📝 Create Exam Component</div>;
       case 'Result':
         return <div>📊 Result Component</div>;
-        case 'Manage Content':
-          return <div><TeacherContentManager/></div>;
+      case 'Manage Content':
+        return <div><TeacherContentManager /></div>;
       default:
         return <div>📚 Please select a section from the sidebar</div>;
     }

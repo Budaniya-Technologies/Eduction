@@ -1,11 +1,10 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 
 const districts = ['Ajmer', 'Jaipur', 'Udaipur', 'Jodhpur', 'Sirohi', 'Kota', 'Bikaner']
 const blocks = ['Block A', 'Block B', 'Block C']
 const classes = ['Nursery', 'LKG', 'UKG', '1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th']
 const castes = ['General', 'OBC', 'SC', 'ST']
-const schoolTypes = ['Govt. School', 'State Private', 'Other State School', 'First Time Study', 'Aayu Anusaar']
 const streams = ['Science', 'Commerce', 'Arts']
 
 const StudentAdmissionForm = () => {
@@ -38,116 +37,152 @@ const StudentAdmissionForm = () => {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const [dob, setDob] = useState('')
-  const [regDate, setRegDate] = useState('')
-
   const validateDate = (dateStr) => /^\d{2}\/\d{2}\/\d{4}$/.test(dateStr)
 
+  const handleSubmit = async () => {
+    const token = localStorage.getItem('token')
+
+    if (!token) {
+      alert('Session expired. Please log in again.')
+      return
+    }
+
+    if (!formData.studentName || !formData.mobile) {
+      alert('Student name and mobile are required.')
+      return
+    }
+
+    const [firstName = '', lastName = ''] = formData.studentName.trim().split(' ')
+    const email = `${formData.studentName.toLowerCase().replace(/\s+/g, '')}@example.com`
+
+    const payload = {
+      username: formData.admissionNo || `student_${Date.now()}`,
+      first_name: firstName,
+      last_name: lastName,
+      email,
+      phone_number: formData.mobile,
+      address: formData.district || 'Unknown',
+      password: 'Student@123',
+      user_role_selected: ['student'],
+    }
+
+    try {
+      const res = await fetch('https://api.mypratham.com/authapp/api/auth/admin/teacher/student/', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Token ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      })
+
+      const result = await res.json()
+
+      if (res.ok) {
+        alert('✅ Student created successfully.\nUser ID: ' + result.user_id)
+      } else {
+        console.error(result)
+        alert('❌ Failed: ' + (result.message || 'Unknown error'))
+      }
+    } catch (error) {
+      console.error(error)
+      alert('❌ Network error. Please try again later.')
+    }
+  }
+
   return (
-    <div className="max-w-full mx-auto p-6 bg-white rounded-xl shadow space-y-6">
-      <h2 className="text-2xl font-bold text-center text-blue-700">Student Admission Form</h2>
+    <div className="max-w-5xl mx-auto p-8 bg-white rounded-xl shadow space-y-8">
+      <h2 className="text-3xl font-bold text-blue-700 text-center">Student Admission Form</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <input type="text" name="admissionNo" placeholder="Admission No." className="input" onChange={handleChange} />
-        <input
-          type="text"
-          placeholder="DD/MM/YYYY"
-          value={dob}
-          onChange={(e) => setDob(e.target.value)}
-          className={`w-full border rounded-md py-2 pl-3 pr-10 text-sm focus:outline-none ${
-            dob === '' ? 'border-gray-300' : validateDate(dob) ? 'border-green-500' : 'border-red-500'
-          }`}
-        />
-        <input type="text" name="studentName" placeholder="Student Name" className="input" onChange={handleChange} />
-        <input type="text" name="fatherName" placeholder="Father's Name" className="input" onChange={handleChange} />
-        <input type="text" name="motherName" placeholder="Mother's Name" className="input" onChange={handleChange} />
-        <input type="date" name="dob" className="input" onChange={handleChange} />
-
-        <select name="gender" className="input" onChange={handleChange}>
-          <option value="">Select Gender</option>
-          <option>Male</option>
-          <option>Female</option>
-          <option>Other</option>
-        </select>
-
-        <select name="category" className="input" onChange={handleChange}>
-          <option value="">Select Category</option>
-          {castes.map((caste) => (
-            <option key={caste}>{caste}</option>
-          ))}
-        </select>
-      </div>
-
-      <textarea name="ability" placeholder="Special Ability of Child" className="input w-full" onChange={handleChange} />
-
-      {/* School Related Info */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div>
-          <input list="districts" name="district" placeholder="District" className="input" onChange={handleChange} />
-          <datalist id="districts">
-            {districts.map((d, i) => (
-              <option key={i} value={d} />
-            ))}
-          </datalist>
-        </div>
-        <input type="text" name="school" placeholder="School Name" className="input" onChange={handleChange} />
-      </div>
-
-      {/* School Type */}
-      <div>
-        <label className="font-medium">Previous School Type:</label>
-        <div className="flex flex-wrap gap-4 mt-2">
-          {schoolTypes.map((type, i) => (
-            <label key={i} className="flex items-center space-x-2">
-              <input type="radio" name="schoolType" value={type} onChange={handleChange} />
-              <span>{type}</span>
-            </label>
-          ))}
-        </div>
-      </div>
-
-      {/* Result Status */}
-      <div>
-        <label className="font-medium">Previous Result:</label>
-        <div className="flex gap-6 mt-2">
-          <label className="flex items-center gap-2">
-            <input type="radio" name="resultStatus" value="Pass" onChange={handleChange} />
-            Pass
+      {/* Personal Details */}
+      <section>
+        <h3 className="text-xl font-semibold text-gray-800 mb-4">Personal Details</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <label>Admission No.
+            <input type="text" name="admissionNo" className="input w-full mt-1" onChange={handleChange} />
           </label>
-          <label className="flex items-center gap-2">
-            <input type="radio" name="resultStatus" value="Fail" onChange={handleChange} />
-            Fail
+
+          <label>Date of Registration (DD/MM/YYYY)
+            <input
+              type="text"
+              name="registrationDate"
+              placeholder="DD/MM/YYYY"
+              className={`input w-full mt-1 ${
+                formData.registrationDate === '' ? 'border-gray-300' : validateDate(formData.registrationDate) ? 'border-green-500' : 'border-red-500'
+              }`}
+              onChange={handleChange}
+            />
+          </label>
+
+          <label>Student Name
+            <input type="text" name="studentName" className="input w-full mt-1" onChange={handleChange} />
+          </label>
+
+          <label>Father's Name
+            <input type="text" name="fatherName" className="input w-full mt-1" onChange={handleChange} />
+          </label>
+
+          <label>Mother's Name
+            <input type="text" name="motherName" className="input w-full mt-1" onChange={handleChange} />
+          </label>
+
+          <label>Date of Birth
+            <input type="date" name="dob" className="input w-full mt-1" onChange={handleChange} />
+          </label>
+
+          <label>Gender
+            <select name="gender" className="input w-full mt-1" onChange={handleChange}>
+              <option value="">Select Gender</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other</option>
+            </select>
+          </label>
+
+          <label>Category
+            <select name="category" className="input w-full mt-1" onChange={handleChange}>
+              <option value="">Select Category</option>
+              {castes.map((caste) => <option key={caste}>{caste}</option>)}
+            </select>
           </label>
         </div>
-      </div>
+      </section>
 
-      {/* Previous Class */}
-      <div>
-        <input list="classes" name="prevClass" placeholder="Previous Class" className="input w-full" onChange={handleChange} />
-        <datalist id="classes">
-          {classes.map((c) => (
-            <option key={c} value={c} />
-          ))}
-        </datalist>
-      </div>
+      {/* Special Ability */}
+      <section>
+        <label>Special Ability
+          <textarea name="ability" className="input w-full mt-1" rows={3} onChange={handleChange} />
+        </label>
+      </section>
 
-      {/* Stream */}
-      <div>
-        <label className="font-medium">Stream for XI (if applicable)</label>
-        <select name="stream" className="input w-full" onChange={handleChange}>
-          <option value="">Select Stream</option>
-          {streams.map((s) => (
-            <option key={s}>{s}</option>
-          ))}
-        </select>
-      </div>
+      {/* Academic Info */}
+      <section>
+        <h3 className="text-xl font-semibold text-gray-800 mb-4">Academic Information</h3>
+        <label>Class
+          <input list="classes" name="prevClass" className="input w-full mt-1" onChange={handleChange} />
+          <datalist id="classes">{classes.map((c) => <option key={c} value={c} />)}</datalist>
+        </label>
 
-      {/* Mobile */}
-      <div>
-        <input type="text" name="mobile" placeholder="Parent's Mobile Number" className="input w-full" onChange={handleChange} />
-      </div>
+        <label className="mt-4">Stream for Class XI (if applicable)
+          <select name="stream" className="input w-full mt-1" onChange={handleChange}>
+            <option value="">Select Stream</option>
+            {streams.map((s) => <option key={s}>{s}</option>)}
+          </select>
+        </label>
+      </section>
 
-      <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded w-full font-semibold">
+      {/* Contact Info */}
+      <section>
+        <h3 className="text-xl font-semibold text-gray-800 mb-4">Contact Information</h3>
+        <label>Parent's Mobile Number
+          <input type="text" name="mobile" className="input w-full mt-1" onChange={handleChange} />
+        </label>
+      </section>
+
+      <button
+        className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded w-full font-semibold mt-8"
+        onClick={handleSubmit}
+      >
         Submit Admission
       </button>
     </div>

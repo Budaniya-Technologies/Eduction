@@ -2,14 +2,14 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { apiPost } from '../../../Utils/http'; // Adjust the path if needed
+import axios from 'axios';
 
 const LoginPage = () => {
   const router = useRouter();
 
   const [formData, setFormData] = useState({
     username: '',
-    password: ''
+    password: '',
   });
 
   const [error, setError] = useState('');
@@ -18,7 +18,7 @@ const LoginPage = () => {
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
     setError('');
   };
@@ -36,25 +36,37 @@ const LoginPage = () => {
     try {
       setLoading(true);
 
-      const res = await apiPost('authapp/api/auth/login/', {
+      const res = await axios.post('https://api.mypratham.com/authapp/api/auth/login/', {
         username,
-        password
+        password,
       });
 
-      if (res?.data?.token) {
-        // Optional: Save token
-        // localStorage.setItem('token', res.data.token);
-        router.push('/user-dashboard');
+      const data = res.data;
+
+      if (data?.token) {
+        // ✅ Store token and user info in localStorage
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('username', data.username);
+        localStorage.setItem('user_type', data.user_type);
+        localStorage.setItem('user_id', data.user_id);
+        localStorage.setItem('school_name', data.school_name);
+
+        // ✅ Redirect based on role
+        if (data.is_institute_admin) {
+          router.push('/school-dashboard');
+        } else if (data.is_teacher) {
+          router.push('/teacher-dashboard');
+        } else if (data.is_student) {
+          router.push('/school-student-dashboard');
+        } else {
+          setError('No valid role assigned to this user.');
+        }
       } else {
         setError('Login failed. Try again.');
       }
     } catch (err) {
-      const errData = err?.response?.data;
-      if (errData?.non_field_errors?.length > 0) {
-        setError(errData.non_field_errors[0]);
-      } else {
-        setError('Something went wrong. Try again.');
-      }
+      const message = err?.response?.data?.message || 'Something went wrong. Try again.';
+      setError(message);
     } finally {
       setLoading(false);
     }
@@ -74,7 +86,7 @@ const LoginPage = () => {
               value={formData.username}
               onChange={handleChange}
               className="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="e.g. punit"
+              placeholder="e.g. school_admin_01"
             />
           </div>
 

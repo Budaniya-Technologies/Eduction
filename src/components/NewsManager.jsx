@@ -22,18 +22,43 @@ export default function NewsManager() {
     },
   ])
 
+  const [editingId, setEditingId] = useState(null)
+  const [editData, setEditData] = useState({})
+
+  const startEdit = (item) => {
+    setEditingId(item.id)
+    setEditData({ ...item })
+  }
+
+  const cancelEdit = () => {
+    setEditingId(null)
+    setEditData({})
+  }
+
+  const saveEdit = () => {
+    setNews((prev) =>
+      prev.map((n) => (n.id === editingId ? { ...editData, id: n.id } : n))
+    )
+    cancelEdit()
+  }
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setEditData((prev) => ({ ...prev, [name]: value }))
+  }
+
   const togglePublish = (id) => {
-    setNews(news.map(n => n.id === id ? { ...n, published: !n.published } : n))
+    setNews((prev) =>
+      prev.map((n) =>
+        n.id === id ? { ...n, published: !n.published } : n
+      )
+    )
   }
 
   const deleteNews = (id) => {
     if (confirm('Are you sure you want to delete this news?')) {
-      setNews(news.filter(n => n.id !== id))
+      setNews((prev) => prev.filter((n) => n.id !== id))
     }
-  }
-
-  const editNews = (id) => {
-    alert(`Navigate to edit page for news ID: ${id}`)
   }
 
   return (
@@ -55,14 +80,52 @@ export default function NewsManager() {
             </tr>
           </thead>
           <tbody>
-            {news.map(item => (
+            {news.map((item) => (
               <tr key={item.id} className="border-t text-sm hover:bg-gray-50">
                 <td className="p-3">
-                  <img src={item.coverUrl} alt="cover" className="w-16 h-10 object-cover rounded-md" />
+                  <img
+                    src={item.coverUrl}
+                    alt="cover"
+                    className="w-16 h-10 object-cover rounded-md"
+                  />
                 </td>
-                <td className="p-3">{item.title}</td>
-                <td className="p-3">{item.category}</td>
-                <td className="p-3">{item.date}</td>
+                <td className="p-3">
+                  {editingId === item.id ? (
+                    <input
+                      name="title"
+                      value={editData.title}
+                      onChange={handleChange}
+                      className="w-full border rounded px-2 py-1 text-sm"
+                    />
+                  ) : (
+                    item.title
+                  )}
+                </td>
+                <td className="p-3">
+                  {editingId === item.id ? (
+                    <input
+                      name="category"
+                      value={editData.category}
+                      onChange={handleChange}
+                      className="w-full border rounded px-2 py-1 text-sm"
+                    />
+                  ) : (
+                    item.category
+                  )}
+                </td>
+                <td className="p-3">
+                  {editingId === item.id ? (
+                    <input
+                      type="date"
+                      name="date"
+                      value={editData.date}
+                      onChange={handleChange}
+                      className="w-full border rounded px-2 py-1 text-sm"
+                    />
+                  ) : (
+                    item.date
+                  )}
+                </td>
                 <td className="p-3">
                   <span
                     className={`px-2 py-1 rounded-full text-xs font-medium ${
@@ -75,28 +138,47 @@ export default function NewsManager() {
                   </span>
                 </td>
                 <td className="p-3 text-right space-x-2">
-                  <button
-                    onClick={() => editNews(item.id)}
-                    className="px-3 py-1 text-sm text-blue-600 hover:underline"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => togglePublish(item.id)}
-                    className={`px-3 py-1 text-sm font-medium rounded ${
-                      item.published
-                        ? 'text-gray-700 hover:bg-gray-100'
-                        : 'text-green-700 hover:bg-green-50'
-                    }`}
-                  >
-                    {item.published ? 'Unpublish' : 'Publish'}
-                  </button>
-                  <button
-                    onClick={() => deleteNews(item.id)}
-                    className="px-3 py-1 text-sm text-red-600 hover:underline"
-                  >
-                    Delete
-                  </button>
+                  {editingId === item.id ? (
+                    <>
+                      <button
+                        onClick={saveEdit}
+                        className="px-3 py-1 text-sm text-green-600 hover:underline"
+                      >
+                        Save
+                      </button>
+                      <button
+                        onClick={cancelEdit}
+                        className="px-3 py-1 text-sm text-gray-600 hover:underline"
+                      >
+                        Cancel
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        onClick={() => startEdit(item)}
+                        className="px-3 py-1 text-sm text-blue-600 hover:underline"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => togglePublish(item.id)}
+                        className={`px-3 py-1 text-sm font-medium rounded ${
+                          item.published
+                            ? 'text-gray-700 hover:bg-gray-100'
+                            : 'text-green-700 hover:bg-green-50'
+                        }`}
+                      >
+                        {item.published ? 'Unpublish' : 'Publish'}
+                      </button>
+                      <button
+                        onClick={() => deleteNews(item.id)}
+                        className="px-3 py-1 text-sm text-red-600 hover:underline"
+                      >
+                        Delete
+                      </button>
+                    </>
+                  )}
                 </td>
               </tr>
             ))}

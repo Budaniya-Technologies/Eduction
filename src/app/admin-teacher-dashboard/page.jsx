@@ -4,7 +4,6 @@ import Dashboard from '@/components/Dashboard';
 import QuizCreate from '@/components/QuizCreate';
 import PDFUpload from '@/components/PDFUpload';
 import VideoUpload from '@/components/VideoUpload';
-import UploadPhoto from '@/components/UploadPhoto';
 import TeacherContentManager from '@/components/ContentManager';
 
 const TeacherDashboardPage = () => {
@@ -26,8 +25,6 @@ const TeacherDashboardPage = () => {
           subItems: [
             'Add Quiz',
             'Add PDF',
-            'Add Videos',
-            'Add Images',
             'Live Classes',
             'Manage Content',
           ],
@@ -50,8 +47,6 @@ const TeacherDashboardPage = () => {
         return <PDFUpload />;
       case 'Add Videos':
         return <VideoUpload />;
-      case 'Add Images':
-        return <UploadPhoto />;
       case 'Live Classes':
         return <div>📺 Live Classes Component</div>;
       case 'Manage Content':

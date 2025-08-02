@@ -15,13 +15,13 @@ import ProtectedRoute from '@/Contexts/ProtectedRoute';
 const SchoolDashboardPage = () => {
   const router = useRouter();
 
-  useEffect(() => {
-    // Ensure this runs only on the client
-    const token = localStorage.getItem('token');
-    if (!token) {
-      router.replace('/login'); // redirect to login if token not found
-    }
-  }, []);
+  // useEffect(() => {
+  //   // Ensure this runs only on the client
+  //   const token = localStorage.getItem('token');
+  //   if (!token) {
+  //     router.replace('/login'); // redirect to login if token not found
+  //   }
+  // }, []);
 
   const [currentSection, setCurrentSection] = useState('Manage Students');
   const [token, setToken] = useState(null);

@@ -27,6 +27,7 @@ export default function ManageTeachers() {
         const res = await axios.get('https://api.mypratham.com/school/teacher/list/', {
           headers: {
             Authorization: `Token ${token}`,
+            // Authorization: `Token 986318674d7bb427e94dfc02ee3ce6ccf09b5632`,
           },
         });
 

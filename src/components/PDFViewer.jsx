@@ -10,17 +10,19 @@ const PDFViewer = () => {
   const [selectedPDF, setSelectedPDF] = useState(null);
 
   const API_BASE_URL = 'https://api.mypratham.com';
+  // const API_BASE_URL = 'https://ng9fx7z3-8000.inc1.devtunnels.ms/';
 
   useEffect(() => {
     const fetchPDFs = async () => {
       try {
         const token = localStorage.getItem('token');
+        // const token = "token 3e2f9dd75edc48bd36c8bc6434a2211c8d8f7a67";
         const res = await axios.get(`${API_BASE_URL}/school/files`, {
           headers: {
             Authorization: `token ${token}`,
           },
         });
-
+        // console.log(res.data);
         if (res.data.length === 0) {
           toast.error('No PDF files found.');
         } else {
@@ -30,6 +32,7 @@ const PDFViewer = () => {
         console.error(error);
         toast.error('Failed to fetch PDF files.');
       }
+      // console.log(error);
     };
 
     fetchPDFs();

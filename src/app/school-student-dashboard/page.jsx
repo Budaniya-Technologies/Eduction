@@ -11,10 +11,10 @@ const StudentDashboard = () => {
   const router = useRouter();
   const [activeComponent, setActiveComponent] = useState(null); // Tracks which feature is active
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) router.replace('/login');
-  }, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token');
+  //   if (!token) router.replace('/login');
+  // }, []);
 
   const features = [
     {

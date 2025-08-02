@@ -25,6 +25,7 @@ const ManageStudents = () => {
     fetch(`${API_BASE}/school/student/list/`, {
       headers: {
         Authorization: `Token ${token}`,
+        // Authorization: `Token 986318674d7bb427e94dfc02ee3ce6ccf09b5632`,
       },
     })
       .then((res) => res.json())

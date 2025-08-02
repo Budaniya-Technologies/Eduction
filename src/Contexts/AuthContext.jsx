@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
     } else if (userData.is_student) {
       router.push('/school-student-dashboard');
     } else {
-      router.push('/');
+      router.push('/login');
     }
   };
 

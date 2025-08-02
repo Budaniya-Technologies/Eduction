@@ -9,6 +9,7 @@ import QuizCreate from '@/components/QuizCreate';
 import TeacherContentManager from '@/components/ContentManager';
 import CreateZoomMeeting from '@/components/CreateZoomMeeting';
 import AddLessonContent from '@/components/AddLessonContent';
+import ProtectedRoute from '@/Contexts/ProtectedRoute';
 
 const TeacherDashboardPage = () => {
 
@@ -67,7 +68,7 @@ const TeacherDashboardPage = () => {
       case 'Add Students':
         return <div><AddStudentForm /></div>;
       case 'Add Content':
-        return <div><AddLessonContent/></div>;
+        return <div><AddLessonContent /></div>;
       case 'Add Quiz':
         return <div><QuizCreate /></div>;
       case 'Add PDF':
@@ -88,14 +89,16 @@ const TeacherDashboardPage = () => {
   };
 
   return (
-    <Dashboard
-      title="Teacher Dashboard"
-      cards={cards}
-      sidebarItems={sidebarItems}
-      news={news}
-      mainComponent={renderMainComponent()}
-      onSectionClick={setCurrentSection}
-    />
+    <ProtectedRoute allowedRoles={['teacher']}>
+      <Dashboard
+        title="Teacher Dashboard"
+        cards={cards}
+        sidebarItems={sidebarItems}
+        news={news}
+        mainComponent={renderMainComponent()}
+        onSectionClick={setCurrentSection}
+      />
+    </ProtectedRoute>
   );
 };
 

@@ -7,7 +7,7 @@ import BottomNavbar from "@/components/BottomNavbar";
 import { usePathname } from "next/navigation";
 import { Toaster } from "react-hot-toast";
 import Script from "next/script";
-import { AuthProvider } from "@/contexts/AuthContext"; // ✅ Import AuthProvider
+import { AuthProvider } from "@/Contexts/AuthContext";
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();

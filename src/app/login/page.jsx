@@ -50,6 +50,10 @@ const LoginPage = () => {
         localStorage.setItem('user_type', data.user_type);
         localStorage.setItem('user_id', data.user_id);
         localStorage.setItem('school_name', data.school_name);
+        localStorage.setItem('is_teacher', data.is_teacher);
+        localStorage.setItem('is_student', data.is_student);
+        localStorage.setItem('is_institute_admin', data.is_institute_admin);
+
 
         // ✅ Redirect based on role
         if (data.is_institute_admin) {

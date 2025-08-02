@@ -10,6 +10,7 @@ import ManageStudents from '@/components/ManageStudents';
 import StudentAdmissionForm from '@/components/AddStudentForm';
 import ManageTeachers from '@/components/ManageTeacher';
 import AddBundleStudentsEditable from '@/components/AddBundleStudents';
+import ProtectedRoute from '@/Contexts/ProtectedRoute';
 
 const SchoolDashboardPage = () => {
   const router = useRouter();
@@ -42,7 +43,7 @@ const SchoolDashboardPage = () => {
   const sidebarItems = [
     {
       section: 'Dashboard',
-      items: ['Add Students', 'Add Bundle Students' , 'Manage Students', 'Add Teachers', 'Manage Teachers'],
+      items: ['Add Students', 'Add Bundle Students', 'Manage Students', 'Add Teachers', 'Manage Teachers'],
     },
     {
       section: 'Content Library',
@@ -91,11 +92,11 @@ const SchoolDashboardPage = () => {
   const renderMainComponent = () => {
     switch (currentSection) {
       case 'Manage Students':
-        return <div><ManageStudents/></div>;
+        return <div><ManageStudents /></div>;
       case 'Manage Teachers':
-        return <div><ManageTeachers/></div>;
+        return <div><ManageTeachers /></div>;
       case 'News':
-        return <div><NewsManager/></div>;
+        return <div><NewsManager /></div>;
       case 'Create Exam':
         return <div>📝 Create Exam Component</div>;
       case 'Result':
@@ -107,29 +108,32 @@ const SchoolDashboardPage = () => {
       case 'Applications':
         return <div>📊 Application Component</div>;
       case 'Post News':
-        return <div><NewsPost/></div>;
+        return <div><NewsPost /></div>;
       case 'Magnage News':
-        return <div><NewsManager/></div>;
+        return <div><NewsManager /></div>;
       case 'Add Students':
-        return <div><StudentAdmissionForm/></div>;
+        return <div><StudentAdmissionForm /></div>;
       case 'Add Teachers':
-        return <div><AddTeacher/></div>;
+        return <div><AddTeacher /></div>;
       case 'Add Bundle Students':
-        return <div><AddBundleStudentsEditable/></div>;
+        return <div><AddBundleStudentsEditable /></div>;
       default:
         return <div>📚 Select a section from sidebar</div>;
     }
   };
 
   return (
-    <Dashboard
-      title="School Dashboard"
-      cards={cards}
-      sidebarItems={sidebarItems}
-      news={news}
-      mainComponent={renderMainComponent()}
-      onSectionClick={setCurrentSection}
-    />
+    <ProtectedRoute allowedRoles={['admin']}>
+
+      <Dashboard
+        title="School Dashboard"
+        cards={cards}
+        sidebarItems={sidebarItems}
+        news={news}
+        mainComponent={renderMainComponent()}
+        onSectionClick={setCurrentSection}
+      />
+    </ProtectedRoute>
   );
 };
 

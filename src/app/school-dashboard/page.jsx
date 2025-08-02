@@ -123,7 +123,7 @@ const SchoolDashboardPage = () => {
   };
 
   return (
-    <ProtectedRoute allowedRoles={['admin']}>
+    <ProtectedRoute allowedRoles={['institute']}>
 
       <Dashboard
         title="School Dashboard"

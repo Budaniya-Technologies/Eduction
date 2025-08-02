@@ -3,9 +3,11 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { useAuth } from '../../Contexts/AuthContext';
 
 const LoginPage = () => {
   const router = useRouter();
+  const { login } = useAuth();
 
   const [formData, setFormData] = useState({
     username: '',
@@ -25,7 +27,6 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const { username, password } = formData;
 
     if (!username || !password) {
@@ -44,27 +45,18 @@ const LoginPage = () => {
       const data = res.data;
 
       if (data?.token) {
-        // ✅ Store token and user info in localStorage
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('username', data.username);
-        localStorage.setItem('user_type', data.user_type);
-        localStorage.setItem('user_id', data.user_id);
-        localStorage.setItem('school_name', data.school_name);
-        localStorage.setItem('is_teacher', data.is_teacher);
-        localStorage.setItem('is_student', data.is_student);
-        localStorage.setItem('is_institute_admin', data.is_institute_admin);
+        const userData = {
+          token: data.token,
+          username: data.username,
+          user_type: data.user_type,
+          user_id: data.user_id,
+          school_name: data.school_name,
+          is_teacher: data.is_teacher,
+          is_student: data.is_student,
+          is_institute_admin: data.is_institute_admin,
+        };
 
-
-        // ✅ Redirect based on role
-        if (data.is_institute_admin) {
-          router.push('/school-dashboard');
-        } else if (data.is_teacher) {
-          router.push('/teacher-dashboard');
-        } else if (data.is_student) {
-          router.push('/school-student-dashboard');
-        } else {
-          setError('No valid role assigned to this user.');
-        }
+        login(userData);
       } else {
         setError('Login failed. Try again.');
       }
